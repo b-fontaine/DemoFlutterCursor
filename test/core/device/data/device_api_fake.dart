@@ -1,5 +1,5 @@
-import 'package:demo_flutter_cursor/modules/notifications/api/device_api.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/entities/device_entity.dart';
+import 'package:demo_flutter_cursor/core/device/api/device_api.dart';
+import 'package:demo_flutter_cursor/core/device/api/entities/device_entity.dart';
 
 class FakeDeviceApi implements DeviceApi {
   OnTokenRefresh? refreshTokenCallback;

@@ -30,7 +30,7 @@ GoRouter generateRouter({
     observers: [...?observers],
     routes: [
       GoRoute(
-        name: 'home',
+        name: HomePage.routeName,
         path: '/',
         builder:
             (context, state) => const AuthenticatedGuard(

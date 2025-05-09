@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/device_api.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/entities/device_entity.dart';
-import 'package:demo_flutter_cursor/modules/notifications/providers/models/device.dart';
+import 'package:demo_flutter_cursor/core/device/api/device_api.dart';
+import 'package:demo_flutter_cursor/core/device/api/entities/device_entity.dart';
+import 'package:demo_flutter_cursor/core/device/models/device.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

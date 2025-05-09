@@ -3,6 +3,7 @@ import 'package:demo_flutter_cursor/core/data/entities/user_entity.dart';
 import 'package:demo_flutter_cursor/core/data/models/user.dart';
 import 'package:demo_flutter_cursor/core/data/storage/auth_secured_storage.dart';
 import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
+import 'package:demo_flutter_cursor/core/device/api/device_api.dart';
 import 'package:demo_flutter_cursor/core/initializer/models/run_state.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_service.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_widget.dart';
@@ -14,10 +15,6 @@ import 'package:demo_flutter_cursor/core/theme/texts.dart';
 import 'package:demo_flutter_cursor/core/theme/universal_theme.dart';
 import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api.dart';
 import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api_interface.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/device_api.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/local_notifier.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/notifications_api.dart';
-import 'package:demo_flutter_cursor/modules/notifications/repositories/notifications_repository.dart';
 import 'package:demo_flutter_cursor/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,10 +26,7 @@ import 'core/data/api/storage_api_fake.dart';
 import 'core/data/storage/auth_secured_storage_fake.dart';
 import 'modules/authentication/data/api/auth_api_fake.dart';
 import 'modules/authentication/data/api/user_api_fake.dart';
-import 'modules/notifications/data/device_api_fake.dart';
-import 'modules/notifications/data/local_notifier_fake.dart';
-import 'modules/notifications/data/notifications_api_fake.dart';
-import 'modules/notifications/data/notifications_settings_fake.dart';
+import 'core/device/data/device_api_fake.dart';
 
 /// Use this page to show a fake page within a test
 class PageFake extends StatelessWidget {
@@ -66,9 +60,6 @@ extension AppWidgetTester on WidgetTester {
     AuthSecuredStorage? authSecuredStorageFakeOverride,
     DeviceApi? deviceApiFakeOverride,
     UserApi? userApiFakeOverride,
-    LocalNotifier? localNotifierFakeOverride,
-    NotificationSettings? notificationsSettingsFakeOverride,
-    NotificationsApi? notificationsApiFakeOverride,
 
     Widget? home,
     RouterConfig<Object>? routerConfig,
@@ -93,15 +84,6 @@ extension AppWidgetTester on WidgetTester {
           ),
           userApiProvider.overrideWithValue(
             userApiFakeOverride ?? FakeUserApi(storageApi: FakeStorageApi()),
-          ),
-          localNotifierProvider.overrideWithValue(
-            localNotifierFakeOverride ?? FakeLocalNotifier(),
-          ),
-          notificationsApiProvider.overrideWithValue(
-            notificationsApiFakeOverride ?? FakeNotificationsApi(),
-          ),
-          notificationsSettingsProvider.overrideWithValue(
-            notificationsSettingsFakeOverride ?? NotificationsSettingsFake(),
           ),
         ],
         child: Consumer(
@@ -161,9 +143,6 @@ extension AppWidgetTester on WidgetTester {
 
                             // user state
                             userStateNotifierProvider.notifier,
-                            // notifications
-                            notificationsSettingsProvider,
-                            notificationRepositoryProvider,
                           ],
                           onReady: child!,
                           onLoading: const Scaffold(

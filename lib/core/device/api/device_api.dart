@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:universal_io/io.dart';
 
-import 'package:demo_flutter_cursor/core/data/api/base_api_exceptions.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/entities/device_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_flutter_cursor/core/data/api/base_api_exceptions.dart';
+import 'package:demo_flutter_cursor/core/device/api/entities/device_entity.dart';
 import 'package:firebase_app_installations/firebase_app_installations.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_io/io.dart';
 
 abstract class DeviceApi {
   /// We use a unique id for the device / installation

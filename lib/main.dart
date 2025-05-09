@@ -10,8 +10,6 @@ import 'package:demo_flutter_cursor/environnements.dart';
 import 'package:demo_flutter_cursor/firebase_options_dev.dart' as firebase_dev;
 import 'package:demo_flutter_cursor/i18n/translations.g.dart';
 import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api.dart';
-import 'package:demo_flutter_cursor/modules/notifications/api/local_notifier.dart';
-import 'package:demo_flutter_cursor/modules/notifications/repositories/notifications_repository.dart';
 import 'package:demo_flutter_cursor/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -19,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -114,10 +111,6 @@ class MyApp extends ConsumerWidget {
                     authenticationApiProvider,
                     // shared preferences must be loaded
                     sharedPreferencesProvider,
-
-                    // notifications
-                    notificationsSettingsProvider,
-                    notificationRepositoryProvider,
 
                     // user state
                     userStateNotifierProvider.notifier,

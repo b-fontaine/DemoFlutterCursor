@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/modules/notifications/api/entities/device_entity.dart';
+import 'package:demo_flutter_cursor/core/device/api/entities/device_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'device.freezed.dart';
