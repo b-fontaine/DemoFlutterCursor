@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "521340446264",
+    "project_id": "makemetodo",
+    "storage_bucket": "makemetodo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521340446264:android:30814066a8e597865f28cd",
+        "android_client_info": {
+          "package_name": "fr.enlight"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM6fkgfCZQfoKhQzlG_iPuQKqG-L8vjqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
