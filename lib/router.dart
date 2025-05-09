@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/guards/authenticated_guard.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/guards/authenticated_guard.dart';
 import 'package:demo_flutter_cursor/core/widgets/page_not_found.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/recover_password_page.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/signin_page.dart';

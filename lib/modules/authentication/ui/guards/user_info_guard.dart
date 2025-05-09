@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/guards/guard.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/guards/guard.dart';
 import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,9 +19,7 @@ class UserInfosGuard extends ConsumerWidget {
     if (authState.user.isLoading) {
       return const Material(
         color: Colors.white,
-        child: Center(
-          child: CircularProgressIndicator.adaptive(),
-        ),
+        child: Center(child: CircularProgressIndicator.adaptive()),
       );
     }
     return Guard(
