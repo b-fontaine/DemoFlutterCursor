@@ -47,25 +47,6 @@ abstract class AuthenticationApi implements OnStartService {
   /// The user can now sign in his Apple account on another device.
   /// His data will be preserved.
   Future<Credentials> signupFromAnonymousWithApple();
-
-  /// Request a OTP code to be sent to the provided phone number
-  /// Returns a verification ID that will be used to confirm the code
-  Future<String> signinWithPhone(String phoneNumber);
-
-  /// Verify the OTP code and authenticate the user
-  /// [verificationId] is the ID returned by [requestPhoneAuth]
-  /// [otp] is the code received by the user
-  Future<Credentials> verifyPhoneAuth(String verificationId, String otp);
-
-  /// Update the phone number of the current user
-  /// [phoneNumber] is the new phone number to set
-  /// You need to call [confirmLinkPhoneAuth] to confirm the change
-  Future<String> updateAuthPhone(String phoneNumber);
-
-  /// Confirm the link of a phone number to the current user
-  /// [verificationId] is the ID returned by [requestPhoneAuth]
-  /// [otp] is the code received by the user
-  Future<Credentials> confirmLinkPhoneAuth(String verificationId, String otp);
 }
 
 class PhoneAlreadyLinkedException implements Exception {

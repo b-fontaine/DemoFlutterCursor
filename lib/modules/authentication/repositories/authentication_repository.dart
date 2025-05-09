@@ -62,28 +62,6 @@ abstract class AuthenticationRepository {
   /// Recover password
   /// (send an email to the user with a link to reset the password)
   Future<void> recoverPassword(String email);
-
-  /// Request a verification code to be sent to the provided phone number
-  /// Returns a verification id that will be used to verify the code
-  Future<String> signinWithPhone(String phoneNumber);
-
-  /// Verify the phone number with the code sent to the user
-  /// The user is signed in automatically if the verification is successful
-  /// We store the token in the secured storage
-  /// throws [PhoneAuthException] if an error occurs
-  Future<void> verifyPhoneAuth(String verificationId, String otp);
-
-  /// Update the phone number of the current user
-  /// The user is signed in automatically if the verification is successful
-  /// We store the token in the secured storage
-  /// throws [PhoneAuthException] if an error occurs
-  Future<String> updateAuthPhone(String phoneNumber);
-
-  /// Confirm the link of a phone number to the current user
-  /// The user is signed in automatically if the verification is successful
-  /// We store the token in the secured storage
-  /// throws [PhoneAuthException] if an error occurs
-  Future<void> confirmLinkPhoneAuth(String verificationId, String otp);
 }
 
 /// this is an example on how to create an authentication repository using firebase
@@ -101,11 +79,11 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     required AuthSecuredStorage storage,
     required UserApi userApi,
     required HttpClient httpClient,
-  })  : _logger = logger,
-        _httpClient = httpClient,
-        _userApi = userApi,
-        _authenticationApi = authenticationApi,
-        _storage = storage;
+  }) : _logger = logger,
+       _httpClient = httpClient,
+       _userApi = userApi,
+       _authenticationApi = authenticationApi,
+       _storage = storage;
 
   @override
   Future<void> signupAnonymously() async {
@@ -117,10 +95,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SignupException.fromApiError(e);
     } catch (e) {
-      throw SignupException(
-        code: 0,
-        message: 'Unknown error $e',
-      );
+      throw SignupException(code: 0, message: 'Unknown error $e');
     }
   }
 
@@ -134,10 +109,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SignupException.fromApiError(e);
     } catch (e) {
-      throw SignupException(
-        code: 0,
-        message: 'Unknown error $e',
-      );
+      throw SignupException(code: 0, message: 'Unknown error $e');
     }
   }
 
@@ -151,10 +123,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SigninException.fromApiError(e);
     } catch (e) {
-      throw SigninException(
-        code: 0,
-        message: '$e',
-      );
+      throw SigninException(code: 0, message: '$e');
     }
   }
 
@@ -165,10 +134,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw RecoverPasswordException.fromApiError(e);
     } catch (e) {
-      throw RecoverPasswordException(
-        code: 0,
-        message: '$e',
-      );
+      throw RecoverPasswordException(code: 0, message: '$e');
     }
   }
 
@@ -182,10 +148,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SigninException.fromApiError(e);
     } catch (e) {
-      throw SigninException(
-        code: 0,
-        message: '$e',
-      );
+      throw SigninException(code: 0, message: '$e');
     }
   }
 
@@ -199,10 +162,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SigninException.fromApiError(e);
     } catch (e) {
-      throw SigninException(
-        code: 0,
-        message: '$e',
-      );
+      throw SigninException(code: 0, message: '$e');
     }
   }
 
@@ -216,10 +176,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SigninException.fromApiError(e);
     } catch (e) {
-      throw SigninException(
-        code: 0,
-        message: '$e',
-      );
+      throw SigninException(code: 0, message: '$e');
     }
   }
 
@@ -233,10 +190,7 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
     } on ApiError catch (e) {
       throw SigninException.fromApiError(e);
     } catch (e) {
-      throw SigninException(
-        code: 0,
-        message: '$e',
-      );
+      throw SigninException(code: 0, message: '$e');
     }
   }
 
@@ -250,76 +204,4 @@ class HttpAuthenticationRepository implements AuthenticationRepository {
 
   @override
   Future<Credentials?> get() => _authenticationApi.get();
-  
-  
-
-  @override
-  Future<String> signinWithPhone(String phoneNumber) {
-    try {
-      _logger.d('Requesting phone authentication for $phoneNumber');
-      return _authenticationApi.signinWithPhone(phoneNumber);
-    } on ApiError catch (e) {
-      throw PhoneAuthException.fromApiError(e);
-    } catch (e) {
-      throw PhoneAuthException(
-        code: 0,
-        message: 'Unknown error: $e',
-      );
-    }
-  }
-
-  @override
-  Future<void> verifyPhoneAuth(String verificationId, String otp) async {
-    try {
-      _logger.d('Verifying phone code');
-      final credentials = await _authenticationApi.verifyPhoneAuth(
-        verificationId,
-        otp,
-      );
-
-      await _storage.write(value: credentials);
-      _httpClient.authToken = credentials.token;
-    } on ApiError catch (e) {
-      throw PhoneAuthException.fromApiError(e);
-    } catch (e) {
-      throw PhoneAuthException(
-        code: 0,
-        message: 'Unknown error: $e',
-      );
-    }
-  }
-
-  @override
-  Future<String> updateAuthPhone(String phoneNumber) async {
-    try {
-      _logger.d('Updating phone number to $phoneNumber');
-      return _authenticationApi.updateAuthPhone(phoneNumber);
-    } on PhoneAlreadyLinkedException {
-      rethrow;
-    } on ApiError catch (e) {
-      throw PhoneAuthException.fromApiError(e);
-    } catch (e) {
-      throw PhoneAuthException(
-        code: 0,
-        message: 'Unknown error: $e',
-      );
-    }
-  }
-
-  @override
-  Future<void> confirmLinkPhoneAuth(String verificationId, String otp) async {
-    try {
-      _logger.d('Confirming link phone auth');
-      await _authenticationApi.confirmLinkPhoneAuth(verificationId, otp);
-    } on PhoneAlreadyLinkedException {
-      rethrow;
-    } on ApiError catch (e) {
-      throw PhoneAuthException.fromApiError(e);
-    } catch (e) {
-      throw PhoneAuthException(
-        code: 0,
-        message: 'Unknown error: $e',
-      );
-    }
-  }
 }
