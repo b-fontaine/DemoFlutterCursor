@@ -1,5 +1,106 @@
 ---
-description: Guidelines for Flutter and Dartr
-globs: **/*.dart
+description: Describe how to create, modify and use state providers classes in project
+globs: 
 alwaysApply: false
 ---
+# State Providers in Flutter Application
+
+This document describes guidelines for creating, modifying, and using state providers with Riverpod in the application.
+
+## Overview
+
+The application uses Riverpod's StateNotifier pattern for managing state. This pattern consists of three main components:
+
+1. **State Class**: An immutable class created with Freezed that represents the state.
+2. **StateNotifier**: A class that manages the state and provides methods to modify it.
+3. **Provider**: A Riverpod provider that exposes the StateNotifier to the UI.
+
+## State Class Guidelines
+
+- Create a separate file for each state class (e.g., `example_state.dart`)
+- Use Freezed to make the state immutable with the `@freezed` annotation
+- Include the relevant part files for Freezed: `part 'example_state.freezed.dart'`
+- State classes should contain only the data needed by the UI
+- Add helper getters for derived state (e.g., `isLoading`, `hasError`)
+- Example here : [example_state.dart](mdc:.cursor/rules/templates/example_state.dart)
+
+## StateNotifier Guidelines
+
+- Create a separate file for each StateNotifier (e.g., `example_state_notifier.dart`)
+- Extend `StateNotifier<YourState>`
+- Implement `OnStartService` if the state needs to be initialized at app startup
+- Use dependency injection via constructor to inject use cases and repositories
+- Provide a meaningful initial state in the constructor
+- Use private methods for internal logic
+- Use public methods for actions triggered by the UI
+- Catch and handle errors properly
+- Example here : [example_state_notifier.dart](mdc:.cursor/rules/templates/example_state_notifier.dart)
+
+## Provider Guidelines
+
+- Define the provider at the top of the StateNotifier file
+- Use `StateNotifierProvider` to expose both the state and the notifier
+- Use typed parameters to ensure compile-time safety
+- Example:
+
+```dart
+final exampleStateNotifierProvider = 
+    StateNotifierProvider<ExampleStateNotifier, ExampleState>((ref) {
+  return ExampleStateNotifier(
+    getExampleUseCase: ref.read(getExampleUseCaseProvider),
+  );
+});
+```
+
+## Using StateNotifiers in Widgets
+
+- Use `ConsumerWidget` or `ConsumerStatefulWidget` to access the state in your widgets
+- Use `ref.watch()` to observe changes to the state
+- Use `ref.read().notifier` to access the StateNotifier methods
+- Only watch the specific state that your widget needs
+- Handle loading and error states in the UI
+- Example:
+
+```dart
+class ExampleWidget extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the state
+    final state = ref.watch(exampleStateNotifierProvider);
+    
+    // Handle loading state
+    if (state.isLoading) {
+      return CircularProgressIndicator();
+    }
+    
+    // Handle error state
+    if (state.hasError) {
+      return Text('Error: ${state.errorMessage}');
+    }
+    
+    // Access the notifier to call methods
+    final notifier = ref.read(exampleStateNotifierProvider.notifier);
+    
+    return Column(
+      children: [
+        Text(state.example.name),
+        ElevatedButton(
+          onPressed: () => notifier.refresh(),
+          child: Text('Refresh'),
+        ),
+      ],
+    );
+  }
+}
+```
+
+## Best Practices
+
+1. Keep the state as simple as possible, including only what the UI needs
+2. Separate UI logic from business logic by using use cases
+3. Write unit tests for your StateNotifiers
+4. Use loading and error states to provide feedback to users
+5. Make state transitions explicit and predictable
+6. Consider using AsyncValue for async operations
+7. Don't put business logic in the UI
+8. Avoid state duplication across different providers

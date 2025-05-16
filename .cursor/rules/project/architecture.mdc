@@ -1,7 +1,7 @@
 ---
-description: Guidelines for Flutter and Dartr
-globs: **/*.dart
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
 - The project follows a clean architecture structure.
 - The two root packages are "core" and "modules"
@@ -12,34 +12,65 @@ Here is an overview of the folder structure of the project:
 
 lib
 ├── core
-│   ├── data // Data layer for core, described in [data_architecture.mdc](mdc:.cursor/rules/project/data/data_architecture.mdc)
+│   ├── data // Data layer for core
 │   │   ├── api // httpclient and api extensions + core api (if an api is used by multiple modules we put it here)
 │   │   │   └── dto // function to help you create entities from json and common entities used by multiple modules
 │   │   ├── models // Domain models used by multiple modules
 │   │   ├── repositories // Domain models used by multiple modules
 │   │   └── storage // Classes that manage local storage (Dao, shared_preferences etc.)
-│   ├── domain // Domain layer for core, described in [domain_architecture.mdc](mdc:.cursor/rules/project/domain/domain_architecture.mdc)
+│   ├── domain // Domain layer for core
 │   │   │   ├── models // Specific models used in this module
 │   │   │   └── repositories // Definition of repositories used in this module
 │   ├── initializer // app initializer class definitions 
 │   │   └── models
-│   └── ui // Ui layer for core, described in [ui_architecture.mdc](mdc:.cursor/rules/project/ui/ui_architecture.mdc)
+│   └── ui // Ui layer for core
 │       ├── states // contains all global states (user states)
 │       │   └── models // models used by thoses states
 │       ├── theme // Defines the theme used in the app (colors, font, sizes, widget style etc.)
 │       └── widgets // Common widget used by multiple modules
 └── modules
     └── module_1
-        ├── data // Data layer, described in [data_architecture.mdc](mdc:.cursor/rules/project/data/data_architecture.mdc)
+        ├── data // Data layer
         │   ├── api // a module can have its own api classes
         │   ├── entities // entities returned by api
         │   └── repositories // Implementations of repositories used in this module
-        ├── domain // Domain layer, described in [domain_architecture.mdc](mdc:.cursor/rules/project/domain/domain_architecture.mdc)
+        ├── domain // Domain layer
         │   ├── models // Specific models used in this module
         │   └── usecases // Definition of use cases used in this module
-        ├── ui // Ui layer, described in [ui_architecture.mdc](mdc:.cursor/rules/project/ui/ui_architecture.mdc)
+        ├── ui // Ui layer
         │   ├── providers // Riverpod state notifier that returns a page / component state
         │   │   └── models // models for our page state
         │   ├── component // a component use a provider and domain  
         │   └── widgets // a widget is dumb and is used only for simple data presentation using Flutter
         └── module_1_page.dart // Page widget, entry point for this module from the routing. We can have several pages.
+
+## Data layer
+
+- The data layer is responsible for fetching data from any source (remote with API, local with Database). It is also responsible for parsing and serialization.
+- We use providers to inject Api  and Dao in repositories 
+- Only repositories must be able to use Api and Dao classes
+- API returns only DTO objects
+- DTO rules are located here : [dto_implementation.mdc](mdc:.cursor/rules/project/data/dto_implementation.mdc)
+- API rules are located here : [api_implementation.mdc](mdc:.cursor/rules/project/data/api_implementation.mdc)
+- Repositories rules are located here [repositories_implementation.mdc](mdc:.cursor/rules/project/data/repositories_implementation.mdc)
+
+## Domain layer
+- This layer is responsible for the business logic of the app.
+- It contains domain models, that will be used into the UI layer.
+- It contains use cases that interacts with the data layer repositories.
+- It must not manipulate DTO, only domain models
+- Use cases rules are located here : [use_cases.mdc](mdc:.cursor/rules/project/domain/use_cases.mdc)
+- Domain models rules are located here : [domain_models.mdc](mdc:.cursor/rules/project/domain/domain_models.mdc)
+
+## UI Layer
+
+- The UI layer is responsible to display the data to the user.
+- It relies on repositories and use cases to get the data or update data after a user action.
+- Pages and Components listen to an immutable state object from Riverpod state notifiers
+- view can trigger actions that will update the state object
+- The notifier state is using freezed for immutability 
+- it will be located in module folder then > providers 
+- Internationalisation rules are located here : [internationalisation.mdc](mdc:.cursor/rules/project/ui/internationalisation.mdc)
+- Routing rules are located here : [routing.mdc](mdc:.cursor/rules/project/ui/routing.mdc)
+- Theming rules are located here : [theme.mdc](mdc:.cursor/rules/project/ui/theme.mdc)
+- State notifier rules are located here : [state_providers.mdc](mdc:.cursor/rules/project/ui/state_providers.mdc)

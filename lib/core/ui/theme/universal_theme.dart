@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 
 /// This is a uniform theme
 /// But you can use it to create multiple themes for iOS, Android, Web, Desktop...
-class UniversalThemeFactory extends ApparenceKitThemeDataFactory {
+class UniversalThemeFactory extends AppThemeDataFactory {
   const UniversalThemeFactory();
 
   @override
-  ApparenceKitThemeData build({
-    required ApparenceKitColors colors,
-    required ApparenceKitTextTheme defaultTextStyle,
+  AppThemeData build({
+    required AppColors colors,
+    required AppTextTheme defaultTextStyle,
   }) {
-    return ApparenceKitThemeData(
+    return AppThemeData(
       colors: colors,
       defaultTextTheme: defaultTextStyle,
       materialTheme: ThemeData(
@@ -51,8 +51,8 @@ class UniversalThemeFactory extends ApparenceKitThemeDataFactory {
   }
 
   NavigationRailThemeData navigationRailThemeData({
-    required ApparenceKitColors colors,
-    required ApparenceKitTextTheme textTheme,
+    required AppColors colors,
+    required AppTextTheme textTheme,
   }) => NavigationRailThemeData(
     backgroundColor: colors.surface,
     elevation: 0,
@@ -71,8 +71,8 @@ class UniversalThemeFactory extends ApparenceKitThemeDataFactory {
   );
 
   ElevatedButtonThemeData elevatedButtonTheme({
-    required ApparenceKitColors colors,
-    required ApparenceKitTextTheme textTheme,
+    required AppColors colors,
+    required AppTextTheme textTheme,
   }) => ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       minimumSize: const Size(200, 48),
@@ -92,8 +92,8 @@ class UniversalThemeFactory extends ApparenceKitThemeDataFactory {
   );
 
   InputDecorationTheme inputDecorationTheme({
-    required ApparenceKitColors colors,
-    required ApparenceKitTextTheme textTheme,
+    required AppColors colors,
+    required AppTextTheme textTheme,
   }) => InputDecorationTheme(
     fillColor: colors.surface,
     enabledBorder: OutlineInputBorder(
@@ -129,8 +129,8 @@ class UniversalThemeFactory extends ApparenceKitThemeDataFactory {
   );
 
   TextTheme textTheme({
-    required ApparenceKitColors colors,
-    required ApparenceKitTextTheme defaultTextStyle,
+    required AppColors colors,
+    required AppTextTheme defaultTextStyle,
   }) => TextTheme(
     headlineLarge: defaultTextStyle.primary.copyWith(
       fontSize: 32,

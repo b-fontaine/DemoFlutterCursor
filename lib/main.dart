@@ -1,3 +1,4 @@
+import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
 import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_widget.dart';
 import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
@@ -9,7 +10,6 @@ import 'package:demo_flutter_cursor/core/ui/theme/universal_theme.dart';
 import 'package:demo_flutter_cursor/environnements.dart';
 import 'package:demo_flutter_cursor/firebase_options_dev.dart' as firebase_dev;
 import 'package:demo_flutter_cursor/i18n/translations.g.dart';
-import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
 import 'package:demo_flutter_cursor/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -58,12 +58,12 @@ void run(SharedPreferences prefs) => runApp(
 
 // use this if you want to define different themes for different platforms
 // notifier: AppTheme.adaptive(
-//   defaultTextTheme: ApparenceKitTextTheme.build(),
+//   defaultTextTheme: AppTextTheme.build(),
 //   ios: const IosThemeFactory(),
 //   android: const AndroidThemeFactory(),
 //   web: const WebThemeFactory(),
-//   lightColors: ApparenceKitColors.light(),
-//   darkColors: ApparenceKitColors.dark(),
+//   lightColors: AppColors.light(),
+//   darkColors: AppColors.dark(),
 //   mode: ThemeMode.dark,
 // ),
 // See ./docs/theme.md for more details
@@ -81,12 +81,12 @@ class MyApp extends ConsumerWidget {
     final goRouter = ref.watch(goRouterProvider);
 
     return ThemeProvider(
-      notifier: AppTheme.uniform(
+      notifier: AppThemeNotifier.uniform(
         sharedPreferences: sharedPreferences,
         themeFactory: const UniversalThemeFactory(),
-        lightColors: ApparenceKitColors.light(),
-        darkColors: ApparenceKitColors.dark(),
-        textTheme: ApparenceKitTextTheme.build(),
+        lightColors: AppColors.light(),
+        darkColors: AppColors.dark(),
+        textTheme: AppTextTheme.build(),
         defaultMode: ThemeMode.light,
       ),
       child: Builder(

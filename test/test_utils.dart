@@ -21,9 +21,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/data/api/device_api_fake.dart';
 import 'core/data/api/storage_api_fake.dart';
 import 'core/data/storage/auth_secured_storage_fake.dart';
-import 'core/data/api/device_api_fake.dart';
 import 'modules/authentication/data/api/auth_api_fake.dart';
 import 'modules/authentication/data/api/user_api_fake.dart';
 
@@ -120,12 +120,12 @@ extension AppWidgetTester on WidgetTester {
 
             // We now run the app like we do on the main function
             return ThemeProvider(
-              notifier: AppTheme.uniform(
+              notifier: AppThemeNotifier.uniform(
                 sharedPreferences: sharedPrefs,
                 themeFactory: const UniversalThemeFactory(),
-                lightColors: ApparenceKitColors.light(),
-                darkColors: ApparenceKitColors.dark(),
-                textTheme: ApparenceKitTextTheme.build(),
+                lightColors: AppColors.light(),
+                darkColors: AppColors.dark(),
+                textTheme: AppTextTheme.build(),
                 defaultMode: ThemeMode.light,
               ),
               child: Builder(

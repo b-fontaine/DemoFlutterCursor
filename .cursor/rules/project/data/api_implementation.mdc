@@ -1,6 +1,6 @@
 ---
-description: 
-globs: **/data/**/*.dart
+description: Describe the purpose of an API class and how to create or modify it
+globs: 
 alwaysApply: false
 ---
 # API Implementation Guide

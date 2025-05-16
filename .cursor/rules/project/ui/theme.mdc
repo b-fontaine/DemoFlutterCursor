@@ -1,5 +1,110 @@
 ---
-description: Guidelines for Flutter and Dartr
-globs: **/*.dart
+description: Describe how theming works in the application, where are located theming files and how to modify it when required
+globs: 
 alwaysApply: false
 ---
+# Theme Architecture in Flutter Application
+
+## Overview
+This application uses a well-structured theme system based on Flutter's ThemeExtension capability. The theming system allows for easy customization of colors, typography, and widget styles while maintaining consistency across the application.
+
+## Theme Structure
+
+The theme architecture is organized in the following directories:
+- `/lib/core/ui/theme`: Contains the main theme components
+- `/lib/core/ui/theme/theme_data`: Contains the theme data classes
+- `/lib/core/ui/theme/extensions`: Contains convenience extensions to access theme data
+- `/lib/core/ui/theme/providers`: Contains theme provider implementations
+
+## Core Components
+
+### Colors (`colors.dart`)
+- `AppColors` extends `ThemeExtension<AppColors>` and defines all color tokens for the application
+- Implements factory methods for light and dark themes (`AppColors.light()` and `AppColors.dark()`)
+- Includes semantic color tokens like:
+  - `primary`/`onPrimary`: Main brand colors
+  - `background`/`onBackground`: Colors for screens backgrounds
+  - `surface`/`onSurface`: Colors for surface components
+  - Utility colors like `error` and grey scales
+
+### Typography (`texts.dart`)
+- `AppTextTheme` extends `ThemeExtension<AppTextTheme>` 
+- Defines the base text styles for the application
+- Includes base styles that can be extended for specific use cases
+
+### Theme Data (`theme_data/theme_data.dart`)
+- `AppThemeData` is the main container for all theme-related data
+- Combines colors, text theme, and material theme
+
+### Theme Factory (`theme_data/theme_data_factory.dart`)
+- `AppThemeDataFactory` is an abstract class for creating themes
+- Allows creation of different theme implementations (e.g., for different platforms)
+
+### Universal Theme (`universal_theme.dart`)
+- `UniversalThemeFactory` extends `AppThemeDataFactory`
+- Defines styles for common widgets like buttons, inputs, navigation, etc.
+- Creates a ThemeData object that can be used with MaterialApp
+
+### Theme Provider (`providers/theme_provider.dart`)
+- Manages theme state and allows switching between themes
+- Provides access to the current theme throughout the application
+
+### Theme Extensions (`extensions/theme_extension.dart`)
+- Provides convenient BuildContext extensions to access theme elements
+- Example: `context.colors.primary` instead of `Theme.of(context).extension<AppColors>()!.primary`
+
+## How to Use the Theme
+
+### Accessing Theme in Widgets
+Use the provided extensions to access theme elements:
+```dart
+// Get colors
+final primaryColor = context.colors.primary;
+final backgroundColor = context.colors.background;
+
+// Get text styles
+final textStyle = context.textTheme.bodyMedium;
+
+// Apply theme to widgets
+Container(
+  color: context.colors.surface,
+  child: Text(
+    'Hello World',
+    style: context.textTheme.bodyMedium?.copyWith(
+      color: context.colors.onSurface,
+    ),
+  ),
+)
+```
+
+## How to Extend the Theme
+
+### Adding New Colors
+To add new colors to the theme:
+1. Add a new property to the `AppColors` class
+2. Update the constructor parameters
+3. Add the new color to both light and dark theme factories
+4. Update the `copyWith` and `lerp` methods
+
+### Adding New Text Styles
+To add new text styles:
+1. Update the `AppTextTheme` class with the new styles
+2. Update the factory methods, `copyWith` and `lerp` methods
+
+### Adding New Widget Styles
+To add styles for a new widget type:
+1. Create a new method in `UniversalThemeFactory` that returns the appropriate theme data for the widget
+2. Add the theme data to the `build` method of the factory
+
+### Creating a Custom Theme
+To create a custom theme variant:
+1. Create a new factory class that extends `AppThemeDataFactory`
+2. Implement the `build` method to return a customized `AppThemeData`
+3. Use the factory to create the theme when initializing the app
+
+## Best Practices
+1. Always use semantic color tokens (e.g., `primary`, `onSurface`) instead of raw color values
+2. Use the theme extension methods to access theme properties
+3. When creating custom widgets, accept theme properties as parameters to allow for theme overrides
+4. Keep the color palette limited and consistent with design guidelines
+5. For widget-specific styling, extend the universal theme with new methods

@@ -1,6 +1,6 @@
 {
     "home": {
-        "title": "ApparenceKit example"
+        "title": "App example"
     },
     "rate_popup": {
         "title": "Would you have 15s to rate us?",
@@ -96,35 +96,34 @@
             "continue_button": "Allow notifications",
             "skip_button": "Maybe later"
         },
-        
         "loading": {
             "title": "Creating your profile",
             "subtitle": "Wait a few seconds"
         }
     },
     "feature_requests": {
-      "title": "Your opinion matters!",
-      "description": "Vote or suggest new features.\r\nWe listen everyone of you to create the best possible app.",
-      "vote_success": {
-        "title": "Thank you!",
-        "description": "Your vote has been taken into account"
-      },
-      "vote_error": {
-        "title": "Error",
-        "description": "You already voted for a feature"
-      },
-      "add_feature": {
-        "title": "Suggest a feature",
-        "description": "What feature would you like to see in the app?",
-        "save_button": "Send",
-        "title_label": "Feature title",
-        "title_hint": "Enter a short descriptive title",
-        "description_label": "Description",
-        "description_hint": "Describe the feature or the improvement you would like to see in the app",
-        "toast_success": {
-          "title": "Thank you!",
-          "description": "We will review your suggestion"
+        "title": "Your opinion matters!",
+        "description": "Vote or suggest new features.\r\nWe listen everyone of you to create the best possible app.",
+        "vote_success": {
+            "title": "Thank you!",
+            "description": "Your vote has been taken into account"
+        },
+        "vote_error": {
+            "title": "Error",
+            "description": "You already voted for a feature"
+        },
+        "add_feature": {
+            "title": "Suggest a feature",
+            "description": "What feature would you like to see in the app?",
+            "save_button": "Send",
+            "title_label": "Feature title",
+            "title_hint": "Enter a short descriptive title",
+            "description_label": "Description",
+            "description_hint": "Describe the feature or the improvement you would like to see in the app",
+            "toast_success": {
+                "title": "Thank you!",
+                "description": "We will review your suggestion"
+            }
         }
-      }
     }
 }

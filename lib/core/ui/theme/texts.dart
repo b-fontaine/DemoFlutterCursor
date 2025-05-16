@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
 
-class ApparenceKitTextTheme extends ThemeExtension<ApparenceKitTextTheme> {
+class AppTextTheme extends ThemeExtension<AppTextTheme> {
   final TextStyle primary;
 
-  const ApparenceKitTextTheme({
-    required this.primary,
-  });
+  const AppTextTheme({required this.primary});
 
-  factory ApparenceKitTextTheme.build() => const ApparenceKitTextTheme(
-        primary: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: Color(0xFF000000),
-        ),
-      );
+  factory AppTextTheme.build() => const AppTextTheme(
+    primary: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Color(0xFF000000),
+    ),
+  );
 
   @override
-  ThemeExtension<ApparenceKitTextTheme> copyWith({
-    TextStyle? primary,
-  }) {
-    return ApparenceKitTextTheme(
-      primary: primary ?? this.primary,
-    );
+  ThemeExtension<AppTextTheme> copyWith({TextStyle? primary}) {
+    return AppTextTheme(primary: primary ?? this.primary);
   }
 
   @override
-  ThemeExtension<ApparenceKitTextTheme> lerp(
-    covariant ThemeExtension<ApparenceKitTextTheme>? other,
+  ThemeExtension<AppTextTheme> lerp(
+    covariant ThemeExtension<AppTextTheme>? other,
     double t,
   ) {
-    if (other is! ApparenceKitTextTheme) {
+    if (other is! AppTextTheme) {
       return this;
     }
-    return ApparenceKitTextTheme(
-      primary: TextStyle.lerp(primary, other.primary, t)!,
-    );
+    return AppTextTheme(primary: TextStyle.lerp(primary, other.primary, t)!);
   }
 }

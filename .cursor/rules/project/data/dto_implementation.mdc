@@ -1,6 +1,6 @@
 ---
-description: 
-globs: **/data/**/*.dart
+description: Describe how to manage DTO classes creation, usage and modifications.
+globs: 
 alwaysApply: false
 ---
 # DTO Creation Guidelines

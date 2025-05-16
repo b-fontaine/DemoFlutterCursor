@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 /// from the BuildContext
 /// Instead of calling Theme.of(context) everywhere
 /// You can just call context.theme or context.colors...
-extension ApparenceKitThemeExt on BuildContext {
-  ApparenceKitColors get colors =>
-      Theme.of(this).extension<ApparenceKitColors>()!;
+extension AppThemeExt on BuildContext {
+  AppColors get colors => Theme.of(this).extension<AppColors>()!;
 
   TextTheme get textTheme => Theme.of(this).textTheme;
 
@@ -17,5 +16,5 @@ extension ApparenceKitThemeExt on BuildContext {
 
   Brightness get brightness => Theme.of(this).brightness;
 
-  ApparenceKitThemeData get kitTheme => ThemeProvider.of(this).current.data;
+  AppThemeData get appTheme => ThemeProvider.of(this).current.data;
 }

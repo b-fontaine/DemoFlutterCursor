@@ -19,12 +19,12 @@ import 'package:flutter/material.dart';
 /// | surface     | #EDEAE5     | #0A0A0A    |
 /// | onSurface   | #FFFFFF     | #161616    |
 /// | error       | #E3442F     | #E3442F    |
-class ApparenceKitThemeData {
-  final ApparenceKitColors colors;
-  final ApparenceKitTextTheme defaultTextTheme;
+class AppThemeData {
+  final AppColors colors;
+  final AppTextTheme defaultTextTheme;
   final ThemeData materialTheme;
 
-  const ApparenceKitThemeData({
+  const AppThemeData({
     required this.colors,
     required this.defaultTextTheme,
     required this.materialTheme,

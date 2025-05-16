@@ -1,5 +1,5 @@
 import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
-import 'package:demo_flutter_cursor/core/ui/theme/providers/apparencekit_theme.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/providers/app_theme.dart';
 import 'package:demo_flutter_cursor/core/ui/theme/texts.dart';
 import 'package:demo_flutter_cursor/core/ui/theme/theme_data/theme_data_factory.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// We use this to access the theme from the BuildContext in all our widgets
 /// We don't use riverpod here so we can get the theme from the context and regular widgets
-class ThemeProvider extends InheritedNotifier<AppTheme> {
+class ThemeProvider extends InheritedNotifier<AppThemeNotifier> {
   const ThemeProvider({super.key, super.notifier, required super.child});
 
   @override
-  bool updateShouldNotify(covariant InheritedNotifier<AppTheme> oldWidget) {
+  bool updateShouldNotify(
+    covariant InheritedNotifier<AppThemeNotifier> oldWidget,
+  ) {
     final isModeChanged = oldWidget.notifier!.mode != notifier!.mode;
     if (isModeChanged) {
       // keeep the same theme when switching between light and dark mode while hot reloading
@@ -22,7 +24,7 @@ class ThemeProvider extends InheritedNotifier<AppTheme> {
     return false;
   }
 
-  static AppTheme of(BuildContext context) =>
+  static AppThemeNotifier of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<ThemeProvider>()!.notifier!;
 }
 
@@ -33,13 +35,13 @@ class ThemeProvider extends InheritedNotifier<AppTheme> {
 ///
 /// Defining a theme for light and dark should only change the colors
 /// not redefining everything. (see ./docs/theme.md)
-class AppTheme with ChangeNotifier {
-  final ApparenceKitTheme? lightTheme;
-  final ApparenceKitTheme? darkTheme;
+class AppThemeNotifier with ChangeNotifier {
+  final AppTheme? lightTheme;
+  final AppTheme? darkTheme;
   final SharedPreferences sharedPreferences;
   ThemeMode mode;
 
-  AppTheme({
+  AppThemeNotifier({
     required this.sharedPreferences,
     required this.mode,
     this.lightTheme,
@@ -51,20 +53,20 @@ class AppTheme with ChangeNotifier {
 
   /// Allows you to define a single theme for all platforms
   /// for both light and dark mode or just one of them
-  factory AppTheme.uniform({
-    ApparenceKitColors? lightColors,
-    ApparenceKitColors? darkColors,
-    required ApparenceKitTextTheme textTheme,
-    required ApparenceKitThemeDataFactory themeFactory,
+  factory AppThemeNotifier.uniform({
+    AppColors? lightColors,
+    AppColors? darkColors,
+    required AppTextTheme textTheme,
+    required AppThemeDataFactory themeFactory,
     required ThemeMode defaultMode,
     required SharedPreferences sharedPreferences,
   }) {
-    return AppTheme(
+    return AppThemeNotifier(
       mode: defaultMode,
       sharedPreferences: sharedPreferences,
       lightTheme:
           lightColors != null
-              ? ApparenceKitThemeUniform(
+              ? AppThemeUniform(
                 themeFactory.build(
                   colors: lightColors,
                   defaultTextStyle: textTheme,
@@ -73,7 +75,7 @@ class AppTheme with ChangeNotifier {
               : null,
       darkTheme:
           darkColors != null
-              ? ApparenceKitThemeUniform(
+              ? AppThemeUniform(
                 themeFactory.build(
                   colors: darkColors,
                   defaultTextStyle: textTheme,
@@ -84,23 +86,23 @@ class AppTheme with ChangeNotifier {
   }
 
   /// Allows you to define different themes for different platforms
-  factory AppTheme.adaptive({
+  factory AppThemeNotifier.adaptive({
     required SharedPreferences sharedPreferences,
     // maybe you want to use different text themes for different platforms
-    required ApparenceKitTextTheme defaultTextTheme,
+    required AppTextTheme defaultTextTheme,
     required ThemeMode mode,
-    ApparenceKitColors? lightColors,
-    ApparenceKitColors? darkColors,
-    ApparenceKitThemeDataFactory? ios,
-    ApparenceKitThemeDataFactory? android,
-    ApparenceKitThemeDataFactory? web,
+    AppColors? lightColors,
+    AppColors? darkColors,
+    AppThemeDataFactory? ios,
+    AppThemeDataFactory? android,
+    AppThemeDataFactory? web,
   }) {
-    return AppTheme(
+    return AppThemeNotifier(
       mode: mode,
       sharedPreferences: sharedPreferences,
       lightTheme:
           lightColors != null
-              ? ApparenceKitThemeAdaptive(
+              ? AppThemeAdaptive(
                 ios: ios?.build(
                   colors: lightColors,
                   defaultTextStyle: defaultTextTheme,
@@ -117,7 +119,7 @@ class AppTheme with ChangeNotifier {
               : null,
       darkTheme:
           darkColors != null
-              ? ApparenceKitThemeAdaptive(
+              ? AppThemeAdaptive(
                 ios: ios?.build(
                   colors: darkColors,
                   defaultTextStyle: defaultTextTheme,
@@ -182,7 +184,7 @@ class AppTheme with ChangeNotifier {
 
   ThemeData get darkThemeData => darkTheme!.data.materialTheme;
 
-  ApparenceKitTheme get current {
+  AppTheme get current {
     if (mode == ThemeMode.light) {
       return lightTheme!;
     } else {
