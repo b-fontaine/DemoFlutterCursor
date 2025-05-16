@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:demo_flutter_cursor/core/widgets/toast.dart';
-import 'package:demo_flutter_cursor/modules/authentication/providers/signin_state_provider.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/providers/signin_state_provider.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/widgets/round_signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,22 +12,20 @@ class GoogleSignInComponent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SocialSigninButton.google(() => ref
-            .read(signinStateProvider.notifier)
-            .signinWithGoogle()
-            .then(
-              (value) => context.pushReplacement('/'),
-            )
-            .catchError(
-          (err) {
+    return SocialSigninButton.google(
+      () => ref
+          .read(signinStateProvider.notifier)
+          .signinWithGoogle()
+          .then((value) => context.pushReplacement('/'))
+          .catchError((err) {
             showErrorToast(
               context: context,
               title: 'Error',
               text: 'Cannot signin with Google',
             );
             return err;
-          },
-        ));
+          }),
+    );
   }
 }
 
@@ -47,9 +45,7 @@ class GooglePlayGamesSignInComponent extends ConsumerWidget {
               text: 'Cannot signin with Google play',
             ),
           )
-          .then(
-            (value) => context.pushReplacementNamed('/signup'),
-          ),
+          .then((value) => context.pushReplacementNamed('/signup')),
     );
   }
 }

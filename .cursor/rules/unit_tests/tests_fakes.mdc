@@ -1,0 +1,15 @@
+---
+description: how to write unit tests
+globs: *.dart
+alwaysApply: false
+---
+- Use fake implementations in tests rather than mocks. 
+- To create a fake of an API, implements the API interface (like [exemple_api_fake.dart](mdc:.cursor/rules/unit_tests/templates/exemple_api_fake.dart)). Use the same logic for Dao classes.
+- Our fake doesn't rely on network.
+- Our fake class is used only within our test.
+- Our fake file is created in test folder and the same package as the interface (ex: lib/data/api => test/data/api)
+- Our fake class must be updated everytime its parent class has changed.
+- Fakes must be used for unit tests and widget tests.
+
+
+

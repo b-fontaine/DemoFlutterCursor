@@ -1,6 +1,6 @@
 import 'package:demo_flutter_cursor/core/data/api/http_client.dart';
-import 'package:demo_flutter_cursor/modules/authentication/repositories/authentication_repository.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/signin_page.dart';
+import 'package:demo_flutter_cursor/core/data/repositories/authentication_repository.dart';
+import 'package:demo_flutter_cursor/modules/authentication/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +16,7 @@ void main() {
   final authApiFake = FakeAuthenticationApi();
   final storageFake = FakeAuthSecuredStorage.empty();
 
-  final authRepository = HttpAuthenticationRepository(
+  final authRepository = AuthenticationRepository(
     logger: Logger(),
     authenticationApi: authApiFake,
     storage: storageFake,
@@ -101,9 +101,13 @@ void main() {
 
       // Enter text into the email and password input fields
       await tester.enterText(
-          emailInputFinder, invalidInputs.currentValue!.email);
+        emailInputFinder,
+        invalidInputs.currentValue!.email,
+      );
       await tester.enterText(
-          passwordInputFinder, invalidInputs.currentValue!.password);
+        passwordInputFinder,
+        invalidInputs.currentValue!.password,
+      );
       await tester.pumpAndSettle();
 
       // Find and tap the send button

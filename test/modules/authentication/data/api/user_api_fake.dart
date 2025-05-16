@@ -1,29 +1,27 @@
 import 'dart:typed_data';
 
+import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/user/user_dto.dart';
 import 'package:demo_flutter_cursor/core/data/api/storage_api.dart';
 import 'package:demo_flutter_cursor/core/data/api/user_api.dart';
-import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
-import 'package:demo_flutter_cursor/core/data/entities/user_entity.dart';
 
 class FakeUserApi implements UserApi {
   final StorageApi storageApi;
-  UserEntity? getUserResult;
+  UserDTO? getUserResult;
 
-  FakeUserApi({
-    required this.storageApi,
-  });
+  FakeUserApi({required this.storageApi});
 
   @override
-  Future<UserEntity> get(String id) async {
+  Future<UserDTO> get(String id) async {
     if (id == 'fake-user-id-anonymous') {
-      return UserEntity(
+      return UserDTO(
         id: id,
         creationDate: DateTime.now(),
         lastUpdateDate: DateTime.now(),
       );
     }
     return getUserResult ??
-        UserEntity(
+        UserDTO(
           id: 'userid',
           name: 'Mac Gyver',
           email: 'mac@gyver.com',
@@ -34,7 +32,7 @@ class FakeUserApi implements UserApi {
   }
 
   @override
-  Future<void> create(UserEntity user) async {
+  Future<void> create(UserDTO user) async {
     getUserResult = user;
   }
 
@@ -49,7 +47,7 @@ class FakeUserApi implements UserApi {
   }
 
   @override
-  Future<void> update(UserEntity user) {
+  Future<void> update(UserDTO user) {
     // TODO: implement update
     throw UnimplementedError();
   }

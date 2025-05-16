@@ -1,24 +1,22 @@
 import 'package:demo_flutter_cursor/core/data/api/http_client.dart';
-import 'package:demo_flutter_cursor/core/data/models/user.dart';
+import 'package:demo_flutter_cursor/core/data/repositories/authentication_repository.dart';
+import 'package:demo_flutter_cursor/core/data/repositories/device_repository.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
-import 'package:demo_flutter_cursor/modules/authentication/repositories/authentication_repository.dart';
-import 'package:demo_flutter_cursor/core/device/repositories/device_repository.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules/authentication/data/api/auth_api_fake.dart';
 import '../../modules/authentication/data/api/user_api_fake.dart';
-import '../device/data/device_api_fake.dart';
-
 import '../data/api/storage_api_fake.dart';
 import '../data/storage/auth_secured_storage_fake.dart';
+import '../device/data/device_api_fake.dart';
 
 void main() {
   group('authRequired AuthenticationMode', () {
-    final authRepository = HttpAuthenticationRepository(
+    final authRepository = AuthenticationRepository(
       logger: Logger(),
       authenticationApi: FakeAuthenticationApi(),
       storage: FakeAuthSecuredStorage.empty(),
@@ -99,7 +97,7 @@ void main() {
   });
 
   group('authRequired anonymous', () {
-    final authRepository = HttpAuthenticationRepository(
+    final authRepository = AuthenticationRepository(
       logger: Logger(),
       authenticationApi: FakeAuthenticationApi(),
       storage: FakeAuthSecuredStorage.empty(),

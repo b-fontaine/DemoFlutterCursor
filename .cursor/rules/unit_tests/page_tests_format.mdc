@@ -1,0 +1,17 @@
+---
+description: how to write unit tests
+globs: *_page.dart
+alwaysApply: false
+---
+
+- A test will be described as '[CURRENT CONTEXT], [ACTION] => [EXPECTED RESULT]'
+- A test will use the pumpPage method from [test_utils.dart](mdc:test/test_utils.dart) to use fakes
+- If our context need an authenticated user we can provide it directly
+- We override GoRouter routing if we want to test navigation
+- Our tests try to test the app from a user point of view. (Ex: we test tap on an card that increment a counter instead of calling directly the increment function called by the card)
+
+Example : [signin_page_test.dart](mdc:test/modules/authentication/signin_page_test.dart)
+
+
+
+

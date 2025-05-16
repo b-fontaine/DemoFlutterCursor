@@ -1,9 +1,10 @@
+import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
+import 'package:demo_flutter_cursor/core/data/api/device_api.dart';
 import 'package:demo_flutter_cursor/core/data/api/user_api.dart';
-import 'package:demo_flutter_cursor/core/data/entities/user_entity.dart';
-import 'package:demo_flutter_cursor/core/data/models/user.dart';
-import 'package:demo_flutter_cursor/core/data/storage/auth_secured_storage.dart';
+import 'package:demo_flutter_cursor/core/data/storage/secured_storage.dart';
 import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
-import 'package:demo_flutter_cursor/core/device/api/device_api.dart';
+import 'package:demo_flutter_cursor/core/domain/models/credentials/credentials.dart';
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/initializer/models/run_state.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_service.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_widget.dart';
@@ -13,8 +14,6 @@ import 'package:demo_flutter_cursor/core/theme/colors.dart';
 import 'package:demo_flutter_cursor/core/theme/providers/theme_provider.dart';
 import 'package:demo_flutter_cursor/core/theme/texts.dart';
 import 'package:demo_flutter_cursor/core/theme/universal_theme.dart';
-import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api.dart';
-import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api_interface.dart';
 import 'package:demo_flutter_cursor/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,9 +23,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/data/api/storage_api_fake.dart';
 import 'core/data/storage/auth_secured_storage_fake.dart';
+import 'core/device/data/device_api_fake.dart';
 import 'modules/authentication/data/api/auth_api_fake.dart';
 import 'modules/authentication/data/api/user_api_fake.dart';
-import 'core/device/data/device_api_fake.dart';
 
 /// Use this page to show a fake page within a test
 class PageFake extends StatelessWidget {
@@ -57,7 +56,7 @@ extension AppWidgetTester on WidgetTester {
     UserState? userState,
     AuthenticationApi? authApiFakeOverride,
 
-    AuthSecuredStorage? authSecuredStorageFakeOverride,
+    SecuredStorage? authSecuredStorageFakeOverride,
     DeviceApi? deviceApiFakeOverride,
     UserApi? userApiFakeOverride,
 
@@ -75,7 +74,7 @@ extension AppWidgetTester on WidgetTester {
           authenticationApiProvider.overrideWithValue(
             authApiFakeOverride ?? FakeAuthenticationApi(),
           ),
-          authSecuredStorageProvider.overrideWithValue(
+          securedStorageProvider.overrideWithValue(
             authSecuredStorageFakeOverride ?? FakeAuthSecuredStorage.empty(),
           ),
 
@@ -91,7 +90,7 @@ extension AppWidgetTester on WidgetTester {
             refCopie = ref;
 
             final authStorageApi =
-                ref.read(authSecuredStorageProvider) as FakeAuthSecuredStorage;
+                ref.read(securedStorageProvider) as FakeAuthSecuredStorage;
 
             final authApi =
                 ref.read(authenticationApiProvider) as FakeAuthenticationApi;
@@ -113,8 +112,8 @@ extension AppWidgetTester on WidgetTester {
               authApi.current = authStorageApi.credentials;
 
               userApi.getUserResult = switch (userState.user) {
-                AuthenticatedUserData() => userState.user.toEntity(),
-                AnonymousUserData() => userState.user.toEntity(),
+                AuthenticatedUserData() => userState.user.toDTO(),
+                AnonymousUserData() => userState.user.toDTO(),
                 LoadingUserData() => null,
               };
             }

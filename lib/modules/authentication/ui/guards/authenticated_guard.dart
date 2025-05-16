@@ -1,6 +1,6 @@
-import 'package:demo_flutter_cursor/core/data/models/user.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/guards/guard.dart';
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/guards/guard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,0 +1,92 @@
+---
+description: Guidelines for Flutter and Dartr
+globs: **/ui/**/*.dart
+alwaysApply: false
+---
+# Internationalization in the project
+
+Internationalization in this project is managed with the **Slang** library, which allows defining typed translations in Dart.
+
+## File structure
+
+- **slang.yaml**: Slang configuration file at the project root
+  - defines the base language (`base_locale: en`)
+  - fallback strategy (`fallback_strategy: base_locale`)
+  - input/output directories (`input_directory` and `output_directory`: `lib/i18n`)
+  - input file pattern (`input_file_pattern: .i18n.json`)
+  - output file name (`output_file_name: translations.g.dart`)
+  - output format (`output_format: single_file`)
+
+- **lib/i18n/**: Directory containing translation files
+  - **strings.i18n.json**: JSON file containing translation keys and values
+  - **translations.g.dart**: Generated Dart file from JSON (do not modify manually)
+  - **translations_en.g.dart**: Generated Dart file containing English translations (do not modify manually)
+
+## How to define translations
+
+1. Add or modify strings in the **lib/i18n/strings.i18n.json** file
+2. Organize translations hierarchically with nested JSON objects
+3. For values with parameters, use the notation `({required Object paramName}) => "Text with ${paramName}"`
+4. Run `dart run slang` to regenerate translation files
+
+Example JSON structure:
+```json
+{
+  "section": {
+    "title": "My title",
+    "description": "My description",
+    "parameterized_string": "Value with parameter: ${param}"
+  }
+}
+```
+
+## How to use translations in code
+
+There are two main methods for using translations:
+
+### Method A: Simple (no rebuild on language change)
+
+```dart
+// Import translations
+import 'package:demo_flutter_cursor/i18n/translations.g.dart';
+
+// Direct usage
+String title = t.section.title;
+```
+
+### Method B: Advanced (automatic rebuild on language change)
+
+1. Wrap the application with `TranslationProvider`:
+
+```dart
+// In main.dart
+TranslationProvider(
+  child: MyApp(),
+)
+```
+
+2. Use translations in widgets:
+
+```dart
+// With BuildContext extension
+Text(context.t.section.title)
+
+// Or with Translations.of(context) method
+final t = Translations.of(context);
+Text(t.section.title)
+```
+
+## Locale management
+
+- **Set language at startup**: `LocaleSettings.useDeviceLocale()`
+- **Change language**: `LocaleSettings.setLocale(AppLocale.en)`
+- **Get current language**: `LocaleSettings.currentLocale`
+- **Observe language changes**: `LocaleSettings.getLocaleStream()`
+
+## Best practices
+
+1. Always use hierarchical keys to organize translations
+2. Prefer Method B (advanced) for widgets that display text that may change language during runtime
+3. Group translations by module/feature in the JSON file
+4. Use variables for dynamic values instead of concatenating strings
+5. Never manually modify generated files (translations.g.dart)

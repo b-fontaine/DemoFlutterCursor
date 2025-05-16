@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/data/models/user.dart';
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_state.freezed.dart';

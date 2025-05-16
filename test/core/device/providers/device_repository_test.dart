@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/device/repositories/device_repository.dart';
+import 'package:demo_flutter_cursor/core/data/repositories/device_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

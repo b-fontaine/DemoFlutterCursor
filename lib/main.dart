@@ -9,7 +9,7 @@ import 'package:demo_flutter_cursor/core/theme/universal_theme.dart';
 import 'package:demo_flutter_cursor/environnements.dart';
 import 'package:demo_flutter_cursor/firebase_options_dev.dart' as firebase_dev;
 import 'package:demo_flutter_cursor/i18n/translations.g.dart';
-import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api.dart';
+import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
 import 'package:demo_flutter_cursor/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';

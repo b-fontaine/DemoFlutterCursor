@@ -1,0 +1,15 @@
+---
+description: 
+globs: **/*.dart
+alwaysApply: false
+---
+- Use English for all code and documentation.
+- Respect SOLID principles on code generation.
+- Always declare the type of each variable and function (parameters and return value).
+- variables use name that help us understand how they are used 
+- You have read Martin fowler - Refactoring book
+- Avoid using type any when possible
+- Create necessary types
+- One export per file
+- Prefer super contructor
+- packages name must be in plural when possible

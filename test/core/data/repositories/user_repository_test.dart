@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
 
 import 'package:flutter/services.dart';
@@ -15,10 +15,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final sharedPrefs = await SharedPreferences.getInstance();
 
-    return UserRepository(
-      userApi: FakeUserApi(storageApi: fakeStorageApi),
-      
-    );
+    return UserRepository(userApi: FakeUserApi(storageApi: fakeStorageApi));
   }
 
   testWidgets('upload file and save avatar', (tester) async {
@@ -36,14 +33,15 @@ void main() {
       );
 
       expect(
-          resultTask,
-          emitsAnyOf([
-            UploadResultProgress(0.0),
-            UploadResultCompleted(
-              imagePath: 'imagePath',
-              imagePublicUrl: 'imagePublicUrl',
-            ),
-          ]));
+        resultTask,
+        emitsAnyOf([
+          UploadResultProgress(0.0),
+          UploadResultCompleted(
+            imagePath: 'imagePath',
+            imagePublicUrl: 'imagePublicUrl',
+          ),
+        ]),
+      );
       await tester.pump();
       await tester.pumpAndSettle();
     });

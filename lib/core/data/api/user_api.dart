@@ -1,18 +1,20 @@
 import 'dart:typed_data';
 
-import 'package:demo_flutter_cursor/core/data/api/base_api_exceptions.dart';
-import 'package:demo_flutter_cursor/core/data/api/storage_api.dart';
-import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
-import 'package:demo_flutter_cursor/core/data/entities/user_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:demo_flutter_cursor/core/data/api/base_api_exceptions.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/user/user_dto.dart';
+import 'package:demo_flutter_cursor/core/data/api/storage_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 final userApiProvider = Provider<UserApi>(
   (ref) => UserApi(
     client: FirebaseFirestore.instance,
-    firebaseFunctions: FirebaseFunctions.instanceFor(region: 'europe-west1'), // TODO get region from environment
+    firebaseFunctions: FirebaseFunctions.instanceFor(
+      region: 'europe-west1',
+    ), // TODO get region from environment
     storageApi: ref.read(storageApiProvider),
   ),
 );
@@ -27,26 +29,29 @@ class UserApi {
     required FirebaseFirestore client,
     required FirebaseFunctions firebaseFunctions,
     required StorageApi storageApi,
-  })  : _client = client,
-        _logger = Logger(),
-        _firebaseFunctions = firebaseFunctions,_storageApi = storageApi;
+  }) : _client = client,
+       _logger = Logger(),
+       _firebaseFunctions = firebaseFunctions,
+       _storageApi = storageApi;
 
-  CollectionReference<UserEntity?> get _collection =>
-      _client.collection('users').withConverter(
-            fromFirestore: (snapshot, _) {
-              if (snapshot.exists) {
-                return UserEntity.fromJson(snapshot.id, snapshot.data()!);
-              }
-              return null;
-            },
-            toFirestore: (data, _) => data!.toJson(),
-          );
+  CollectionReference<UserDTO?> get _collection => _client
+      .collection('users')
+      .withConverter(
+        fromFirestore: (snapshot, _) {
+          if (snapshot.exists) {
+            return UserDTO.fromJson(snapshot.id, snapshot.data()!);
+          }
+          return null;
+        },
+        toFirestore: (data, _) => data!.toJson(),
+      );
 
-  Future<UserEntity?> get(String id) async {
+  // ignore: unnecessary_async
+  Future<UserDTO?> get(String id) async {
     return _collection.doc(id).get().then((value) => value.data());
   }
 
-  Future<void> update(UserEntity user) async {
+  Future<void> update(UserDTO user) async {
     final data = user.toJson();
     data.removeWhere((key, value) => value == null);
     await _collection.doc(user.id).update(data);
@@ -55,7 +60,6 @@ class UserApi {
   Future<void> delete(String id) async {
     await _collection.doc(id).delete();
   }
-
 
   /// Delete the current user account
   /// As you can't delete a user authentification from the client
@@ -74,17 +78,14 @@ class UserApi {
     }
   }
 
-  Future<void> create(UserEntity user) async {
+  Future<void> create(UserDTO user) async {
     if (user.id == null) {
       throw Exception('User id cannot be null');
     }
     await _collection.doc(user.id).set(user);
   }
 
-  Stream<UploadResult> updateAvatar(
-    String userId,
-    Uint8List data,
-  ) async* {
+  Stream<UploadResult> updateAvatar(String userId, Uint8List data) async* {
     final task = _storageApi.uploadData(
       data,
       'users/$userId/avatar',

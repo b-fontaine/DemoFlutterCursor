@@ -1,11 +1,11 @@
-import 'package:demo_flutter_cursor/core/device/api/device_api.dart';
-import 'package:demo_flutter_cursor/core/device/api/entities/device_entity.dart';
+import 'package:demo_flutter_cursor/core/data/api/device_api.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/device/device_dto.dart';
 
 class FakeDeviceApi implements DeviceApi {
   OnTokenRefresh? refreshTokenCallback;
 
   @override
-  Future<DeviceEntity> register(String userId, DeviceEntity device) async {
+  Future<DeviceDTO> register(String userId, DeviceDTO device) async {
     await Future.delayed(const Duration(milliseconds: 100));
     return Future.value(device.copyWith(id: 'fake_id'));
   }
@@ -16,9 +16,9 @@ class FakeDeviceApi implements DeviceApi {
   }
 
   @override
-  Future<DeviceEntity> get() {
+  Future<DeviceDTO> get() {
     return Future.value(
-      DeviceEntity(
+      DeviceDTO(
         installationId: 'fake_installation_id',
         token: 'fake_token',
         operatingSystem: OperatingSystem.android,
@@ -34,7 +34,7 @@ class FakeDeviceApi implements DeviceApi {
   }
 
   @override
-  Future<DeviceEntity> update(DeviceEntity device) {
+  Future<DeviceDTO> update(DeviceDTO device) {
     return Future.value(device.copyWith(lastUpdateDate: DateTime.now()));
   }
 

@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Repository Implementation Rules
+
+## General Structure
+
+Repositories are responsible for coordinating between the data layer (API, DAO) and the domain layer. They transform DTO models into domain models and vice versa.
+
+## Architecture
+
+- Repositories are part of the data layer
+- The implementation is placed in `lib/core/data/repositories/` or `lib/modules/{module_name}/data/repositories/`
+- Repositories common to multiple modules → `core` folder
+- Repositories specific to a module → folder of the concerned module
+
+## Naming Conventions
+
+- Name the implementation `{Name}Repository` (e.g., `AuthenticationRepository`)
+- Name the provider `{name}RepositoryProvider` (e.g., `authRepositoryProvider`)
+
+## Responsibilities
+
+Repositories must:
+- Coordinate calls between different data sources (API, DAO, Storage)
+- Transform DTO models into domain models and vice versa
+- Handle domain-specific errors and exceptions
+- Perform operations on data before returning it to clients (filtering, aggregation)
+- Provide an abstraction of the data source (clients don't know if data comes from an API, a database, etc.)
+
+## Best Practices
+
+- Create domain-specific exceptions and throw them instead of technical errors
+- Use specific types rather than `dynamic`
+- Clearly separate data access logic and transformation logic
+- Implement appropriate error handling with meaningful messages
+- Test repositories in a unit manner with fake implementations of dependencies
+- Expose only domain models, never DTOs
+- Document public methods
+- Implement one repository per data domain
+- Keep methods focused on a single responsibility
+
+## Complete Example
+
+A complete repository example can be found here : [exemple_repository.dart](mdc:.cursor/rules/templates/exemple_repository.dart)

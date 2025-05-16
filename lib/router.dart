@@ -1,8 +1,8 @@
 import 'package:demo_flutter_cursor/modules/authentication/ui/guards/authenticated_guard.dart';
 import 'package:demo_flutter_cursor/core/widgets/page_not_found.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/recover_password_page.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/signin_page.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/signup_page.dart';
+import 'package:demo_flutter_cursor/modules/authentication/recover_password_page.dart';
+import 'package:demo_flutter_cursor/modules/authentication/signin_page.dart';
+import 'package:demo_flutter_cursor/modules/authentication/signup_page.dart';
 import 'package:demo_flutter_cursor/modules/home/home_page.dart';
 
 import 'package:flutter/material.dart';

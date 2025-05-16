@@ -1,0 +1,11 @@
+---
+description: 
+globs: **/data/**/*.dart
+alwaysApply: false
+---
+The data layer is responsible for fetching data from any source (remote with API, local with Database).
+It is also responsible for parsing and serialization.
+
+- We use providers to inject Api and Dao in repositories 
+- Only repositories must be able to use Api and Dao classes
+- API returns only entities objects

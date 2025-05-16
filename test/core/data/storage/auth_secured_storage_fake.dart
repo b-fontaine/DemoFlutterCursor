@@ -1,17 +1,15 @@
-import 'package:demo_flutter_cursor/core/data/entities/user_entity.dart';
-import 'package:demo_flutter_cursor/core/data/storage/auth_secured_storage.dart';
+import 'package:demo_flutter_cursor/core/data/storage/secured_storage.dart';
+import 'package:demo_flutter_cursor/core/domain/models/credentials/credentials.dart';
 
-/// This is a fake implementation of [AuthSecuredStorage]
+/// This is a fake implementation of [SecuredStorage]
 /// As it uses the [FlutterSecureStorage] it is not possible to use it without a real device
 /// We prefer using a fake implementation instead of a mock
-/// because we want our tests to not reflect the implementation details of the [AuthSecuredStorage]
+/// because we want our tests to not reflect the implementation details of the [SecuredStorage]
 /// this also makes tests easier to maintain
-class FakeAuthSecuredStorage implements AuthSecuredStorage {
+class FakeAuthSecuredStorage implements SecuredStorage {
   Credentials? credentials;
 
-  FakeAuthSecuredStorage({
-    this.credentials,
-  });
+  FakeAuthSecuredStorage({this.credentials});
 
   factory FakeAuthSecuredStorage.empty() => FakeAuthSecuredStorage();
 

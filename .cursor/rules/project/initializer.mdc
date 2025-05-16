@@ -1,0 +1,5 @@
+---
+description: Guidelines for Flutter and Dartr
+globs: **/*.dart
+alwaysApply: false
+---

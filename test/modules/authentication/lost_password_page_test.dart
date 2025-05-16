@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/modules/authentication/ui/recover_password_page.dart';
+import 'package:demo_flutter_cursor/modules/authentication/recover_password_page.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/widgets/recover_password_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

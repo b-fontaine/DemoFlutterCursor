@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_io/io.dart';
 
-final storageApiProvider = Provider<StorageApi>(
-  (ref) => FirebaseStorageApi(),
-);
+final storageApiProvider = Provider<StorageApi>((ref) => FirebaseStorageApi());
 
 abstract class StorageApi {
   /// upload a file to firebase storage
@@ -42,38 +40,37 @@ class FirebaseStorageApi implements StorageApi {
         .ref() //
         .child(folder) //
         .child('/$filename');
-    final metadata = SettableMetadata(
-      contentType: mimeType,
-    );
+    final metadata = SettableMetadata(contentType: mimeType);
     final uploadTask = ref.putData(data, metadata);
-    yield* uploadTask.snapshotEvents.transform(StreamTransformer.fromHandlers(
-      handleData: (event, sink) {
-        final progress = event.bytesTransferred / event.totalBytes;
-        sink.add(UploadResultProgress(progress));
-        if (event.bytesTransferred == event.totalBytes) {
+    yield* uploadTask.snapshotEvents.transform(
+      StreamTransformer.fromHandlers(
+        handleData: (event, sink) {
+          final progress = event.bytesTransferred / event.totalBytes;
+          sink.add(UploadResultProgress(progress));
+          if (event.bytesTransferred == event.totalBytes) {
+            sink.close();
+          }
+        },
+        handleError: (error, stackTrace, sink) {
+          sink.addError(error);
+        },
+        handleDone: (sink) {
           sink.close();
-        }
-      },
-      handleError: (error, stackTrace, sink) {
-        sink.addError(error);
-      },
-      handleDone: (sink) {
-        sink.close();
-      },
-    ));
+        },
+      ),
+    );
     final imagePath = uploadTask.snapshot.ref.fullPath;
     if (!isPublic) {
-      yield UploadResultCompleted(
-        imagePath: imagePath,
-        imagePublicUrl: '',
-      );
+      yield UploadResultCompleted(imagePath: imagePath, imagePublicUrl: '');
       return;
     }
     // wait a bit to be sure the file is uploaded (could fire error if too fast)
     await Future.delayed(const Duration(seconds: 1));
-    final publicUrl = await FirebaseStorage.instance //
-        .ref(imagePath)
-        .getDownloadURL();
+    final publicUrl =
+        await FirebaseStorage
+            .instance //
+            .ref(imagePath)
+            .getDownloadURL();
     yield UploadResultCompleted(
       imagePath: imagePath,
       imagePublicUrl: publicUrl,
@@ -86,10 +83,10 @@ class FirebaseStorageApi implements StorageApi {
     return FirebaseStorage.instance
         .ref(path)
         .getDownloadURL()
-        .then((value) => UploadResultCompleted(
-              imagePath: path,
-              imagePublicUrl: value,
-            ));
+        .then(
+          (value) =>
+              UploadResultCompleted(imagePath: path, imagePublicUrl: value),
+        );
   }
 
   Stream<TaskSnapshot> downloadFile(String path) async* {

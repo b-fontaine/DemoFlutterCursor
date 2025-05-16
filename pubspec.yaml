@@ -71,6 +71,7 @@ dependencies:
   mixpanel_flutter: ^2.4.1
   slang: ^4.7.1
   slang_flutter: ^4.7.0
+  hive_ce: ^2.11.2
   flutter_localizations:
     sdk: flutter
 

@@ -1,9 +1,8 @@
-
 import 'dart:async';
 import 'dart:math';
 
-import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
-import 'package:demo_flutter_cursor/core/data/models/user.dart';
+import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
 import 'package:demo_flutter_cursor/core/states/models/user_state.dart';
 import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
@@ -15,7 +14,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:universal_io/io.dart';
 
-
 /// A widget that displays the user avatar
 /// and allow to change it by tapping on it
 /// It displays a progress indicator while uploading
@@ -25,11 +23,7 @@ class EditableUserAvatar extends ConsumerStatefulWidget {
   final OnAvatarTap? onTap;
   final double? radius;
 
-  const EditableUserAvatar({
-    super.key,
-    this.onTap,
-    this.radius,
-  });
+  const EditableUserAvatar({super.key, this.onTap, this.radius});
 
   @override
   ConsumerState<EditableUserAvatar> createState() => _EditableUserAvatarState();
@@ -63,9 +57,10 @@ class _EditableUserAvatarState extends ConsumerState<EditableUserAvatar> {
         UploadedAvatarAnimation(
           userAvatar: UserAvatar(
             radius: widget.radius,
-            file: !kIsWeb && temporaryAvatarFile != null
-                ? File(temporaryAvatarFile!.path)
-                : null,
+            file:
+                !kIsWeb && temporaryAvatarFile != null
+                    ? File(temporaryAvatarFile!.path)
+                    : null,
             avatarUrl: switch (userState.user) {
               AuthenticatedUserData(:final avatarPath) => avatarPath,
               _ => null,
@@ -92,7 +87,7 @@ class _EditableUserAvatarState extends ConsumerState<EditableUserAvatar> {
               child: Icon(Icons.camera_alt, color: Colors.white, size: 20),
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -116,24 +111,21 @@ class _EditableUserAvatarState extends ConsumerState<EditableUserAvatar> {
     final bytes = await file.readAsBytes();
     _saveAvatarSubscription = ref
         .read(userRepositoryProvider) //
-        .saveAvatar(
-          userId: userState.user.idOrThrow,
-          data: bytes,
-        )
+        .saveAvatar(userId: userState.user.idOrThrow, data: bytes)
         .listen((event) async {
-      switch (event) {
-        case UploadResultProgress():
-          setState(() {
-            uploadProgress = event.progress;
-          });
-        case UploadResultCompleted():
-          uploadProgress = 0;
-          _saveAvatarSubscription!.cancel();
-          _saveAvatarSubscription = null;
-          ref.read(userStateNotifierProvider.notifier).onUpdateAvatar();
-          setState(() {});
-      }
-    });
+          switch (event) {
+            case UploadResultProgress():
+              setState(() {
+                uploadProgress = event.progress;
+              });
+            case UploadResultCompleted():
+              uploadProgress = 0;
+              _saveAvatarSubscription!.cancel();
+              _saveAvatarSubscription = null;
+              ref.read(userStateNotifierProvider.notifier).onUpdateAvatar();
+              setState(() {});
+          }
+        });
   }
 }
 
@@ -175,8 +167,10 @@ class _UploadedAvatarAnimationState extends State<UploadedAvatarAnimation>
   @override
   void didUpdateWidget(covariant UploadedAvatarAnimation oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final (wasUploading, isUploading) =
-        (oldWidget.isUploading, widget.isUploading);
+    final (wasUploading, isUploading) = (
+      oldWidget.isUploading,
+      widget.isUploading,
+    );
     switch ((wasUploading, isUploading)) {
       case (false, true):
         _controller.forward(from: 0);
@@ -191,14 +185,15 @@ class _UploadedAvatarAnimationState extends State<UploadedAvatarAnimation>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _opacityAnim,
-      builder: (context, child) => Opacity(
-        opacity: _opacityAnim.value,
-        child: Transform.scale(
-          // change the 0.4 for larger or smaller animation
-          scale: 1.0 + sin(_scaleAnim.value) * 0.4,
-          child: widget.userAvatar,
-        ),
-      ),
+      builder:
+          (context, child) => Opacity(
+            opacity: _opacityAnim.value,
+            child: Transform.scale(
+              // change the 0.4 for larger or smaller animation
+              scale: 1.0 + sin(_scaleAnim.value) * 0.4,
+              child: widget.userAvatar,
+            ),
+          ),
     );
   }
 
@@ -206,18 +201,13 @@ class _UploadedAvatarAnimationState extends State<UploadedAvatarAnimation>
     _opacityAnim = Tween(
       begin: begin,
       end: end,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.decelerate),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.decelerate));
   }
 
   void _initScaleAnim(double begin, double end) {
     _scaleAnim = Tween(
       begin: begin,
       end: end,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.decelerate),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.decelerate));
   }
 }
-

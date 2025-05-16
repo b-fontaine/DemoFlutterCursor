@@ -1,11 +1,9 @@
+import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
 import 'package:demo_flutter_cursor/core/data/api/image.dart';
 import 'package:demo_flutter_cursor/core/data/api/user_api.dart';
-import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
-import 'package:demo_flutter_cursor/core/data/models/user.dart';
-
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 
 final userRepositoryProvider = Provider<UserRepository>(
   (ref) => UserRepository(userApi: ref.read(userApiProvider)),
@@ -17,15 +15,15 @@ class UserRepository {
   UserRepository({required UserApi userApi}) : _userApi = userApi;
 
   Future<User?> get(String id) async {
-    final userEntity = await _userApi.get(id);
-    if (userEntity == null) {
+    final userDto = await _userApi.get(id);
+    if (userDto == null) {
       return null;
     }
-    return User.fromEntity(userEntity);
+    return User.fromDTO(userDto);
   }
 
   Future<void> create(User user) async {
-    await _userApi.create(user.toEntity());
+    await _userApi.create(user.toDTO());
   }
 
   /// We updates the user avatar
@@ -52,7 +50,7 @@ class UserRepository {
       _ => throw Exception('User not found'),
     };
 
-    await _userApi.update(userCpy.toEntity());
+    await _userApi.update(userCpy.toDTO());
     return userCpy;
   }
 

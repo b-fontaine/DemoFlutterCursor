@@ -1,5 +1,5 @@
-import 'package:demo_flutter_cursor/core/data/entities/user_entity.dart';
-import 'package:demo_flutter_cursor/modules/authentication/api/authentication_api_interface.dart';
+import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
+import 'package:demo_flutter_cursor/core/domain/models/credentials/credentials.dart';
 
 /// Fake implementation of [AuthenticationApi]
 /// This is useful for testing purposes
@@ -14,7 +14,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signup(String email, String password) async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
@@ -24,7 +24,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signin(String email, String password) async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
@@ -34,7 +34,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signinAnonymously() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id-anonymous',
       token: 'fake-user-token-1234567898',
     );
@@ -69,7 +69,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signinWithApple() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
@@ -79,7 +79,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signinWithFacebook() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
@@ -96,58 +96,23 @@ class FakeAuthenticationApi implements AuthenticationApi {
     return Future.value(current);
   }
 
-  
   @override
   Future<Credentials> signupFromAnonymousWithGoogle() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
     return current!;
   }
 
-  
   @override
   Future<Credentials> signupFromAnonymousWithApple() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
     return current!;
-  }
-
-  @override
-  Future<String> signinWithPhone(String phoneNumber) {
-    return Future.value('fake-verification-id');
-  }
-
-  @override
-  Future<Credentials> verifyPhoneAuth(String verificationId, String otp) async {
-    await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
-      id: 'fake-user-id',
-      token: 'fake-user-token-1234567890',
-    );
-    return current!;
-  }
-
-  @override
-  Future<Credentials> confirmLinkPhoneAuth(
-    String verificationId,
-    String otp,
-  ) async {
-    await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
-      id: 'fake-user-id',
-      token: 'fake-user-token-1234567890',
-    );
-    return current!;
-  }
-
-  @override
-  Future<String> updateAuthPhone(String phoneNumber) {
-    return Future.value('fake-verification-id');
   }
 }

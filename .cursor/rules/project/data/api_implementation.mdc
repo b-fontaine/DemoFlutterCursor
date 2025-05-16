@@ -1,0 +1,32 @@
+---
+description: 
+globs: **/data/**/*.dart
+alwaysApply: false
+---
+# API Implementation Guide
+
+The purpose of API classes is to contact network API (here, Firebase) to send and retrieve data from server.
+
+## General Structure
+- Create an abstract class to define the API interface
+- Implement this interface with a concrete class
+- Use flutter_riverpod to provide the API instance
+
+## Naming Conventions
+- Name the interface `{Example}Api`
+- Name the implementation `{Example}ApiImpl`
+- Name the provider `{example}ApiProvider`
+
+## Implementation
+
+See the complete example in the file [exemple_api.dart](mdc:.cursor/rules/templates/exemple_api.dart)
+
+## Best Practices
+- Use specific types and avoid `dynamic`
+- Handle errors properly with try/catch
+- Return typed entities rather than raw data
+- Use Firebase Firestore
+- Document public methods
+- Implement one API class per data domain/table
+- Keep methods focused on a single responsibility
+- Include proper error handling with meaningful error messages

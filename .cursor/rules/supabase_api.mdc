@@ -1,6 +1,7 @@
 ---
 description: Flutter Supabase and Postgres API class rules
 globs: **/*_api.dart
+alwaysApply: false
 ---
 This layer is responsible for fetching data from any source.
 It is also responsible for parsing and serialization.
@@ -13,8 +14,8 @@ This is the only layer that isn't in our unit tests.
 Here is an example of a flutter and Supabase API class
 
 - use flutter_riverpod provider to create a provider of api
-- name your api like "UserInfosApi" 
-- name your provider like "userInfosApiProvider"
+- name your api like "ExampleApi" 
+- name your provider like "exampleApiProvider"
 
 ```dart
 import 'package:demo_flutter_cursor/core/data/api/base_api_exceptions.dart';
@@ -23,26 +24,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final userInfosApiProvider = Provider(
-  (ref) => UserInfosApi(
+final exampleApiProvider = Provider(
+  (ref) => ExampleApi(
     client: Supabase.instance.client,
   ),
 );
 
-const _kUserInfosTable = 'user_infos';
+const _kExampleTable = 'user_infos';
 
-class UserInfosApi {
+class ExampleApi {
   final SupabaseClient _client;
   final Logger _logger = Logger();
 
-  UserInfosApi({
+  ExampleApi({
     required SupabaseClient client,
   }) : _client = client;
 
   Future<List<UserInfoEntity>> getAll(String userId) async {
     try {
       final res = await _client
-          .from(_kUserInfosTable) //
+          .from(_kExampleTable) //
           .select()
           .eq('user_id', userId);
       if (res.isEmpty) {
@@ -63,7 +64,7 @@ class UserInfosApi {
   Future<UserInfoEntity?> getByKey(String userId, String key) async {
     try {
       final res = await _client
-          .from(_kUserInfosTable) //
+          .from(_kExampleTable) //
           .select()
           .eq('user_id', userId)
           .eq('info_key', key);
@@ -82,7 +83,7 @@ class UserInfosApi {
 
   Future<void> create(String userId, UserInfoEntity info) async {
     try {
-      await _client.from(_kUserInfosTable).insert(info.toJson());
+      await _client.from(_kExampleTable).insert(info.toJson());
     } catch (e) {
       _logger.e(e);
       throw ApiError(
@@ -95,7 +96,7 @@ class UserInfosApi {
   Future<void> update(String userId, UserInfoEntity info) async {
     try {
       await _client
-          .from(_kUserInfosTable) //
+          .from(_kExampleTable) //
           .update(info.toJson()..remove('id'))
           .eq('id', info.id!);
     } catch (e) {
