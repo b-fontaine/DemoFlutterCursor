@@ -1,11 +1,11 @@
 import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_widget.dart';
-import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
-import 'package:demo_flutter_cursor/core/theme/colors.dart';
-import 'package:demo_flutter_cursor/core/theme/extensions/theme_extension.dart';
-import 'package:demo_flutter_cursor/core/theme/providers/theme_provider.dart';
-import 'package:demo_flutter_cursor/core/theme/texts.dart';
-import 'package:demo_flutter_cursor/core/theme/universal_theme.dart';
+import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/providers/theme_provider.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/texts.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/universal_theme.dart';
 import 'package:demo_flutter_cursor/environnements.dart';
 import 'package:demo_flutter_cursor/firebase_options_dev.dart' as firebase_dev;
 import 'package:demo_flutter_cursor/i18n/translations.g.dart';

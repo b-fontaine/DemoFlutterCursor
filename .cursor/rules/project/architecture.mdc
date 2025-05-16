@@ -14,7 +14,7 @@ lib
 ├── core
 │   ├── data 
 │   │   ├── api // httpclient and api extensions + core api (if an api is used by multiple modules we put it here)
-│   │   ├── entities // function to help you create entities from json and common entities used by multiple modules
+│   │   │   └── dto // function to help you create entities from json and common entities used by multiple modules
 │   │   ├── models // Domain models used by multiple modules
 │   │   ├── repositories // Domain models used by multiple modules
 │   │   └── storage // Classes that manage local storage (Dao, shared_preferences etc.)

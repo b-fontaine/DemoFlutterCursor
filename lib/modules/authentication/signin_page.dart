@@ -1,6 +1,6 @@
-import 'package:demo_flutter_cursor/core/widgets/buttons.dart';
-import 'package:demo_flutter_cursor/core/widgets/page_background.dart';
-import 'package:demo_flutter_cursor/core/widgets/toast.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/buttons.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/page_background.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/toast.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/email.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/password.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/signin_state.dart';

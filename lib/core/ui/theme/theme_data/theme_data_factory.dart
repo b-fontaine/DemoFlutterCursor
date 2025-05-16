@@ -1,6 +1,6 @@
-import 'package:demo_flutter_cursor/core/theme/colors.dart';
-import 'package:demo_flutter_cursor/core/theme/texts.dart';
-import 'package:demo_flutter_cursor/core/theme/theme_data/theme_data.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/texts.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/theme_data/theme_data.dart';
 
 /// This is the factory used to create the theme from the colors and textTheme
 /// You can create your own factory to create your own theme

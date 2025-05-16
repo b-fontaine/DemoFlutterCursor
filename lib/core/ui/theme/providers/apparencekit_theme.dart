@@ -1,6 +1,6 @@
-import 'package:demo_flutter_cursor/core/theme/colors.dart';
-import 'package:demo_flutter_cursor/core/theme/texts.dart';
-import 'package:demo_flutter_cursor/core/theme/theme_data/theme_data.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/texts.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/theme_data/theme_data.dart';
 import 'package:universal_io/io.dart';
 
 /// This is the the base theme for the app
@@ -35,11 +35,7 @@ class ApparenceKitThemeAdaptive extends ApparenceKitTheme {
   final ApparenceKitThemeData? android;
   final ApparenceKitThemeData? web;
 
-  const ApparenceKitThemeAdaptive({
-    this.ios,
-    this.android,
-    this.web,
-  });
+  const ApparenceKitThemeAdaptive({this.ios, this.android, this.web});
 
   @override
   ApparenceKitColors get colors {

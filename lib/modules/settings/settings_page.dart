@@ -1,6 +1,6 @@
-import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
-import 'package:demo_flutter_cursor/core/theme/extensions/theme_extension.dart';
-import 'package:demo_flutter_cursor/core/theme/providers/theme_provider.dart';
+import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/providers/theme_provider.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/components/avatar_component.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/components/delete_user_component.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/settings_tile.dart';
@@ -77,7 +77,8 @@ class SettingsPage extends ConsumerWidget {
                           return AlertDialog.adaptive(
                             title: const Text('Disconnect'),
                             content: const Text(
-                                'Are you sure you want to disconnect?'),
+                              'Are you sure you want to disconnect?',
+                            ),
                             actions: <Widget>[
                               TextButton(
                                 child: const Text('Cancel'),
@@ -113,10 +114,7 @@ class SettingsPage extends ConsumerWidget {
 class SettingsContainer extends StatelessWidget {
   final Widget child;
 
-  const SettingsContainer({
-    super.key,
-    required this.child,
-  });
+  const SettingsContainer({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -157,15 +155,15 @@ class ProfileTile extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ],
             ),
@@ -208,8 +206,8 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
       title: Text(
         "Light/Dark mode",
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
       ),
     );
   }

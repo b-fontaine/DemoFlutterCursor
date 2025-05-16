@@ -3,7 +3,7 @@ import 'package:demo_flutter_cursor/core/data/repositories/authentication_reposi
 import 'package:demo_flutter_cursor/core/data/repositories/device_repository.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
 import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
-import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
+import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';

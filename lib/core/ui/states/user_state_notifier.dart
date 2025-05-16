@@ -4,7 +4,7 @@ import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart'
 import 'package:demo_flutter_cursor/core/domain/models/device/device.dart';
 import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_service.dart';
-import 'package:demo_flutter_cursor/core/states/models/user_state.dart';
+import 'package:demo_flutter_cursor/core/ui/states/models/user_state.dart';
 import 'package:demo_flutter_cursor/environnements.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

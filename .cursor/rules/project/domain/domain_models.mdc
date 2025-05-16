@@ -1,13 +1,13 @@
 ---
-description: 
-globs: **/domain/**/*.dart
+description: Describe everything related to domain models and how to create / modify them 
+globs: 
 alwaysApply: false
 ---
 # Domain Model Creation Guidelines
 
 ## General Structure
 
-Domain models are the core business objects of the application. Unlike entities which are focused on data transfer, domain models encapsulate business logic and represent business concepts.
+Domain models are the core business objects of the application. Unlike DTOs which are focused on data transfer, domain models encapsulate business logic and represent business concepts.
 
 ## Naming Conventions
 - Name domain models without any suffix (e.g., `User`, `Device`)
@@ -30,16 +30,16 @@ Domain models are the core business objects of the application. Unlike entities 
 - Use strong typing instead of primitive types when appropriate (e.g., `Email` instead of `String`)
 - Include only fields that are necessary for business logic
 
-### 3. Entity Conversion
-- Implement a `fromEntity` factory method to convert from entity to domain model:
+### 3. DTO Conversion
+- Implement a `fromDTO` factory method to convert from DTO to domain model:
   ```dart
-  factory ModelName.fromEntity(ModelNameEntity? entity) {
+  factory ModelName.fromDTO(ModelNameDTO? dto) {
     // Conversion logic here
   }
   ```
-- Implement a `toEntity` method to convert from domain model to entity:
+- Implement a `toDTO` method to convert from domain model to DTO:
   ```dart
-  ModelNameEntity toEntity() {
+  ModelNameEntity toDTO() {
     // Conversion logic here
   }
   ```
@@ -56,91 +56,10 @@ Domain models are the core business objects of the application. Unlike entities 
 - Prefer immutable objects for domain models
 - Use descriptive method names that convey intent
 
-## Example Domain Model
+## Example
 
-```dart
-import 'package:demo_flutter_cursor/core/data/entities/user/user_entity.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:logger/logger.dart';
+An example can be found here : [example.dart](mdc:.cursor/rules/templates/example.dart)
 
-part 'user.freezed.dart';
 
-@freezed
-sealed class User with _$User {
-  const factory User.authenticated({
-    required String email,
-    String? name,
-    String? id,
-    DateTime? creationDate,
-    DateTime? lastUpdateDate,
-    String? avatarPath,
-    required bool onboarded,
-  }) = AuthenticatedUserData;
 
-  const factory User.anonymous({
-    String? id,
-    bool? onboarded,
-    DateTime? creationDate,
-    DateTime? lastUpdateDate,
-  }) = AnonymousUserData;
 
-  const factory User.loading() = LoadingUserData;
-
-  const User._();
-
-  factory User.fromEntity(UserDto? entity) {
-    try {
-      if (entity == null) {
-        return const User.anonymous();
-      }
-      if (entity.email == null) {
-        return User.anonymous(
-          id: entity.id,
-          onboarded: entity.onboarded ?? false,
-          creationDate: entity.creationDate,
-          lastUpdateDate: entity.lastUpdateDate,
-        );
-      }
-      return User.authenticated(
-        id: entity.id,
-        email: entity.email!,
-        name: entity.name,
-        onboarded: entity.onboarded ?? false,
-        avatarPath: entity.avatarPath,
-        creationDate: entity.creationDate,
-        lastUpdateDate: entity.lastUpdateDate,
-      );
-    } catch (e, trace) {
-      Logger().e(e, stackTrace: trace);
-      rethrow;
-    }
-  }
-
-  UserDto toEntity() {
-    return switch (this) {
-      final AuthenticatedUserData value => UserDto(
-        id: value.id,
-        email: value.email,
-        name: value.name ?? '',
-        onboarded: value.onboarded,
-        avatarPath: value.avatarPath,
-        creationDate: value.creationDate,
-        lastUpdateDate: value.lastUpdateDate,
-      ),
-      final AnonymousUserData value => UserDto(
-        id: value.id,
-        name: '',
-        onboarded: value.onboarded,
-        creationDate: value.creationDate,
-        lastUpdateDate: value.lastUpdateDate,
-      ),
-      LoadingUserData() => throw "user is not connected",
-    };
-  }
-
-  bool get isOnboarded => switch (this) {
-    AuthenticatedUserData(:final onboarded) => onboarded,
-    AnonymousUserData(:final onboarded) => onboarded ?? false,
-    LoadingUserData() => false,
-  };
-} 

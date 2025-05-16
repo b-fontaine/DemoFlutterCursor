@@ -42,8 +42,8 @@ We will then use this notifier within our page using "ref.watch(feedbackPageNoti
 
 Here is an example of page
 ```dart
-import 'package:demo_flutter_cursor/core/theme/extensions/theme_extension.dart';
-import 'package:demo_flutter_cursor/core/widgets/responsive_layout.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/responsive_layout.dart';
 import 'package:demo_flutter_cursor/i18n/translations.g.dart';
 import 'package:demo_flutter_cursor/modules/feedbacks/providers/feedback_page_notifier.dart';
 import 'package:demo_flutter_cursor/modules/feedbacks/ui/widgets/add_feature_button.dart';

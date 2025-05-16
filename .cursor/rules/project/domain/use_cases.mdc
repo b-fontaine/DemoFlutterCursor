@@ -1,79 +1,89 @@
 ---
-description: 
-globs: **/domain/**/*.dart
+description: Describe everything related to use cases classes, how to use them and how to create / modify them.
+globs: 
 alwaysApply: false
 ---
-### 2. The domain layer
-- This layer is responsible for the business logic of the app.
-- It is where we will handle the data from the API layer and transform it to be used by the presentation layer. That is the responsibility of the repository classes.
+# Use Cases
+
+Use Cases are part of the domain layer and represent a specific action or business operation that can be performed in the application.
+
+## Principles
+- Each Use Case should do one thing and do it well (Single Responsibility Principle)
+- Use Cases are called directly by UI providers/presenters
+- Use Cases orchestrate the flow of data between UI and data layers
+- They contain business logic but delegate data operations to repositories
+
+## Structure and Naming
+- Create one class per Use Case
+- Name the class with a verb describing the action (e.g., `GetUserUseCase`, `SaveSettingsUseCase`)
+- Place Use Cases in the `domain` layer of their respective module, in a package `usecases`
+- Group related Use Cases in a subdirectory when appropriate
+
+## Implementation
+- Each Use Case should have a `call()` method, allowing it to be invoked like a function
+- Inject repositories and other dependencies via constructor
+- Make dependencies `final` and private with underscore prefix
+- Return domain models, not entities or DTOs
+- Handle business logic and validations
+- Do not directly access APIs or storage, use repositories instead
+
+## Riverpod Integration
+- Each Use Case should have a corresponding Riverpod provider in the same file
+- Name the provider with camelCase, following the pattern `{useCaseName}Provider`
+- Use Provider<YourUseCase> to expose the Use Case instance
+- Inject required dependencies from other providers using ref.read()
+- Avoid using ref.watch() in the provider definition unless dependencies need to be reactive
+
+## Integration with UI Providers
+- UI Providers should inject Use Cases via ref.watch() or ref.read()
+- Use Cases are invoked by provider methods
+- Providers transform Use Case results into UI state
+- Multiple Use Cases can be combined in a single UI provider
+- Avoid putting business logic in UI providers, delegate to Use Cases instead
+- For asynchronous operations, use UI providers to manage loading and error states
+
+## Example
+
+An example can be found here : [get_example_usecase.dart](mdc:.cursor/rules/templates/get_example_usecase.dart)
 
 ```dart
-final userRepositoryProvider = Provider<UserRepository>(
-  (ref) => UserRepository(
-    userApi: ref.read(userApiProvider),
-    subscriptionRepository: ref.read(subscriptionRepositoryProvider),
-  ),
-);
+// Example of a UseCase with its Riverpod provider
+import 'package:flutter_ddd_template/domain/example/example.dart';
+import 'package:flutter_ddd_template/domain/example/example_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class UserRepository {
-  final UserApi _userApi;
-  final SubscriptionRepository _subscriptionRepository;
+final getExampleUsecaseProvider = Provider<GetExampleUsecase>((ref) {
+  return GetExampleUsecase(
+    exampleRepository: ref.read(exampleRepositoryProvider),
+  );
+});
 
+class GetExampleUsecase {
+  final ExampleRepository _exampleRepository;
 
-  UserRepository({
-    required UserApi userApi,
-  }) : _userApi = userApi;
+  GetExampleUsecase({required ExampleRepository exampleRepository})
+    : _exampleRepository = exampleRepository;
 
-  Future<User?> get(String id) async {
-    final UserDto = await _userApi.get(id);
-    if (UserDto == null) {
-      return null;
-    }
-    return User.fromEntity(UserDto);
+  Future<Example> call() async {
+    return _exampleRepository.getExample();
   }
 }
 ```
 
-- We transformed UserDto to a User
-- User can contains more than just UserDto informations (We could also have loaded subscription, user role... )
+## Parameters
+- Use named parameters when a Use Case requires multiple parameters
+- For Use Cases with a single parameter, positional parameters are acceptable
+- Include validation of input parameters when necessary
 
-Example of data model
+## Error Handling
+- Use Cases should handle domain-specific errors
+- Consider returning custom Result objects for complex operations that can have multiple failure modes
+- Document expected exceptions
+- UI Providers should handle and transform domain exceptions into user-friendly error messages
 
-```dart
-import 'package:demo_flutter_cursor/core/data/entities/user/user_entity.dart';
-
-import 'package:demo_flutter_cursor/core/data/models/subscription.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:logger/logger.dart';
-
-part 'user.freezed.dart';
-
-@freezed
-sealed class User with _$User {
-  const factory User.authenticated({
-    required Email email,
-    Name? name,
-    String? id,
-    DateTime? creationDate,
-    DateTime? lastUpdateDate,
-    Avatar? avatar,
-    required bool onboarded,
-    Subscription? subscription,
-  }) = AuthenticatedUserData;
-
-  const factory User.anonymous({
-    String? id,
-    bool? onboarded,
-    Subscription? subscription,
-    DateTime? creationDate,
-    DateTime? lastUpdateDate,
-  }) = AnonymousUserData;
-
-  const factory User.loading() = LoadingUserData;
-
-  const User._();
-}
-```
-
-- it use @freezed for immutability and union type
-- Note that Email isn't a String. We prefer create a type for this for our domain. SO for example we can check that an Email is valid "new Email.from('myemail@test.com')" throws if provided email isn't valid
+## Testing
+- Every Use Case should have unit tests
+- Mock or fake the dependencies (repositories) in tests
+- Test both success and failure scenarios
+- When testing UI providers, mock the Use Cases to focus on testing state management
+- For testing Riverpod providers, use ProviderContainer to override dependencies

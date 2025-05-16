@@ -1,6 +1,6 @@
-import 'package:demo_flutter_cursor/core/theme/colors.dart';
-import 'package:demo_flutter_cursor/core/theme/providers/theme_provider.dart';
-import 'package:demo_flutter_cursor/core/theme/theme_data/theme_data.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/providers/theme_provider.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/theme_data/theme_data.dart';
 import 'package:flutter/material.dart';
 
 /// This is a convenience extension to access the theme

@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:demo_flutter_cursor/core/widgets/toast.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/toast.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/signin_state_provider.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/widgets/round_signin.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:demo_flutter_cursor/core/data/repositories/authentication_repository.dart';
-import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
+import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/email.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/password.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/signin_state.dart';

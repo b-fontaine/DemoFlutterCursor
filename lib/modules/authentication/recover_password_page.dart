@@ -1,5 +1,5 @@
-import 'package:demo_flutter_cursor/core/widgets/field.dart';
-import 'package:demo_flutter_cursor/core/widgets/toast.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/field.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/toast.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/email.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/recover_state.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/recover_provider.dart';

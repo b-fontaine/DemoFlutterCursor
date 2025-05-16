@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/theme/extensions/theme_extension.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -21,9 +21,7 @@ class Background extends StatelessWidget {
       fit: StackFit.expand,
       children: <Widget>[
         Positioned.fill(
-          child: Container(
-            color: bgColor ?? context.colors.background,
-          ),
+          child: Container(color: bgColor ?? context.colors.background),
         ),
         if (bgImagePath != null)
           Positioned.fill(

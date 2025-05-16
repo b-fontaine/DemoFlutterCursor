@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_redundant_argument_values
 
-import 'package:demo_flutter_cursor/core/states/user_state_notifier.dart';
+import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

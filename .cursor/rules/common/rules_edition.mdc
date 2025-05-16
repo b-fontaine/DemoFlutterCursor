@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+- Rules must be written in .cursor/rules files
+- Always write or edit Cursor rules in english
+- Prefer editing an existing rule file instead of creating a new one, when the subject is already handled by a rule file
+- When user ask for a correction to the Agent, edit the corresponding rule or write a new one.

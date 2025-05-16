@@ -1,7 +1,7 @@
-import 'package:demo_flutter_cursor/core/theme/colors.dart';
-import 'package:demo_flutter_cursor/core/theme/providers/apparencekit_theme.dart';
-import 'package:demo_flutter_cursor/core/theme/texts.dart';
-import 'package:demo_flutter_cursor/core/theme/theme_data/theme_data_factory.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/providers/apparencekit_theme.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/texts.dart';
+import 'package:demo_flutter_cursor/core/ui/theme/theme_data/theme_data_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,11 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// We use this to access the theme from the BuildContext in all our widgets
 /// We don't use riverpod here so we can get the theme from the context and regular widgets
 class ThemeProvider extends InheritedNotifier<AppTheme> {
-  const ThemeProvider({
-    super.key,
-    super.notifier,
-    required super.child,
-  });
+  const ThemeProvider({super.key, super.notifier, required super.child});
 
   @override
   bool updateShouldNotify(covariant InheritedNotifier<AppTheme> oldWidget) {
@@ -66,22 +62,24 @@ class AppTheme with ChangeNotifier {
     return AppTheme(
       mode: defaultMode,
       sharedPreferences: sharedPreferences,
-      lightTheme: lightColors != null
-          ? ApparenceKitThemeUniform(
-              themeFactory.build(
-                colors: lightColors,
-                defaultTextStyle: textTheme,
-              ),
-            )
-          : null,
-      darkTheme: darkColors != null
-          ? ApparenceKitThemeUniform(
-              themeFactory.build(
-                colors: darkColors,
-                defaultTextStyle: textTheme,
-              ),
-            )
-          : null,
+      lightTheme:
+          lightColors != null
+              ? ApparenceKitThemeUniform(
+                themeFactory.build(
+                  colors: lightColors,
+                  defaultTextStyle: textTheme,
+                ),
+              )
+              : null,
+      darkTheme:
+          darkColors != null
+              ? ApparenceKitThemeUniform(
+                themeFactory.build(
+                  colors: darkColors,
+                  defaultTextStyle: textTheme,
+                ),
+              )
+              : null,
     );
   }
 
@@ -100,38 +98,40 @@ class AppTheme with ChangeNotifier {
     return AppTheme(
       mode: mode,
       sharedPreferences: sharedPreferences,
-      lightTheme: lightColors != null
-          ? ApparenceKitThemeAdaptive(
-              ios: ios?.build(
-                colors: lightColors,
-                defaultTextStyle: defaultTextTheme,
-              ),
-              android: android?.build(
-                colors: lightColors,
-                defaultTextStyle: defaultTextTheme,
-              ),
-              web: web?.build(
-                colors: lightColors,
-                defaultTextStyle: defaultTextTheme,
-              ),
-            )
-          : null,
-      darkTheme: darkColors != null
-          ? ApparenceKitThemeAdaptive(
-              ios: ios?.build(
-                colors: darkColors,
-                defaultTextStyle: defaultTextTheme,
-              ),
-              android: android?.build(
-                colors: darkColors,
-                defaultTextStyle: defaultTextTheme,
-              ),
-              web: web?.build(
-                colors: darkColors,
-                defaultTextStyle: defaultTextTheme,
-              ),
-            )
-          : null,
+      lightTheme:
+          lightColors != null
+              ? ApparenceKitThemeAdaptive(
+                ios: ios?.build(
+                  colors: lightColors,
+                  defaultTextStyle: defaultTextTheme,
+                ),
+                android: android?.build(
+                  colors: lightColors,
+                  defaultTextStyle: defaultTextTheme,
+                ),
+                web: web?.build(
+                  colors: lightColors,
+                  defaultTextStyle: defaultTextTheme,
+                ),
+              )
+              : null,
+      darkTheme:
+          darkColors != null
+              ? ApparenceKitThemeAdaptive(
+                ios: ios?.build(
+                  colors: darkColors,
+                  defaultTextStyle: defaultTextTheme,
+                ),
+                android: android?.build(
+                  colors: darkColors,
+                  defaultTextStyle: defaultTextTheme,
+                ),
+                web: web?.build(
+                  colors: darkColors,
+                  defaultTextStyle: defaultTextTheme,
+                ),
+              )
+              : null,
     );
   }
 
@@ -164,10 +164,7 @@ class AppTheme with ChangeNotifier {
     }
     return darkThemeData.copyWith(
       brightness: Brightness.dark,
-      extensions: [
-        darkTheme!.colors,
-        darkTheme!.textTheme,
-      ],
+      extensions: [darkTheme!.colors, darkTheme!.textTheme],
     );
   }
 
@@ -177,10 +174,7 @@ class AppTheme with ChangeNotifier {
     }
     return lightThemeData.copyWith(
       brightness: Brightness.light,
-      extensions: [
-        lightTheme!.colors,
-        lightTheme!.textTheme,
-      ],
+      extensions: [lightTheme!.colors, lightTheme!.textTheme],
     );
   }
 

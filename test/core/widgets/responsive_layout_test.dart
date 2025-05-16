@@ -1,4 +1,4 @@
-import 'package:demo_flutter_cursor/core/widgets/responsive_layout.dart';
+import 'package:demo_flutter_cursor/core/ui/widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -8,19 +8,16 @@ void main() {
   group('Small device', () {
     testWidgets('Add a small child widget => shows correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: ResponsiveLayout(
-            small: Text('small'),
-          ),
-        ),
+        const MaterialApp(home: ResponsiveLayout(small: Text('small'))),
       );
       expect(find.text('small'), findsOneWidget);
     });
   });
 
   group('desktop device', () {
-    testWidgets('Add small, medium, large child widget only => shows large',
-        (tester) async {
+    testWidgets('Add small, medium, large child widget only => shows large', (
+      tester,
+    ) async {
       await tester.setScreenSize(desktopDeviceSpec);
       await tester.pumpWidget(
         const MaterialApp(
@@ -34,15 +31,12 @@ void main() {
       expect(find.text('large'), findsOneWidget);
     });
 
-    testWidgets('Add a small child widget only => shows correctly',
-        (tester) async {
+    testWidgets('Add a small child widget only => shows correctly', (
+      tester,
+    ) async {
       await tester.setScreenSize(desktopDeviceSpec);
       await tester.pumpWidget(
-        const MaterialApp(
-          home: ResponsiveLayout(
-            small: Text('small'),
-          ),
-        ),
+        const MaterialApp(home: ResponsiveLayout(small: Text('small'))),
       );
       expect(find.text('small'), findsOneWidget);
     });
