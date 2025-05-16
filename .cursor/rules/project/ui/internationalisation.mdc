@@ -1,6 +1,6 @@
 ---
-description: Guidelines for Flutter and Dartr
-globs: **/ui/**/*.dart
+description: Describe how internationalization works in this project and how to handle strings / labels displayed in widgets
+globs: 
 alwaysApply: false
 ---
 # Internationalization in the project

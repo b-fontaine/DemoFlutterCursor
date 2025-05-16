@@ -62,14 +62,14 @@ class DeviceRepository {
     await _removeFromPrefs();
   }
 
-  void onTokenUpdate(OnTokenRefreshCallback onTokenRefresh) {
+  void initTokenUpdate() {
     _deviceApi.onTokenRefresh((token) async {
       final device = await _getFromPrefs();
       if (device == null) {
         return;
       }
       final updatedDevice = device.copyWith(token: token);
-      onTokenRefresh(Device.fromDTO(updatedDevice));
+      updateToken(updatedDevice.token);
     });
   }
 

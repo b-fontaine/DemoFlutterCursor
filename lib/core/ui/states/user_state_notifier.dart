@@ -1,47 +1,40 @@
-import 'package:demo_flutter_cursor/core/data/repositories/authentication_repository.dart';
-import 'package:demo_flutter_cursor/core/data/repositories/device_repository.dart';
-import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
-import 'package:demo_flutter_cursor/core/domain/models/device/device.dart';
+import 'package:demo_flutter_cursor/core/domain/models/auth/authentication_mode.dart';
 import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/delete_account_use_case.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/get_user_use_case.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/load_user_use_case.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/logout_use_case.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/register_device_use_case.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/set_user_onboarded_use_case.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_service.dart';
 import 'package:demo_flutter_cursor/core/ui/states/models/user_state.dart';
 import 'package:demo_flutter_cursor/environnements.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 final userStateNotifierProvider =
     StateNotifierProvider<UserStateNotifier, UserState>(
       (ref) => UserStateNotifier(
-        authenticationRepository: ref.read(authRepositoryProvider),
-        userRepository: ref.read(userRepositoryProvider),
-        deviceRepository: ref.read(deviceRepositoryProvider),
+        loadUserUseCase: ref.read(loadUserUseCaseProvider),
+        deleteAccountUseCase: ref.read(deleteAccountUseCaseProvider),
+        logoutUseCase: ref.read(logoutUseCaseProvider),
+        registerDeviceUseCase: ref.read(registerDeviceUseCaseProvider),
+        getUserUseCase: ref.read(getUserUseCaseProvider),
+        setUserOnboardedUseCase: ref.read(setUserOnboardedUseCaseProvider),
         mode: ref.read(environmentProvider).authenticationMode,
       ),
     );
-
-/// This enum is used to parameter the list of the authentication mode
-///
-/// Most of apps try to not force user to create an account to access the app
-/// But you may want to force the user to be authenticated to access the app
-enum AuthenticationMode {
-  /// By default the user will be authenticated anonymously
-  /// This means that the user can access your app without login
-  /// He will be able to link his account later to an email or social login
-  anonymous,
-
-  /// The user requires to be authenticated to access the app
-  /// By default the user won't have any identity
-  authRequired,
-}
 
 /// This class is responsible for managing the state of the user over the app.
 /// It will be used to know if the user is connected or not and to get the user
 class UserStateNotifier extends StateNotifier<UserState>
     implements OnStartService {
-  final AuthenticationRepository _authenticationRepository;
-  final DeviceRepository _deviceRepository;
-  final UserRepository _userRepository;
+  final LoadUserUseCase _loadUserUseCase;
+  final DeleteAccountUseCase _deleteAccountUseCase;
+  final LogoutUseCase _logoutUseCase;
+  final RegisterDeviceUseCase _registerDeviceUseCase;
+  final GetUserUseCase _getUserUseCase;
+  final SetUserOnboardedUseCase _setUserOnboardedUseCase;
   final Logger _logger;
 
   /// The authentication mode of the app
@@ -49,33 +42,29 @@ class UserStateNotifier extends StateNotifier<UserState>
   final AuthenticationMode mode;
 
   UserStateNotifier({
-    required AuthenticationRepository authenticationRepository,
-    required DeviceRepository deviceRepository,
-    required UserRepository userRepository,
+    required LoadUserUseCase loadUserUseCase,
+    required DeleteAccountUseCase deleteAccountUseCase,
+    required LogoutUseCase logoutUseCase,
+    required RegisterDeviceUseCase registerDeviceUseCase,
+    required GetUserUseCase getUserUseCase,
+    required SetUserOnboardedUseCase setUserOnboardedUseCase,
     Logger? logger,
     this.mode = AuthenticationMode.anonymous,
-  }) : _authenticationRepository = authenticationRepository,
-       _userRepository = userRepository,
-       _deviceRepository = deviceRepository,
+  }) : _loadUserUseCase = loadUserUseCase,
+       _deleteAccountUseCase = deleteAccountUseCase,
+       _logoutUseCase = logoutUseCase,
+       _registerDeviceUseCase = registerDeviceUseCase,
+       _getUserUseCase = getUserUseCase,
+       _setUserOnboardedUseCase = setUserOnboardedUseCase,
        _logger = logger ?? Logger(),
        super(const UserState(user: User.loading()));
 
   @override
   Future<void> init() async {
-    try {
-      await _loadState();
-    } catch (e, stacktrace) {
-      _logger.e(e, stackTrace: stacktrace);
-      if (kDebugMode) {
-        // we automatically logout the user if an error occurs in debug mode
-        // customize this behavior to fit your needs
-        _authenticationRepository.logout();
-      }
-      rethrow;
-    }
+    await _loadState();
+
     assert(state.user is! LoadingUserData, 'UserStateNotifier is not ready');
-    await _initDeviceRegistration();
-    _deviceRepository.onTokenUpdate(_onUpdateToken);
+    await _registerDeviceUseCase(state.user.idOrNull);
   }
 
   /// This function is called when the user click on the signin button
@@ -84,14 +73,18 @@ class UserStateNotifier extends StateNotifier<UserState>
   Future<void> onSignin() async {
     state = const UserState(user: User.loading());
     await _loadState();
-    await _initDeviceRegistration();
+    await _registerDeviceUseCase(state.user.idOrNull);
   }
 
   /// Set the user as onboarded in the database
   /// This function is called when the user has completed the onboarding
   Future<void> onOnboarded() async {
-    final newUser = await _userRepository.setOnboarded(state.user);
-    state = state.copyWith(user: newUser);
+    try {
+      final newUser = await _setUserOnboardedUseCase(state.user);
+      state = state.copyWith(user: newUser);
+    } catch (e) {
+      _logger.e(e);
+    }
   }
 
   /// This function is called when the user click on the logout button
@@ -99,12 +92,14 @@ class UserStateNotifier extends StateNotifier<UserState>
   /// and logout the user
   Future<void> onLogout() async {
     final userId = state.user.idOrThrow;
-    _deviceRepository.removeTokenUpdateListener();
-    await _deviceRepository.unregister(userId);
-    await _authenticationRepository.logout();
+    try {
+      await _logoutUseCase(userId);
+    } catch (e) {
+      _logger.e(e);
+    }
     state = const UserState(user: User.anonymous());
     if (mode == AuthenticationMode.anonymous) {
-      await _loadAnonymousState();
+      await _loadState();
     }
   }
 
@@ -115,9 +110,12 @@ class UserStateNotifier extends StateNotifier<UserState>
 
   /// Refresh the user
   Future<void> refresh() async {
-    final user = await _userRepository.get(state.user.idOrThrow);
-
-    state = state.copyWith(user: user ?? const User.anonymous());
+    try {
+      final user = await _getUserUseCase(state.user.idOrThrow);
+      state = state.copyWith(user: user ?? const User.anonymous());
+    } catch (e) {
+      _logger.e(e);
+    }
   }
 
   /// Apple store and Google play stores requires you to be able to delete a user account on demand
@@ -126,17 +124,14 @@ class UserStateNotifier extends StateNotifier<UserState>
   Future<void> deleteAccount() async {
     try {
       final userId = state.user.idOrThrow;
-      _deviceRepository.removeTokenUpdateListener();
-      await _deviceRepository.unregister(userId);
-      await _userRepository.delete();
-      await _authenticationRepository.logout();
+      await _deleteAccountUseCase(userId);
     } catch (e) {
       _logger.e(e);
     }
     state = const UserState(user: User.anonymous());
 
     if (mode == AuthenticationMode.anonymous) {
-      await _loadAnonymousState();
+      await _loadState();
     }
   }
 
@@ -144,76 +139,9 @@ class UserStateNotifier extends StateNotifier<UserState>
   // PRIVATES
   // -------------------------------
 
-  /// load anonymous state for the user
-  Future<void> _loadAnonymousState() async {
-    await _authenticationRepository.signupAnonymously();
-    await Future.delayed(const Duration(seconds: 1));
-    final credentials = await _authenticationRepository.get();
-    var user = await _userRepository.get(credentials!.id);
-
-    // if the user is still null you certainly have an issue with your user creation trigger
-    if (user == null) {
-      user = User.anonymous(
-        id: credentials.id,
-        creationDate: DateTime.now(),
-        lastUpdateDate: DateTime.now(),
-        onboarded: false,
-      );
-      await _userRepository.create(user);
-    }
-    state = state.copyWith(user: user);
-  }
-
   /// Load the state of the user
   Future<void> _loadState() async {
-    final credentials = await _authenticationRepository.get();
-
-    if (credentials == null && mode == AuthenticationMode.anonymous) {
-      _logger.i('Anonymous user mode activated, signup anonymously');
-      await _loadAnonymousState();
-    } else if (credentials == null && mode == AuthenticationMode.authRequired) {
-      _logger.i('Authentification required, user is not connected');
-      state = state.copyWith(user: const User.anonymous());
-    } else if (credentials != null) {
-      _logger.i('User is connected with id ${credentials.id}');
-      // I like to save a User automatically when the user is authenticated
-      // Using firestore you can create a trigger to do this with the same document ID as the credentials
-      final user = await _userRepository.get(credentials.id);
-      if (user == null) {
-        throw Exception('''
-User infos not found. If you are using firebase \r\n 
-- Check that you have correctly installed firebase functions
-If you are using supabase
-- Check that you have properly run the setup script
-        ''');
-      }
-      state = state.copyWith(user: user);
-    }
-  }
-
-  /// If user has an ID we will register his device to send notifications from
-  /// the server to the device (only if user has accepted them)
-  /// Maybe save your device in UserState if you need it in your app
-  Future<void> _initDeviceRegistration() async {
-    final userId = state.user.idOrNull;
-    if (userId == null) {
-      return;
-    }
-    try {
-      final _ = await _deviceRepository.register(userId);
-    } catch (err, stacktrace) {
-      _logger.e(err, stackTrace: stacktrace);
-      _logger.e('''
-          ❌ Your device seems not to be registered.
-          Check that you correctly setup a device registration API
-          see: `lib/modules/notifications/api/device_api.dart`
-        ''');
-    }
-  }
-
-  /// This function is called when the device token is updated
-  /// It will update the token in the database
-  Future<void> _onUpdateToken(Device device) async {
-    await _deviceRepository.updateToken(device.token);
+    final user = await _loadUserUseCase();
+    state = state.copyWith(user: user);
   }
 }

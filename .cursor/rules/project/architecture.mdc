@@ -12,15 +12,18 @@ Here is an overview of the folder structure of the project:
 
 lib
 ├── core
-│   ├── data 
+│   ├── data // Data layer for core, described in [data_architecture.mdc](mdc:.cursor/rules/project/data/data_architecture.mdc)
 │   │   ├── api // httpclient and api extensions + core api (if an api is used by multiple modules we put it here)
 │   │   │   └── dto // function to help you create entities from json and common entities used by multiple modules
 │   │   ├── models // Domain models used by multiple modules
 │   │   ├── repositories // Domain models used by multiple modules
 │   │   └── storage // Classes that manage local storage (Dao, shared_preferences etc.)
+│   ├── domain // Domain layer for core, described in [domain_architecture.mdc](mdc:.cursor/rules/project/domain/domain_architecture.mdc)
+│   │   │   ├── models // Specific models used in this module
+│   │   │   └── repositories // Definition of repositories used in this module
 │   ├── initializer // app initializer class definitions 
 │   │   └── models
-│   └── ui
+│   └── ui // Ui layer for core, described in [ui_architecture.mdc](mdc:.cursor/rules/project/ui/ui_architecture.mdc)
 │       ├── states // contains all global states (user states)
 │       │   └── models // models used by thoses states
 │       ├── theme // Defines the theme used in the app (colors, font, sizes, widget style etc.)
@@ -33,10 +36,10 @@ lib
         │   └── repositories // Implementations of repositories used in this module
         ├── domain // Domain layer, described in [domain_architecture.mdc](mdc:.cursor/rules/project/domain/domain_architecture.mdc)
         │   ├── models // Specific models used in this module
-        │   └── repositories // Definition of repositories used in this module
+        │   └── usecases // Definition of use cases used in this module
         ├── ui // Ui layer, described in [ui_architecture.mdc](mdc:.cursor/rules/project/ui/ui_architecture.mdc)
-        │   ├── providers // UI notifier (like a presenter) returns the page state
-        │   ├── models // models for our page state
+        │   ├── providers // Riverpod state notifier that returns a page / component state
+        │   │   └── models // models for our page state
         │   ├── component // a component use a provider and domain  
         │   └── widgets // a widget is dumb and is used only for simple data presentation using Flutter
         └── module_1_page.dart // Page widget, entry point for this module from the routing. We can have several pages.

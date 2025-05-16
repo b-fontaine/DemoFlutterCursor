@@ -32,7 +32,7 @@ void main() {
   test('on token refresh, should update the device', () async {
     final deviceRepository = await init();
     await deviceRepository.register('fake_user_id');
-    deviceRepository.onTokenUpdate(
+    deviceRepository.initTokenUpdate(
       (device) => deviceRepository.updateToken(device.token),
     );
     expect(fakeDeviceApi.refreshTokenCallback, isNotNull);

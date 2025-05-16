@@ -2,7 +2,9 @@ import 'package:demo_flutter_cursor/core/data/api/http_client.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/authentication_repository.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/device_repository.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
+import 'package:demo_flutter_cursor/core/domain/models/auth/authentication_mode.dart';
 import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
+import 'package:demo_flutter_cursor/core/domain/usecases/load_user_use_case.dart';
 import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
@@ -38,10 +40,17 @@ void main() {
         userApi: FakeUserApi(storageApi: fakeStorageApi),
       );
 
+      final loadUserUseCase = LoadUserUseCase(
+        authRepository: authRepository,
+        userRepository: userRepository,
+        mode: AuthenticationMode.authRequired,
+      );
+
       return UserStateNotifier(
         authenticationRepository: authRepository,
         userRepository: userRepository,
         deviceRepository: deviceRepository,
+        loadUserUseCase: loadUserUseCase,
         mode: AuthenticationMode.authRequired,
       );
     }
@@ -119,10 +128,17 @@ void main() {
         userApi: FakeUserApi(storageApi: fakeStorageApi),
       );
 
+      final loadUserUseCase = LoadUserUseCase(
+        authRepository: authRepository,
+        userRepository: userRepository,
+        mode: AuthenticationMode.anonymous,
+      );
+
       return UserStateNotifier(
         authenticationRepository: authRepository,
         userRepository: userRepository,
         deviceRepository: deviceRepository,
+        loadUserUseCase: loadUserUseCase,
         // ignore: avoid_redundant_argument_values
         mode: AuthenticationMode.anonymous,
       );

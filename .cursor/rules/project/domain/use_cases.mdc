@@ -21,6 +21,7 @@ Use Cases are part of the domain layer and represent a specific action or busine
 
 ## Implementation
 - Each Use Case should have a `call()` method, allowing it to be invoked like a function
+- Use cases must be called as a function (ex : `final result = _myUseCase();`)
 - Inject repositories and other dependencies via constructor
 - Make dependencies `final` and private with underscore prefix
 - Return domain models, not entities or DTOs

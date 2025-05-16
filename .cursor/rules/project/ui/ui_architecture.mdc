@@ -3,11 +3,13 @@ description:
 globs: **/ui/**/*.dart
 alwaysApply: false
 ---
-### 3. The presentation layer (VIEW)
-- This is the last layer that will display the data to the user.
-- It relies on repositories to get the data or do any other actions.
-- our view will listen to an immutable state object from the Riverpod notifier
+
+- The UI layer is responsible to display the data to the user.
+- It relies on repositories and use cases to get the data or do any other actions.
+- our view will listen to an immutable state object from Riverpod state notifiers
 - view can trigger actions that will update the state object
+- The notifier state is using freezed for immutability 
+- it will be located in module folder then > providers 
 
 Example of page notifier 
 
@@ -35,8 +37,7 @@ class FeedbackPageNotifier extends _$FeedbackPageNotifier {
   }
 }
 ```
-- The notifier state is using freezed for immutability 
-- it will be located in module folder then > providers 
+
 
 We will then use this notifier within our page using "ref.watch(feedbackPageNotifierProvider);"
 
