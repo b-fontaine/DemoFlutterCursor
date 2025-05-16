@@ -2,7 +2,7 @@ import 'package:demo_flutter_cursor/core/data/repositories/device_repository.dar
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/device_api_fake.dart';
+import '../api/device_api_fake.dart';
 
 void main() {
   final fakeDeviceApi = FakeDeviceApi();
@@ -32,9 +32,7 @@ void main() {
   test('on token refresh, should update the device', () async {
     final deviceRepository = await init();
     await deviceRepository.register('fake_user_id');
-    deviceRepository.initTokenUpdate(
-      (device) => deviceRepository.updateToken(device.token),
-    );
+    deviceRepository.initTokenUpdate();
     expect(fakeDeviceApi.refreshTokenCallback, isNotNull);
     fakeDeviceApi.refreshTokenCallback!("updated_token");
     await Future.delayed(const Duration(milliseconds: 100));

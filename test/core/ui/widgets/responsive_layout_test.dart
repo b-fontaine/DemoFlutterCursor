@@ -2,7 +2,7 @@ import 'package:demo_flutter_cursor/core/ui/widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../device_test_utils.dart';
+import '../../../device_test_utils.dart';
 
 void main() {
   group('Small device', () {

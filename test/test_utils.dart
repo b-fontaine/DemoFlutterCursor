@@ -23,7 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/data/api/storage_api_fake.dart';
 import 'core/data/storage/auth_secured_storage_fake.dart';
-import 'core/device/data/device_api_fake.dart';
+import 'core/data/api/device_api_fake.dart';
 import 'modules/authentication/data/api/auth_api_fake.dart';
 import 'modules/authentication/data/api/user_api_fake.dart';
 
