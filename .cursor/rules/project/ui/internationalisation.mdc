@@ -5,7 +5,27 @@ alwaysApply: false
 ---
 # Internationalization in the project
 
+## IMPORTANT: This rule MUST be followed for ALL user-facing text in the application
+
 Internationalization in this project is managed with the **Slang** library, which allows defining typed translations in Dart.
+
+## Overview
+
+All text displayed to users in the application MUST use the Slang internationalization system rather than hardcoded strings. This includes:
+- Labels in widgets
+- Button text
+- Dialog content
+- Error messages
+- Tooltips
+- Any other user-facing text
+  
+When adding a new string to the UI:
+
+1. **NEVER** use hardcoded strings in widgets
+2. Add new keys and translations to `lib/i18n/strings.i18n.json`
+3. Organize translations hierarchically by module/feature
+4. Run `dart run slang` to regenerate translation files
+5. Use context-based access in widgets: `context.t.section.title`
 
 ## File structure
 
@@ -90,3 +110,36 @@ Text(t.section.title)
 3. Group translations by module/feature in the JSON file
 4. Use variables for dynamic values instead of concatenating strings
 5. Never manually modify generated files (translations.g.dart)
+
+## Anti-patterns to avoid
+
+❌ **INCORRECT**:
+```dart
+// Using static string constants or string classes
+class SettingsStrings {
+  static const themeTitle = 'Theme';
+}
+
+// Direct hardcoded strings
+Text('Theme')
+```
+
+✅ **CORRECT**:
+```dart
+// Using the translation system
+Text(context.t.settings.theme.title)
+```
+
+### Testing Guidelines
+
+1. In tests, import the translation system and use it to validate UI elements
+2. When writing widget tests, remember to wrap with TranslationProvider or mock as needed
+3. Use the translation keys rather than hardcoded strings when testing for text
+
+### Migration
+
+When encountering hardcoded strings or `*Strings` classes:
+1. Add proper translations to `lib/i18n/strings.i18n.json`
+2. Replace string usage with translation keys
+3. Remove any unnecessary string constant classes
+4. Run `dart run slang` to update generated files

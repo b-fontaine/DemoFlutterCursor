@@ -2,6 +2,27 @@
     "home": {
         "title": "App example"
     },
+    "settings": {
+        "title": "Settings",
+        "account": "My account",
+        "theme": {
+            "title": "Theme",
+            "light": "Light",
+            "dark": "Dark"
+        },
+        "actions": {
+            "send_feedback": "Send feedback",
+            "privacy_policy": "Privacy policy",
+            "support": "Support",
+            "disconnect": "Disconnect"
+        },
+        "disconnect_dialog": {
+            "title": "Disconnect",
+            "message": "Are you sure you want to disconnect?",
+            "cancel": "Cancel",
+            "confirm": "Disconnect"
+        }
+    },
     "rate_popup": {
         "title": "Would you have 15s to rate us?",
         "description": "It's fast and very helpful! Thanks a lot!",

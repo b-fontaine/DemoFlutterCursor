@@ -3,6 +3,7 @@ import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dar
 import 'package:demo_flutter_cursor/modules/settings/ui/components/avatar_component.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/components/delete_user_component.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/settings_tile.dart';
+import 'package:demo_flutter_cursor/modules/settings/ui/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -38,6 +39,8 @@ class SettingsPage extends ConsumerWidget {
             SettingsContainer(
               child: Wrap(
                 children: [
+                  Divider(color: Colors.blueGrey.withValues(alpha: .10)),
+                  const ThemeSwitcher(),
                   Divider(color: Colors.blueGrey.withValues(alpha: .10)),
                   SettingsTile(
                     icon: Icons.message_rounded,

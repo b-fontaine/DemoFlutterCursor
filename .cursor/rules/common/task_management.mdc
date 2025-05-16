@@ -29,6 +29,8 @@ Before making any changes:
      - Mark task as in-progress
      - Track completion of sub-tasks
      - Document any blockers
+     - When the task is completed, move it in section "Completed features"
+     - Always make updates in english in file
   
   4. IMPLEMENT following TDD:
      - Create test files first

@@ -1,7 +1,6 @@
-
 # Task : Add a theme switcher
 
-Status: Pending
+Status: Completed
 Priority: High
 Dependencies: None
 

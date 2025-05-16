@@ -5,10 +5,11 @@
 - Authentication
 - Home
 - Settings
+- Theme switcher 
 
 ## In progress
 
 ## Pending features
-- Theme switcher 
 
 ## Known issues
+
