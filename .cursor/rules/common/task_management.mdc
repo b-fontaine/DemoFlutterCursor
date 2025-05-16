@@ -1,20 +1,36 @@
 ---
-description: global app context
+description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
-## Project description
+# Task management
 
-## Expected workflow
-- review feature requirements
-- plan implementation
-- update schema if needed 
-- implement core functionality
+This file describes how to manage tasks described in .status/tasks
 
-Please think out loud and provide 
-- Overview of completed work
-- Rationale for decision
-- next steps checklist
+Before making any changes:
+- Check current task context from .status/tasks
+- Update progress in [status.md](mdc:.status/status.md)
 
-You must ensure 
-- when implementing new feature it doesn't break existing feature
+## Required files and folders
+  - .status/tasks: Current development tasks and requirements, source of tasks definitions
+  - [status.md](mdc:.status/status.md) : Project progress and state
+  
+## Workflow steps
+  1. READ tasks in .status/tasks folder :
+     - Parse current task requirements
+     - Extract acceptance criteria
+     - Identify dependencies
+  
+  2. VALIDATE against Cursor rules defined in .cursor/rules :
+     - Confirm architectural alignment
+     - Check component interactions
+  
+  3. UPDATE [status.md](mdc:.status/status.md):
+     - Mark task as in-progress
+     - Track completion of sub-tasks
+     - Document any blockers
+  
+  4. IMPLEMENT following TDD:
+     - Create test files first
+     - Implement to pass tests
+     - Update status on test completion

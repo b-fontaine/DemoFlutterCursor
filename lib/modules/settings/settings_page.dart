@@ -1,6 +1,5 @@
 import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dart';
-import 'package:demo_flutter_cursor/core/ui/theme/providers/theme_provider.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/components/avatar_component.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/components/delete_user_component.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/settings_tile.dart';
@@ -39,7 +38,6 @@ class SettingsPage extends ConsumerWidget {
             SettingsContainer(
               child: Wrap(
                 children: [
-                  const ThemeSwitcher(),
                   Divider(color: Colors.blueGrey.withValues(alpha: .10)),
                   SettingsTile(
                     icon: Icons.message_rounded,
@@ -169,45 +167,6 @@ class ProfileTile extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ThemeSwitcher extends StatefulWidget {
-  const ThemeSwitcher({super.key});
-
-  @override
-  State<ThemeSwitcher> createState() => _ThemeSwitcherState();
-}
-
-class _ThemeSwitcherState extends State<ThemeSwitcher> {
-  bool darkMode = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      darkMode = ThemeProvider.of(context).mode == ThemeMode.dark;
-      setState(() {});
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SwitchListTile(
-      value: darkMode,
-      onChanged: (value) {
-        setState(() {
-          darkMode = value;
-        });
-        ThemeProvider.of(context).toggle();
-      },
-      title: Text(
-        "Light/Dark mode",
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
       ),
     );
   }

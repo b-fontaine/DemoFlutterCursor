@@ -12,4 +12,5 @@ alwaysApply: false
 - Create necessary types
 - One export per file
 - Prefer super contructor
-- packages name must be in plural when possible
+- packages name must be in plural
+- Tests must be written using TDD when possible
