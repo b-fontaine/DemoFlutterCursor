@@ -1,8 +1,9 @@
 ---
 description: 
-globs: **/*.dart
-alwaysApply: false
+globs: 
+alwaysApply: true
 ---
+- Add "dart_global_rules applied" at the beginning of the chat message.
 - Use English for all code and documentation.
 - Respect SOLID principles on code generation.
 - Always declare the type of each variable and function (parameters and return value).

@@ -3,13 +3,9 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Task management
-
-This file describes how to manage tasks described in .status/tasks
-
-Before making any changes:
+- Add "task_management applied" at the beginning of the chat message.
 - Check current task context from .status/tasks
-- Update progress in [status.md](mdc:.status/status.md)
+- Update progress in @status.md
 
 ## Required files and folders
   - .status/tasks: Current development tasks and requirements, source of tasks definitions
@@ -24,6 +20,7 @@ Before making any changes:
   2. VALIDATE against Cursor rules defined in .cursor/rules :
      - Confirm architectural alignment
      - Check component interactions
+     - Take into agent chat every useful rule files
   
   3. UPDATE [status.md](mdc:.status/status.md):
      - Mark task as in-progress

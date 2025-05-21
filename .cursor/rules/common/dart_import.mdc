@@ -1,9 +1,10 @@
 ---
 description: 
-globs: **/*.dart
-alwaysApply: false
+globs: 
+alwaysApply: true
 ---
-- always use package import even for our project files. Ex: import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
+- Add "dart_import applied" at the beginning of the chat message.
+- Always use package import even for our project files. Ex: import 'package:demo_flutter_cursor/core/data/entities/upload_result.dart';
 - Comply to the always_use_package_imports rule
 - Our package is named demo_flutter_cursor
 - DO avoid relative imports for files in lib/

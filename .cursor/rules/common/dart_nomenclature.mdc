@@ -1,8 +1,9 @@
 ---
 description: 
-globs: **/*.dart
-alwaysApply: false
+globs: 
+alwaysApply: true
 ---
+- Add "dart_nomenclature applied" at the beginning of the chat message.
 - Use PascalCase for classes.
 - Use camelCase for variables, functions, and methods.
 - Use underscores_case for file and directory names.

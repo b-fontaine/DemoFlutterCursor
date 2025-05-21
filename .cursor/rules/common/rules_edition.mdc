@@ -3,6 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
+- Add "rule_edition applied" at the beginning of the chat message.
 - Rules must be written in .cursor/rules files
 - Cursor rules files must be .mdc files.
 - Always write or edit Cursor rules in english
