@@ -10,4 +10,4 @@ alwaysApply: true
 - Use the method beforeTest or afterTest when possible.
 - Instanciate the tested class using fakes (see [tests_fakes.mdc](mdc:.cursor/rules/unit_tests/tests_fakes.mdc))
   
-Example : [exemple_repository_test.dart](mdc:.cursor/rules/unit_tests/templates/exemple_repository_test.dart)
+Example : [exemple_repository_test.dart](mdc:.cursor/rules/templates/exemple_repository_test.dart)

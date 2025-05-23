@@ -1,0 +1,75 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Test-Driven Development (TDD) Approach
+
+- Add "tdd_approach applied" at the beginning of the chat message.
+
+## TDD Principles
+1. **RED**: Write a failing test first
+2. **GREEN**: Write the minimum code needed to make the test pass
+3. **REFACTOR**: Improve the code while keeping tests passing
+
+## Strict TDD Workflow for Each Feature
+1. **BEFORE ANY IMPLEMENTATION**:
+   - Create the test file for each business class to implement (repository, use case, etc.)
+   - Define test cases that cover all expected behaviors of the class
+   - Write the failing tests
+   
+2. **IMPLEMENTATION PHASE**:
+   - Create the minimal implementation to make tests pass
+   - Run tests frequently to verify progress
+   - Only when all tests pass, proceed to refactoring
+   
+3. **REFACTORING PHASE**:
+   - Improve code quality, structure, and readability
+   - Run tests after each refactoring to ensure functionality remains intact
+
+## Rules for Test Creation
+
+### Use Fakes, Not Mocks
+- NEVER use mockito or any mocking library in tests
+- Create fake implementations for all dependencies (API, Repository, Use Cases)
+- Fakes should be created in the test folder with the same package structure as the real implementation
+- See [tests_fakes.mdc](mdc:.cursor/rules/unit_tests/tests_fakes.mdc) for specific rules on creating fakes
+
+### Test Order
+- Tests must be created in the following order:
+  1. Repository tests first
+  2. Use case tests second
+  3. State notifier tests third
+  4. Widget tests last
+
+### Mandatory Tests for Each Layer
+- **Repository Tests**: Test data transformation and API interactions
+- **Use Case Tests**: Test business logic
+- **State Notifier Tests**: Test state management logic
+- **Widget Tests**: Test UI behavior and integration
+
+### TDD Checklist
+✓ Tests are written before implementation
+✓ All test files are created at the start of feature development  
+✓ All tests initially fail (RED phase)
+✓ Implementation is done incrementally to make tests pass (GREEN phase)
+✓ Code is refactored only after tests pass (REFACTOR phase)
+✓ All edge cases are covered by tests
+✓ Fakes are used instead of mocks for all dependencies
+
+## TDD Commit Strategy
+- Make separate commits for:
+  1. Test creation (RED phase)
+  2. Implementation to pass tests (GREEN phase)
+  3. Code refactoring (REFACTOR phase)
+
+## Documentation
+- Document the TDD process in code comments
+- Add `@TDDStep(step: "RED|GREEN|REFACTOR")` annotations to key methods
+
+## Examples
+1. **RED phase example**: Write test that expects a repository to return tasks
+2. **GREEN phase example**: Implement minimal repository that returns mock tasks
+3. **REFACTOR phase example**: Improve error handling and code structure
+
+Remember: "The test drives the code, not the other way around."

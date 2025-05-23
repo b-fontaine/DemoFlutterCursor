@@ -12,7 +12,7 @@ alwaysApply: true
 - Name the implementation `{Example}ApiImpl`
 - Name the provider `{example}ApiProvider`
 - Only repositories must be able to use Api
-- Create an abstract class to define the API interface and implement this interface with a concrete class
+- Create an abstract class to define the API interface, and implement this interface with a concrete class
 - Use flutter_riverpod to provide the API instance
 - Use specific types and avoid `dynamic`
 - Handle errors properly with try/catch

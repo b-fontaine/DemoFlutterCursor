@@ -6,6 +6,7 @@ alwaysApply: true
 # DTO Creation Guidelines
 
 - Add "dto_implementation applied" at the beginning of the chat message.
+- Use the following example to create a DTO class : [exemple_dto.dart](mdc:.cursor/rules/templates/exemple_dto.dart).
 
 ## Naming Conventions
 - Name entities with the suffix `DTO` (e.g., `UserDTO`, `DeviceDTO`)
@@ -16,6 +17,7 @@ alwaysApply: true
 
 ### 1. Use @freezed Annotation
 - Use the `@freezed` annotation from the `freezed_annotation` package for immutability and code generation
+- NEVER create a DTO without freezed, even if there is a bug.
 - Add the appropriate part statements:
   ```dart
   part '{dto_name}.freezed.dart';
@@ -31,11 +33,12 @@ alwaysApply: true
   @JsonKey(name: 'field_name_in_json')
   @JsonKey(includeIfNull: false)
   ```
-- Use appropriate converters for special types (e.g., DateTime):
+- All date propeties are defined like this, using the converter `@TimestampConverter()` in [json_converter.dart](mdc:core/data/api/dto/json_converter.dart) :
   ```dart
   @TimestampConverter()
   DateTime? creationDate,
   ```
+
 
 ### 3. JSON Serialization
 - Implement a `fromJson` factory method that handles ID field mapping:
@@ -70,5 +73,5 @@ alwaysApply: true
 
 ## Example DTO
 
-- A DTO example can be found here [exemple_dto.dart](mdc:.cursor/rules/templates/exemple_dto.dart)
+- A DTO example can be found here 
 

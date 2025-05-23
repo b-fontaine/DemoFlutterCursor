@@ -3,15 +3,35 @@ description: Use when you need to add or modify fakes for unit tests
 globs:
 alwaysApply: true
 ---
-
 - Add "tests fakes applied" at the beginning of the chat message.
-- Use fake implementations in tests rather than mocks. 
-- To create a fake of an API, implements the API interface (like [exemple_api_fake.dart](mdc:.cursor/rules/unit_tests/templates/exemple_api_fake.dart)). Use the same logic for Dao classes.
-- Our fake doesn't rely on network.
-- Our fake class is used only within our test.
-- Our fake file is created in test folder and the same package as the interface (ex: lib/data/api => test/data/api)
-- Our fake class must be updated everytime its parent class has changed.
-- Fakes must be used for unit tests and widget tests.
+- NEVER use mockito or any mocking library - only use fake implementations in tests.
+- To create a fake, implement the interface directly (see templates below).
+- Fakes simpler to understand than mocks and better represent real-world behavior.
+- Fakes are more maintainable as they evolve with the interface they implement.
+
+## Creating a Fake
+- Create a class that implements the interface (ex: `ExampleApiFake implements ExampleApi`).
+- Store test data in memory (ex: `final List<ExampleDTO> _examples = [];`).
+- Add control flags for test scenarios (ex: `bool simulateError = false;`).
+- Add tracking properties for method calls (ex: `int getExamplesCallCount = 0;`).
+- Add helper methods for test setup (ex: `void addFakeExamples(List<ExampleDTO> examples)`).
+
+## Naming and Location
+- Name fakes with the `Fake` suffix (ex: `ExampleApiFake`).
+- Create fake implementations in the test folder with the same package structure as the interface.
+- Example: interface is in `lib/modules/example/data/api/example_api.dart`, fake should be in `test/modules/example/data/api/example_api_fake.dart`.
+
+## Template Examples
+- [Example API Fake](mdc:.cursor/rules/templates/example_api_fake.dart)
+- [Example Repository Fake](mdc:.cursor/rules/templates/example_repository_fake.dart)
+- [Example Use Case Fake](mdc:.cursor/rules/templates/get_examples_usecase_fake.dart)
+- [Example State Notifier Fake](mdc:.cursor/rules/templates/example_list_state_notifier_fake.dart)
+
+## Test Template Examples
+- [Repository Test with Fakes](mdc:.cursor/rules/templates/tdd_repository_test_template.dart)
+- [Use Case Test with Fakes](mdc:.cursor/rules/templates/tdd_usecase_test_template.dart)
+- [State Notifier Test with Fakes](mdc:.cursor/rules/templates/tdd_state_notifier_test_template.dart)
+- [Widget Test with Fakes](mdc:.cursor/rules/templates/tdd_widget_test_template.dart)
 
 
 
