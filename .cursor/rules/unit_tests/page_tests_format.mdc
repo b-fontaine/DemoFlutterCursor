@@ -1,9 +1,11 @@
 ---
-description: how to write unit tests
-globs: *_page.dart
+description: Use when you need to add or modify page tests
+globs:
+    - "**/*.dart"
 alwaysApply: false
 ---
 
+- Add "page tests format applied" at the beginning of the chat message.
 - A test will be described as '[CURRENT CONTEXT], [ACTION] => [EXPECTED RESULT]'
 - A test will use the pumpPage method from [test_utils.dart](mdc:test/test_utils.dart) to use fakes
 - If our context need an authenticated user we can provide it directly

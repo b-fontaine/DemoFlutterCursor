@@ -1,13 +1,12 @@
 ---
-description: Describe how to manage DTO classes creation, usage and modifications.
+description: Use when you need to implement or modify a DTO class
 globs: 
+  - "**/*_dto.dart"
 alwaysApply: false
 ---
 # DTO Creation Guidelines
 
-## General Structure
-
-DTO (data transfer objects) represent data from external sources (mostly API). They are used to serialize and deserialize data.
+- Add "dto_implementation applied" at the beginning of the chat message.
 
 ## Naming Conventions
 - Name entities with the suffix `DTO` (e.g., `UserDTO`, `DeviceDTO`)
@@ -72,5 +71,5 @@ DTO (data transfer objects) represent data from external sources (mostly API). T
 
 ## Example DTO
 
-An DTO example can be found here [exemple_dto.dart](mdc:.cursor/rules/templates/exemple_dto.dart)
+- A DTO example can be found here [exemple_dto.dart](mdc:.cursor/rules/templates/exemple_dto.dart)
 

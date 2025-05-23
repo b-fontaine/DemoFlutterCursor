@@ -1,17 +1,19 @@
 ---
-description: Describe everything related to use cases classes, how to use them and how to create / modify them.
+description: Use when you need to implement or modify a use case class
 globs: 
+  - "**/*_usecase.dart"
 alwaysApply: false
 ---
 # Use Cases
 
-Use Cases are part of the domain layer and represent a specific action or business operation that can be performed in the application.
+- Add "use_cases applied" at the beginning of the chat message.
 
 ## Principles
 - Each Use Case should do one thing and do it well (Single Responsibility Principle)
 - Use Cases are called directly by UI providers/presenters
 - Use Cases orchestrate the flow of data between UI and data layers
 - They contain business logic but delegate data operations to repositories
+- It must not manipulate DTO, only domain models
 
 ## Structure and Naming
 - Create one class per Use Case
@@ -46,30 +48,6 @@ Use Cases are part of the domain layer and represent a specific action or busine
 ## Example
 
 An example can be found here : [get_example_usecase.dart](mdc:.cursor/rules/templates/get_example_usecase.dart)
-
-```dart
-// Example of a UseCase with its Riverpod provider
-import 'package:flutter_ddd_template/domain/example/example.dart';
-import 'package:flutter_ddd_template/domain/example/example_repository.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-final getExampleUsecaseProvider = Provider<GetExampleUsecase>((ref) {
-  return GetExampleUsecase(
-    exampleRepository: ref.read(exampleRepositoryProvider),
-  );
-});
-
-class GetExampleUsecase {
-  final ExampleRepository _exampleRepository;
-
-  GetExampleUsecase({required ExampleRepository exampleRepository})
-    : _exampleRepository = exampleRepository;
-
-  Future<Example> call() async {
-    return _exampleRepository.getExample();
-  }
-}
-```
 
 ## Parameters
 - Use named parameters when a Use Case requires multiple parameters

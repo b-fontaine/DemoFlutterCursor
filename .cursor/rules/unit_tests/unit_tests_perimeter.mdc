@@ -1,6 +1,7 @@
 ---
-description: 
+description: Use when you need to add or modify unit tests
 globs: 
+    - "**/*.dart"
 alwaysApply: true
 ---
 - Unit tests must be written for every business logic classes : repositories, use cases and classes having a business value.

@@ -1,19 +1,11 @@
 ---
-description: Describe how to create, modify and use state providers classes in project
+description: Use when you need to add or modify state providers classes
 globs: 
+  - "**/ui/**/*.dart"
 alwaysApply: false
 ---
-# State Providers in Flutter Application
 
-This document describes guidelines for creating, modifying, and using state providers with Riverpod in the application.
-
-## Overview
-
-The application uses Riverpod's StateNotifier pattern for managing state. This pattern consists of three main components:
-
-1. **State Class**: An immutable class created with Freezed that represents the state.
-2. **StateNotifier**: A class that manages the state and provides methods to modify it.
-3. **Provider**: A Riverpod provider that exposes the StateNotifier to the UI.
+- Add "state_providers applied" at the beginning of the chat message.
 
 ## State Class Guidelines
 

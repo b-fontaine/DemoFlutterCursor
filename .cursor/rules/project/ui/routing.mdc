@@ -1,9 +1,12 @@
 ---
-description: Guidelines for Flutter and Dartr
-globs: **/*.dart
+description: Use when you need to add or modify page routing 
+globs: 
+  - "**/*.dart"
 alwaysApply: false
 ---
 # Routing Guidelines
+
+- Add "routing applied" at the beginning of the chat message.
 
 ## Overview
 - The application uses Go Router for navigation

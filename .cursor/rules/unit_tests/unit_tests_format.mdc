@@ -1,6 +1,7 @@
 ---
-description: how to write unit tests
-globs: *_test.dart
+description: Use when you need to add or modify unit tests
+globs: 
+    - "**/*.dart"
 alwaysApply: false
 ---
 - A test must be described as  '[CURRENT CONTEXT], [ACTION] => [EXPECTED RESULT]'.

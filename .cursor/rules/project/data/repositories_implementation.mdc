@@ -5,6 +5,8 @@ alwaysApply: false
 ---
 # Repository Implementation Rules
 
+- Add "repositories_implementation applied" at the beginning of the chat message.
+
 ## General Structure
 
 Repositories are responsible for coordinating between the data layer (API, DAO) and the domain layer. They transform DTO models into domain models and vice versa.

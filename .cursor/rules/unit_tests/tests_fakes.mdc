@@ -1,8 +1,11 @@
 ---
-description: how to write unit tests
-globs: *.dart
+description: Use when you need to add or modify fakes for unit tests
+globs:
+    - "**/*.dart"
 alwaysApply: false
 ---
+
+- Add "tests fakes applied" at the beginning of the chat message.
 - Use fake implementations in tests rather than mocks. 
 - To create a fake of an API, implements the API interface (like [exemple_api_fake.dart](mdc:.cursor/rules/unit_tests/templates/exemple_api_fake.dart)). Use the same logic for Dao classes.
 - Our fake doesn't rely on network.

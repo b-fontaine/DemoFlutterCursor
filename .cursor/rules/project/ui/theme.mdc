@@ -5,8 +5,7 @@ alwaysApply: false
 ---
 # Theme Architecture in Flutter Application
 
-## Overview
-This application uses a well-structured theme system based on Flutter's ThemeExtension capability. The theming system allows for easy customization of colors, typography, and widget styles while maintaining consistency across the application.
+- Add "theme applied" at the beginning of the chat message.
 
 ## Theme Structure
 

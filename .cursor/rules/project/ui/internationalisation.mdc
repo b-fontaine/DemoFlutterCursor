@@ -1,9 +1,12 @@
 ---
-description: Describe how internationalization works in this project and how to handle strings / labels displayed in widgets
+description: Use when you need to add or modify text displayed in the UI (labels, buttons, dialogs, etc.)
 globs: 
+  - "**/*.dart"
 alwaysApply: false
 ---
 # Internationalization in the project
+
+- Add "internationalisation applied" at the beginning of the chat message.
 
 ## IMPORTANT: This rule MUST be followed for ALL user-facing text in the application
 

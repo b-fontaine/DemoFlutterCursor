@@ -5,6 +5,8 @@ alwaysApply: false
 ---
 # Domain Model Creation Guidelines
 
+- Add "domain_models applied" at the beginning of the chat message.
+
 ## General Structure
 
 Domain models are the core business objects of the application. Unlike DTOs which are focused on data transfer, domain models encapsulate business logic and represent business concepts.
