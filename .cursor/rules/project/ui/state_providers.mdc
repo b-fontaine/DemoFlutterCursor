@@ -1,7 +1,7 @@
 ---
 description: Use when you need to add or modify state providers classes
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 
 - Add "state_providers applied" at the beginning of the chat message.

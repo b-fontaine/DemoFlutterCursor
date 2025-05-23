@@ -1,7 +1,7 @@
 ---
 description: Use when you need to implement or modify a DTO class
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # DTO Creation Guidelines
 

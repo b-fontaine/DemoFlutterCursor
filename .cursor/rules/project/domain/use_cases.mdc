@@ -1,7 +1,7 @@
 ---
 description: Use when you need to implement or modify a use case class
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # Use Cases
 

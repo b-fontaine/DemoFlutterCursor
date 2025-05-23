@@ -1,8 +1,7 @@
 ---
 description: Use when you need to add or modify unit tests
 globs: 
-    - "**/*.dart"
-alwaysApply: false
+alwaysApply: true
 ---
 - A test must be described as  '[CURRENT CONTEXT], [ACTION] => [EXPECTED RESULT]'.
 - A comment "Given" must be added at the beginning of the test 

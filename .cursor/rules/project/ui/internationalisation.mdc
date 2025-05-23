@@ -1,7 +1,7 @@
 ---
 description: Use when you need to add or modify text displayed in the UI (labels, buttons, dialogs, etc.)
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # Internationalization in the project
 

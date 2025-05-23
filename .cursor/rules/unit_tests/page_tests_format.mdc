@@ -1,8 +1,7 @@
 ---
 description: Use when you need to add or modify page tests
 globs:
-    - "**/*.dart"
-alwaysApply: false
+alwaysApply: true
 ---
 
 - Add "page tests format applied" at the beginning of the chat message.

@@ -4,32 +4,20 @@ globs:
 alwaysApply: true
 ---
 - Add "task_management applied" at the beginning of the chat message.
-- Check current task context from .status/tasks
-- Update progress in @status.md
 
 ## Required files and folders
   - .status/tasks: Current development tasks and requirements, source of tasks definitions
   - [status.md](mdc:.status/status.md) : Project progress and state
   
 ## Workflow steps
-  1. READ tasks in .status/tasks folder :
-     - Parse current task requirements
-     - Extract acceptance criteria
-     - Identify dependencies
-  
-  2. VALIDATE against Cursor rules defined in .cursor/rules :
-     - Confirm architectural alignment
-     - Check component interactions
-     - Take into agent chat every useful rule files
-  
-  3. UPDATE [status.md](mdc:.status/status.md):
-     - Mark task as in-progress
-     - Track completion of sub-tasks
-     - Document any blockers
-     - When the task is completed, move it in section "Completed features"
-     - Always make updates in english in file
-  
-  4. IMPLEMENT following TDD:
-     - Create test files first
-     - Implement to pass tests
-     - Update status on test completion
+  1. Read task requirements, extract acceptance criteria and identify dependencies
+  2. Update [status.md](mdc:.status/status.md) to mark the corresponding task as "In progress". If the task is not mentioned in @status.md, add it.
+  3. Create all models required (dto, domain models, state, etc.)
+  4. Create all interfaces required (api, repository, use case, etc.)
+  5. Create empty implementation of interfaces with empty methods (returning dummy data)
+  6. Create all tests files first, following TDD approach (unit test, widget test, etc.)
+  7. Implements all empty methods with dummy data to pass tests
+  8. Execute unit tests.
+  9. Implements all methods with business logic.
+  10. Execute unit tests and validate all tests are passing.
+  11. Update [status.md](mdc:.status/status.md) to mark the corresponding task as "Completed".
