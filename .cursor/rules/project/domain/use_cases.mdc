@@ -1,7 +1,6 @@
 ---
 description: Use when you need to implement or modify a use case class
 globs: 
-  - "**/*_usecase.dart"
 alwaysApply: false
 ---
 # Use Cases
@@ -22,6 +21,8 @@ alwaysApply: false
 - Group related Use Cases in a subdirectory when appropriate
 
 ## Implementation
+- Always follow TDD : create domain model classes first, then use case with empty implementation, then unit test for the use case, then implementation.
+- Run unit tests after each modification of the use case implementation.
 - Each Use Case should have a `call()` method, allowing it to be invoked like a function
 - Use cases must be called as a function (ex : `final result = _myUseCase();`)
 - Inject repositories and other dependencies via constructor
@@ -45,10 +46,6 @@ alwaysApply: false
 - Avoid putting business logic in UI providers, delegate to Use Cases instead
 - For asynchronous operations, use UI providers to manage loading and error states
 
-## Example
-
-An example can be found here : [get_example_usecase.dart](mdc:.cursor/rules/templates/get_example_usecase.dart)
-
 ## Parameters
 - Use named parameters when a Use Case requires multiple parameters
 - For Use Cases with a single parameter, positional parameters are acceptable
@@ -66,3 +63,7 @@ An example can be found here : [get_example_usecase.dart](mdc:.cursor/rules/temp
 - Test both success and failure scenarios
 - When testing UI providers, mock the Use Cases to focus on testing state management
 - For testing Riverpod providers, use ProviderContainer to override dependencies
+
+## Example
+
+An example can be found here : [get_example_usecase.dart](mdc:.cursor/rules/templates/get_example_usecase.dart)

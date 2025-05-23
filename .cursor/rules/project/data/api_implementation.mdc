@@ -1,7 +1,6 @@
 ---
 description: Use when you need to implement or modify an API class
 globs: 
-  - "**/*_api.dart"
 alwaysApply: false
 ---
 

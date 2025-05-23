@@ -1,5 +1,5 @@
 ---
-description: Describe the purpose of a Repository class and how to create / update it.
+description: Use when you need to implement or modify a repository
 globs: 
 alwaysApply: false
 ---
@@ -7,13 +7,8 @@ alwaysApply: false
 
 - Add "repositories_implementation applied" at the beginning of the chat message.
 
-## General Structure
-
-Repositories are responsible for coordinating between the data layer (API, DAO) and the domain layer. They transform DTO models into domain models and vice versa.
-
 ## Architecture
 
-- Repositories are part of the data layer
 - The implementation is placed in `lib/core/data/repositories/` or `lib/modules/{module_name}/data/repositories/`
 - Repositories common to multiple modules → `core` folder
 - Repositories specific to a module → folder of the concerned module
@@ -34,6 +29,8 @@ Repositories must:
 
 ## Best Practices
 
+- Always follow TDD : create domain model classes first, then repository interface + empty implementation, then unit test for the repository, then implementation
+- Run unit tests after each modification of the repository implementation
 - Create domain-specific exceptions and throw them instead of technical errors
 - Use specific types rather than `dynamic`
 - Clearly separate data access logic and transformation logic

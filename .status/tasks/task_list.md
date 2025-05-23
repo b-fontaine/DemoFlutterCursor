@@ -21,8 +21,7 @@ Dependencies: None
 
 ## Technical notes
 - Create files in module `lib/modules/tasks`
-- Follow clean architecture principles
-- Implement appropriate domain models, use cases, and repositories
+- Apply Cursor rule files for each file type : @api_implementation, @domain_models, @use_cases, @repositories_implementation, @state_providers etc.
 - Use shared storage mechanisms to retrieve tasks
 - Consider performance optimization for large lists
 - Apply TDD approach for implementation

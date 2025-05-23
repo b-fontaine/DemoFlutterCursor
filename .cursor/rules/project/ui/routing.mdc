@@ -1,7 +1,6 @@
 ---
 description: Use when you need to add or modify page routing 
 globs: 
-  - "**/*.dart"
 alwaysApply: false
 ---
 # Routing Guidelines

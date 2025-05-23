@@ -1,5 +1,5 @@
 ---
-description: Describe everything related to domain models and how to create / modify them 
+description: Use when you need to create or modify a domain model
 globs: 
 alwaysApply: false
 ---

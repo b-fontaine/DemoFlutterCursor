@@ -1,7 +1,6 @@
 ---
 description: Use when you need to add or modify text displayed in the UI (labels, buttons, dialogs, etc.)
 globs: 
-  - "**/*.dart"
 alwaysApply: false
 ---
 # Internationalization in the project

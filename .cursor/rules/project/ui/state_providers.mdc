@@ -1,7 +1,6 @@
 ---
 description: Use when you need to add or modify state providers classes
 globs: 
-  - "**/ui/**/*.dart"
 alwaysApply: false
 ---
 

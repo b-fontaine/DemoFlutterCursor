@@ -1,7 +1,6 @@
 ---
 description: Use when you need to implement or modify a DTO class
 globs: 
-  - "**/*_dto.dart"
 alwaysApply: false
 ---
 # DTO Creation Guidelines
