@@ -1,7 +1,7 @@
 ---
-description: Use when you need to add or modify unit tests
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 - A test must be described as  '[CURRENT CONTEXT], [ACTION] => [EXPECTED RESULT]'.
 - A comment "Given" must be added at the beginning of the test 

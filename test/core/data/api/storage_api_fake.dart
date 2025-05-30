@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:demo_flutter_cursor/core/data/api/storage_api.dart';
 import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
+import 'package:demo_flutter_cursor/core/data/api/storage_api.dart';
 
 class FakeStorageApi implements StorageApi {
   @override

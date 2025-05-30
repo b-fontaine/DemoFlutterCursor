@@ -20,6 +20,7 @@ import '../../modules/authentication/data/api/user_api_fake.dart';
 import '../data/api/storage_api_fake.dart';
 import '../data/storage/auth_secured_storage_fake.dart';
 import '../data/api/device_api_fake.dart';
+import '../data/storage/key_value_storage_fake.dart';
 
 void main() {
   group('authRequired AuthenticationMode', () {
@@ -36,10 +37,11 @@ void main() {
     Future<UserStateNotifier> beforeTest() async {
       // Given
       SharedPreferences.setMockInitialValues({});
-      final sharedPrefs = await SharedPreferences.getInstance();
+      final fakeKeyValueStorage = KeyValueStorageFake();
+
       final deviceRepository = DeviceRepository(
         deviceApi: FakeDeviceApi(),
-        prefs: sharedPrefs,
+        keyValueStorage: fakeKeyValueStorage,
       );
 
       final userRepository = UserRepository(
@@ -164,10 +166,10 @@ void main() {
     Future<UserStateNotifier> beforeTest() async {
       // Given
       SharedPreferences.setMockInitialValues({});
-      final sharedPrefs = await SharedPreferences.getInstance();
+      final fakeKeyValueStorage = KeyValueStorageFake();
       final deviceRepository = DeviceRepository(
         deviceApi: FakeDeviceApi(),
-        prefs: sharedPrefs,
+        keyValueStorage: fakeKeyValueStorage,
       );
 
       final userRepository = UserRepository(

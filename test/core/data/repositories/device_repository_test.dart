@@ -3,14 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/device_api_fake.dart';
+import '../storage/key_value_storage_fake.dart';
 
 void main() {
   final fakeDeviceApi = FakeDeviceApi();
+  final fakeKeyValueStorage = KeyValueStorageFake();
 
   Future<DeviceRepository> init() async {
     SharedPreferences.setMockInitialValues({});
-    final sharedPrefs = await SharedPreferences.getInstance();
-    return DeviceRepository(deviceApi: fakeDeviceApi, prefs: sharedPrefs);
+    return DeviceRepository(
+      deviceApi: fakeDeviceApi,
+      keyValueStorage: fakeKeyValueStorage,
+    );
   }
 
   test('register device should register a new device with an id', () async {

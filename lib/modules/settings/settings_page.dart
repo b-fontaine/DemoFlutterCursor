@@ -9,15 +9,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// This is an example of a settings page.
-/// You are free to use it or not.
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // you can fetch the user state like this
-    // final userState = ref.watch(userStateNotifierProvider);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 40, 16, 8),
@@ -52,9 +48,7 @@ class SettingsPage extends ConsumerWidget {
                     icon: Icons.privacy_tip,
                     title: "Privacy policy",
                     onTap: () {
-                      // you may need to add some url_launcher configuration in your app for iOS and Android
-                      // https://pub.dev/packages/url_launcher
-                      launchUrl(Uri.parse("https://apparencekit.dev/privacy/"));
+                      launchUrl(Uri.parse("https://google.com/"));
                     },
                   ),
                   Divider(color: Colors.blueGrey.withValues(alpha: .10)),
@@ -62,9 +56,7 @@ class SettingsPage extends ConsumerWidget {
                     icon: Icons.help,
                     title: "Support",
                     onTap: () {
-                      // you may need to add some url_launcher configuration in your app for iOS and Android
-                      // https://pub.dev/packages/url_launcher
-                      launchUrl(Uri.parse("https://apparencekit.dev/"));
+                      launchUrl(Uri.parse("https://google.com/"));
                     },
                   ),
                   Divider(color: Colors.blueGrey.withValues(alpha: .10)),

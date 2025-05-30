@@ -1,7 +1,7 @@
 ---
-description: Use when you need to add or modify fakes for unit tests
-globs:
-alwaysApply: true
+description: 
+globs: 
+alwaysApply: false
 ---
 - Add "tests fakes applied" at the beginning of the chat message.
 - NEVER use mockito or any mocking library - only use fake implementations in tests.

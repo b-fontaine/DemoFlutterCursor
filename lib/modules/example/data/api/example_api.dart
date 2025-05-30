@@ -1,40 +1,31 @@
-import 'exemple_entity.dart';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_functions/firebase_functions.dart';
-import 'package:logger/logger.dart';
 import 'package:demo_flutter_cursor/core/data/api/base_api_exceptions.dart';
+import 'package:demo_flutter_cursor/modules/example/data/api/dto/example_dto.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 final exampleApiProvider = Provider<ExampleApi>(
-  (ref) => ExampleApiImpl(
-    client: FirebaseFirestore.instance,
-    firebaseFunctions: FirebaseFunctions.instance,
-  ),
+  (ref) => ExampleApiImpl(client: FirebaseFirestore.instance),
 );
 
 abstract class ExampleApi {
-  Future<ExampleEntity?> get(String id);
+  Future<ExampleDTO?> get(String id);
 }
 
 class ExampleApiImpl implements ExampleApi {
   final FirebaseFirestore _client;
-  final FirebaseFunctions _firebaseFunctions;
   final Logger _logger;
 
-  ExampleApiImpl({
-    required FirebaseFirestore client,
-    required FirebaseFunctions firebaseFunctions,
-  }) : _client = client,
-       _firebaseFunctions = firebaseFunctions,
-       _logger = Logger();
+  ExampleApiImpl({required FirebaseFirestore client})
+    : _client = client,
+      _logger = Logger();
 
-  CollectionReference<ExampleEntity?> get _collection => _client
+  CollectionReference<ExampleDTO?> get _collection => _client
       .collection('examples')
       .withConverter(
         fromFirestore: (snapshot, _) {
           if (snapshot.exists) {
-            return ExampleEntity.fromJson(snapshot.data()!);
+            return ExampleDTO.fromJson(snapshot.id, snapshot.data()!);
           }
           return null;
         },
@@ -42,7 +33,7 @@ class ExampleApiImpl implements ExampleApi {
       );
 
   @override
-  Future<ExampleEntity?> get(String id) async {
+  Future<ExampleDTO?> get(String id) async {
     try {
       final docSnapshot = await _collection.doc(id).get();
       return docSnapshot.data();
@@ -52,7 +43,7 @@ class ExampleApiImpl implements ExampleApi {
     }
   }
 
-  Future<void> update(ExampleEntity example) async {
+  Future<void> update(ExampleDTO example) async {
     try {
       final data = example.toJson();
       data.removeWhere((key, value) => value == null);
@@ -63,7 +54,7 @@ class ExampleApiImpl implements ExampleApi {
     }
   }
 
-  Future<void> create(ExampleEntity example) async {
+  Future<void> create(ExampleDTO example) async {
     try {
       if (example.id == null) {
         throw Exception('Example id cannot be null');

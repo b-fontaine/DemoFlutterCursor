@@ -1,7 +1,7 @@
 ---
-description: Use when you need to add or modify page routing 
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # Routing Guidelines
 

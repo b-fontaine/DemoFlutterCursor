@@ -1,51 +1,43 @@
-import 'package:demo_flutter_cursor/core/initializer/on_start_service.dart';
+import 'package:demo_flutter_cursor/modules/example/domain/models/example.dart';
+import 'package:demo_flutter_cursor/modules/example/domain/usecases/get_example_usecase.dart';
+import 'package:demo_flutter_cursor/modules/example/ui/providers/example_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// Import des classes exemple (ici références simplifiées pour l'exemple)
-// En réalité, ces classes seraient dans les dossiers appropriés du projet
-import 'example.dart';
-import 'example_state.dart';
-
-/// Provider definition for Riverpod
 final exampleStateNotifierProvider =
     StateNotifierProvider<ExampleStateNotifier, ExampleState>((ref) {
-      return ExampleStateNotifier(getExampleUseCase: GetExampleUseCase());
+      return ExampleStateNotifier(
+        getExampleUseCase: ref.read(getExampleUseCaseProvider),
+      );
     });
 
-/// This class is responsible for managing the example state.
-/// It demonstrates the standard structure for a StateNotifier in this application.
 class ExampleStateNotifier extends StateNotifier<ExampleState> {
   final GetExampleUseCase _getExampleUseCase;
 
-  /// Constructor with dependency injection
   ExampleStateNotifier({required GetExampleUseCase getExampleUseCase})
     : _getExampleUseCase = getExampleUseCase,
-      super(ExampleState(example: Example(name: 'loading')));
+      super(const ExampleState(example: null));
 
-  @override
-  Future<void> init() async {
-    await _loadState();
+  Future<void> init(String id) async {
+    await _loadState(id);
   }
 
-  /// Refreshes the example data from the source
   Future<void> refresh() async {
-    try {
-      final example = await _getExampleUseCase();
-      state = state.copyWith(example: example);
-    } catch (e) {
-      debugPrint('Error refreshing example: $e');
+    if (state.example == null) {
+      return;
     }
+    await _loadState(state.example!.id);
   }
 
-  /// Updates the example with new data
   Future<void> updateExample(String name, String? description) async {
-    // Create a new Example based on current state but with updated fields
+    if (state.example == null) {
+      return;
+    }
     final updatedExample = Example(
-      id: state.example.id,
+      id: state.example!.id,
       name: name,
       description: description,
-      creationDate: state.example.creationDate,
+      creationDate: state.example!.creationDate,
       lastUpdateDate: DateTime.now(),
     );
 
@@ -64,9 +56,9 @@ class ExampleStateNotifier extends StateNotifier<ExampleState> {
   // -------------------------------
 
   /// Loads the initial state
-  Future<void> _loadState() async {
+  Future<void> _loadState(String id) async {
     try {
-      final example = await _getExampleUseCase();
+      final example = await _getExampleUseCase(id);
       state = state.copyWith(example: example);
     } catch (e) {
       debugPrint('Error loading example: $e');

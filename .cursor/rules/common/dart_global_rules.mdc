@@ -1,7 +1,7 @@
 ---
 description: 
-globs: 
-alwaysApply: true
+globs: **/*.dart
+alwaysApply: false
 ---
 - Add "dart_global_rules applied" at the beginning of the chat message.
 - Use English for all code and documentation.

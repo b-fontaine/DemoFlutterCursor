@@ -1,7 +1,7 @@
 ---
-description: Use when you need to implement or modify an API class
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 
 - Add "api_implementation applied" at the beginning of the chat message.

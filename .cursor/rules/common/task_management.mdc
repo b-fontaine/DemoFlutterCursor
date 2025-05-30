@@ -1,13 +1,14 @@
 ---
 description: 
-globs: 
-alwaysApply: true
+globs: **/tasks/*.md
+alwaysApply: false
 ---
 - Add "task_management applied" at the beginning of the chat message.
 
 ## Required files and folders
   - .status/tasks: Current development tasks and requirements, source of tasks definitions
   - [status.md](mdc:.status/status.md) : Project progress and state
+  - Read the @architecture.md file before any action to understand the project architecture.
   
 ## TDD-focused Workflow Steps
   1. Read task requirements, extract acceptance criteria and identify dependencies

@@ -1,7 +1,7 @@
 ---
-description: Use when you need to implement or modify a DTO class
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # DTO Creation Guidelines
 
@@ -18,10 +18,10 @@ alwaysApply: true
 ### 1. Use @freezed Annotation
 - Use the `@freezed` annotation from the `freezed_annotation` package for immutability and code generation
 - NEVER create a DTO without freezed, even if there is a bug.
-- Add the appropriate part statements:
+- Add the appropriate part "../../../../project/data"statements:
   ```dart
-  part '{dto_name}.freezed.dart';
-  part '{dto_name}.g.dart';
+  part '../../../../project/data/{dto_name}.freezed.dart';
+  part '../../../../project/data/{dto_name}.g.dart';
   ```
 
 ### 2. Structure of DTO Classes

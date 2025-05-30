@@ -1,7 +1,7 @@
 ---
-description: Use when you need to create or modify a domain model
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # Domain Model Creation Guidelines
 
@@ -20,9 +20,9 @@ Domain models are the core business objects of the application. Unlike DTOs whic
 
 ### 1. Use @freezed Annotation
 - Use the `@freezed` annotation from the `freezed_annotation` package for immutability and union types
-- Add the appropriate part statement:
+- Add the appropriate part "../../../../project/domain"statement:
   ```dart
-  part '{model_name}.freezed.dart';
+  part '../../../../project/domain/{model_name}.freezed.dart';
   ```
 
 ### 2. Structure of Domain Model Classes

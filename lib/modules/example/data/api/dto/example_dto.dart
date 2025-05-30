@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_flutter_cursor/core/data/api/dto/json_converters.dart';
+import 'package:demo_flutter_cursor/modules/example/data/storage/entity/example_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'example_dto.freezed.dart';
@@ -25,4 +26,14 @@ sealed class ExampleDTO with _$ExampleDTO {
 
   factory ExampleDTO.fromJson(String id, Map<String, dynamic> json) =>
       _$ExampleDTOFromJson(json..['id'] = id);
+
+  ExampleEntity toEntity() {
+    return ExampleEntity(
+      id: id!,
+      creationDate: creationDate,
+      lastUpdateDate: lastUpdateDate,
+      name: name,
+      description: description,
+    );
+  }
 }

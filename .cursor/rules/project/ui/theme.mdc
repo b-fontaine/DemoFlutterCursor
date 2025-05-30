@@ -1,7 +1,7 @@
 ---
-description: Describe how theming works in the application, where are located theming files and how to modify it when required
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # Theme Architecture in Flutter Application
 

@@ -1,4 +1,3 @@
-import 'package:demo_flutter_cursor/core/ui/theme/extensions/theme_extension.dart';
 import 'package:demo_flutter_cursor/core/ui/theme/providers/theme_provider.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/strings.dart';
 import 'package:flutter/material.dart';

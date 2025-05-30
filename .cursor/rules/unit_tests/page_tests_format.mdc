@@ -1,7 +1,7 @@
 ---
-description: Use when you need to add or modify page tests
-globs:
-alwaysApply: true
+description: 
+globs: 
+alwaysApply: false
 ---
 
 - Add "page tests format applied" at the beginning of the chat message.

@@ -1,10 +1,10 @@
-import 'package:demo_flutter_cursor/modules/authentication/ui/guards/authenticated_guard.dart';
 import 'package:demo_flutter_cursor/core/ui/widgets/page_not_found.dart';
 import 'package:demo_flutter_cursor/modules/authentication/recover_password_page.dart';
 import 'package:demo_flutter_cursor/modules/authentication/signin_page.dart';
 import 'package:demo_flutter_cursor/modules/authentication/signup_page.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/guards/authenticated_guard.dart';
+import 'package:demo_flutter_cursor/modules/example/ui/example_page.dart';
 import 'package:demo_flutter_cursor/modules/home/home_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -47,6 +47,14 @@ GoRouter generateRouter({
         name: SigninPage.routeName,
         path: '/${SigninPage.routeName}',
         builder: (context, state) => const SigninPage(),
+      ),
+
+      GoRoute(
+        name: ExamplePage.routeName,
+        path: '/${ExamplePage.routeName}/:exampleId',
+        builder:
+            (context, state) =>
+                ExamplePage(exampleId: state.pathParameters['exampleId']!),
       ),
 
       GoRoute(

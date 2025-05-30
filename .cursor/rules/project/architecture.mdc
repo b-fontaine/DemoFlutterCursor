@@ -5,13 +5,3 @@ alwaysApply: true
 ---
 
 - Add "architecture applied" at the beginning of the chat message.
-- Read the [architecture.md](docs/architecture.md) file before any action to understand the project architecture.
-- DTO rules are located here : [dto_implementation.mdc](mdc:.cursor/rules/project/data/dto_implementation.mdc)
-- API rules are located here : [api_implementation.mdc](mdc:.cursor/rules/project/data/api_implementation.mdc)
-- Repositories rules are located here [repositories_implementation.mdc](mdc:.cursor/rules/project/data/repositories_implementation.mdc)
-- Use cases rules are located here : [use_cases.mdc](mdc:.cursor/rules/project/domain/use_cases.mdc)
-- Domain models rules are located here : [domain_models.mdc](mdc:.cursor/rules/project/domain/domain_models.mdc)
-- Internationalisation rules are located here : [internationalisation.mdc](mdc:.cursor/rules/project/ui/internationalisation.mdc)
-- Routing rules are located here : [routing.mdc](mdc:.cursor/rules/project/ui/routing.mdc)
-- Theming rules are located here : [theme.mdc](mdc:.cursor/rules/project/ui/theme.mdc)
-- State notifier rules are located here : [state_providers.mdc](mdc:.cursor/rules/project/ui/state_providers.mdc)

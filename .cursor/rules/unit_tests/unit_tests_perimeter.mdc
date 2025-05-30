@@ -1,7 +1,7 @@
 ---
-description: Use when you need to add or modify unit tests
+description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 - Unit tests must be written for every business logic classes : repositories, use cases and classes having a business value.
 - Widget tests must be written for every Flutter widget having their own file.

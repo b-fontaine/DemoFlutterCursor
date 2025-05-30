@@ -1,8 +1,8 @@
 import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
 import 'package:demo_flutter_cursor/core/data/api/device_api.dart';
 import 'package:demo_flutter_cursor/core/data/api/user_api.dart';
+import 'package:demo_flutter_cursor/core/data/storage/key_value_storage.dart';
 import 'package:demo_flutter_cursor/core/data/storage/secured_storage.dart';
-import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
 import 'package:demo_flutter_cursor/core/domain/models/credentials/credentials.dart';
 import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/initializer/models/run_state.dart';
@@ -138,7 +138,7 @@ extension AppWidgetTester on WidgetTester {
                         (context, child) => Initializer(
                           services: [
                             // shared preferences must be loaded
-                            sharedPreferencesProvider,
+                            keyValueStorageProvider,
 
                             // user state
                             userStateNotifierProvider.notifier,

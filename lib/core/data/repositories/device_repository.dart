@@ -2,15 +2,14 @@ import 'dart:convert';
 
 import 'package:demo_flutter_cursor/core/data/api/device_api.dart';
 import 'package:demo_flutter_cursor/core/data/api/dto/device/device_dto.dart';
-import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
+import 'package:demo_flutter_cursor/core/data/storage/key_value_storage.dart';
 import 'package:demo_flutter_cursor/core/domain/models/device/device.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final deviceRepositoryProvider = Provider<DeviceRepository>((ref) {
-  final prefsLoader = ref.watch(sharedPreferencesProvider);
+  final keyValueStorage = ref.watch(keyValueStorageProvider);
   return DeviceRepository(
-    prefs: prefsLoader.prefs,
+    keyValueStorage: keyValueStorage,
     deviceApi: ref.watch(deviceApiProvider),
   );
 });
@@ -27,13 +26,13 @@ typedef OnTokenRefreshCallback = void Function(Device device);
 /// Optionnaly you can also add the user id to the methods
 class DeviceRepository {
   final DeviceApi _deviceApi;
-  final SharedPreferences _prefs;
+  final KeyValueStorage _keyValueStorage;
 
   DeviceRepository({
     required DeviceApi deviceApi,
-    required SharedPreferences prefs,
+    required KeyValueStorage keyValueStorage,
   }) : _deviceApi = deviceApi,
-       _prefs = prefs;
+       _keyValueStorage = keyValueStorage;
 
   Future<Device?> get() async {
     final deviceDto = await _getFromPrefs();
@@ -94,11 +93,11 @@ class DeviceRepository {
   Future<void> _saveInPrefs(DeviceDTO device) async {
     final json = device.toJsonForPrefs();
     final data = jsonEncode(json);
-    await _prefs.setString(_devicePrefsKey, data);
+    await _keyValueStorage.setString(_devicePrefsKey, data);
   }
 
   Future<DeviceDTO?> _getFromPrefs() async {
-    final deviceJson = _prefs.getString(_devicePrefsKey);
+    final deviceJson = _keyValueStorage.getString(_devicePrefsKey);
     if (deviceJson != null) {
       final deviceMap = jsonDecode(deviceJson) as Map<String, dynamic>;
       return DeviceDTO.fromPrefs(deviceMap);
@@ -107,6 +106,6 @@ class DeviceRepository {
   }
 
   Future<void> _removeFromPrefs() async {
-    await _prefs.remove(_devicePrefsKey);
+    await _keyValueStorage.remove(_devicePrefsKey);
   }
 }

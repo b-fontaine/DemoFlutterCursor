@@ -1,5 +1,5 @@
 import 'package:demo_flutter_cursor/core/data/api/authentication_api.dart';
-import 'package:demo_flutter_cursor/core/data/storage/shared_preferences.dart';
+import 'package:demo_flutter_cursor/core/data/storage/key_value_storage.dart';
 import 'package:demo_flutter_cursor/core/initializer/onstart_widget.dart';
 import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:demo_flutter_cursor/core/ui/theme/colors.dart';
@@ -110,7 +110,7 @@ class MyApp extends ConsumerWidget {
                   services: [
                     authenticationApiProvider,
                     // shared preferences must be loaded
-                    sharedPreferencesProvider,
+                    keyValueStorageProvider,
 
                     // user state
                     userStateNotifierProvider.notifier,
