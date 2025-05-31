@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+- Add "architecture applied" at the beginning of the chat message.
+- Read the architecture documentation [architecture.md](mdc:docs/architecture.md) before doing any task on the app code.
+- After each task, verify that the generated code is compliant with the architecture documentation [architecture.md](mdc:docs/architecture.md).

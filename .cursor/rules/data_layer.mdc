@@ -1,0 +1,26 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+- Add "data_layer applied" at the beginning of the chat message.
+  
+# Templates
+
+- Use template [example_api.dart](mdc:lib/modules/example/data/api/example_api.dart) for API classes
+- Use template [example_repository.dart](mdc:lib/modules/example/data/repositories/example_repository.dart) for Repositories implementation classes.
+- Use template [example_dao.dart](mdc:lib/modules/example/data/storage/example_dao.dart) for DAO classes.
+
+# Ruels
+
+- Always follow TDD for repositories implementations.
+- Run unit tests after each modification of the repository implementation.
+- Create domain-specific exceptions and throw them instead of technical errors / runtime exception.
+- Use specific types rather than `dynamic`
+- Implement appropriate error handling with meaningful messages
+- Test repositories in a unit manner with fake implementations of dependencies
+- Expose only domain models through repositories, never DTOs nor Entities.
+- Implement one repository per data domain
+- Keep methods focused on a single responsibility
+

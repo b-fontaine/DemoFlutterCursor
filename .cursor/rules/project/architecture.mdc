@@ -1,7 +1,0 @@
----
-description: 
-globs: 
-alwaysApply: true
----
-
-- Add "architecture applied" at the beginning of the chat message.
