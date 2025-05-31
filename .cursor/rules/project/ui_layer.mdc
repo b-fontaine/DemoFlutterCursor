@@ -11,6 +11,8 @@ alwaysApply: false
 - Use template [example_page.dart](mdc:lib/modules/example/ui/example_page.dart) for Page classes implementation.
 - Use template [example_state_notifier.dart](mdc:lib/modules/example/ui/providers/example_state_notifier.dart) for State notifier implementation.
 - Use template [example_state.dart](mdc:lib/modules/example/ui/providers/example_state.dart) for State managed by State notifier.
+- Use template [example_state_notifier_test.dart](mdc:test/modules/example/ui/providers/example_state_notifier_test.dart) for State notifier unit tests.
+- Use template [fake_get_example_usecase.dart](mdc:test/modules/example/ui/fakes/fake_get_example_usecase.dart) to define fake Use case for tests. 
 
 # State notifier rules
 

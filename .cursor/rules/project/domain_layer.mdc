@@ -11,13 +11,18 @@ alwaysApply: false
 - Use template [example.dart](mdc:lib/modules/example/domain/models/example.dart) for domain model classes.
 - Use template [exemple_repository.dart](mdc:lib/modules/example/domain/repositories/exemple_repository.dart) for Repository interface.
 - Use template [get_example_usecase.dart](mdc:lib/modules/example/domain/usecases/get_example_usecase.dart) for Use case classes.
+- Use template [get_example_use_case_test.dart](mdc:test/modules/example/domain/usecases/get_example_use_case_test.dart) for Use case tests.
+- Use template [fake_example_repository.dart](mdc:test/modules/example/domain/fakes/fake_example_repository.dart) for defining fake repositoies.
 
-# Ruels
+# Use cases rules
 
 - Always follow TDD for use cases implementation.
 - Create fake repositories for use case unit tests.
 - Run unit tests after each modification of the use case.
+- Use cases must have only one public method `call()` with required parameters.
+
+# DOmain models rules
+
 - Always define domain models with freezed, without json annotation.
 - Prefer immutable objects for domain models
 - Use union types to represent different states (e.g., authenticated vs anonymous user)
-- Use cases must have only one public method `call()` with required parameters.
