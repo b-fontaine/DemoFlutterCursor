@@ -17,7 +17,7 @@ alwaysApply: false
   5. At last, handle steps for the UI layer, using [ui_layer.mdc](mdc:.cursor/rules/project/ui_layer.mdc) rules.
 
 ## Validation Checklist Before Marking Task Complete
-- [ ] All domain models, repositories, and use cases have corresponding test files
+- [ ] All repositories, use cases and state notifiers have corresponding test files
 - [ ] All tests are passing
 - [ ] Tests cover all acceptance criteria from requirements
 - [ ] Tests include edge cases and error scenarios

@@ -9,6 +9,11 @@ Dependencies: None
 - Show task details in a clear and organized layout
 - Enable task status updates (complete/incomplete)
 
+## Steps
+1. Domain layer: Create task model and use case to retrieve tasks following domain_layer.mdc rules.
+2. Data layer: Create API, DAO and repository implementation following data_layer.mdc rules.
+3. UI layer: Create widgets and state notifier to display tasks following ui_layer.mdc rules.
+
 ## Acceptance criteria
 - The screen displays all tasks in a scrollable list
 - Each task item shows title and status using a checkbox
@@ -21,7 +26,4 @@ Dependencies: None
 
 ## Technical notes
 - Create files in module `lib/modules/tasks`
-- Apply Cursor rule files for each file type : @api_implementation, @domain_models, @use_cases, @repositories_implementation, @state_providers etc.
 - Use shared storage mechanisms to retrieve tasks
-- Consider performance optimization for large lists
-- Apply TDD approach for implementation
