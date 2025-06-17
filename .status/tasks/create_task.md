@@ -10,6 +10,11 @@ Dependencies: task_list
 - Save created tasks to local storage
 - Display newly created tasks in the task list
 
+## Steps 
+1. Domain layer: Create task model and use case to create task following domain_layer.mdc rules.
+2. Data layer: Create API, DAO and repository implementation following data_layer.mdc rules.
+3. UI layer: Create widgets and state notifier to create task following ui_layer.mdc rules.
+
 ## Acceptance criteria
 - The screen has a form with fields for task title and space for future fields
 - Title field is required and must not be empty

@@ -18,6 +18,7 @@ alwaysApply: false
 # Repository rules
 
 - Always follow TDD for repositories implementations.
+- Always write unit tests BEFORE repositories implementation.
 - Run unit tests after each modification of the repository implementation.
 - Test repositories in a unit manner with fake implementations of dependencies, NEVER USE MOCKITO.
 - Expose only domain models through repositories, never DTOs nor Entities.
