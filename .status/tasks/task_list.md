@@ -10,9 +10,23 @@ Dependencies: None
 - Enable task status updates (complete/incomplete)
 
 ## Steps
-1. Domain layer: Create task model and use case to retrieve tasks following domain_layer.mdc rules.
-2. Data layer: Create API, DAO and repository implementation following data_layer.mdc rules.
-3. UI layer: Create widgets and state notifier to display tasks following ui_layer.mdc rules.
+1. Domain layer:
+- Create task model and repository interface following domain_layer.mdc rules
+- Create empty use case to retrieve tasks
+- Create unit tests for this use cases using fake repositories
+- Implements use case following domain_layer.mdc rules
+- Execute units tests again
+
+2. Data layer:
+- Create tests for task repository
+- Execute unit tests
+- Implements API, DAO and repository
+- Execute tests again
+- Follow data_layer.mdc rules
+
+3. UI layer:
+- Create widgets and state notifier to display task list
+- Follow ui_layer.mdc rules
 
 ## Acceptance criteria
 - The screen displays all tasks in a scrollable list
