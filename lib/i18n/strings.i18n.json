@@ -146,5 +146,23 @@
                 "description": "We will review your suggestion"
             }
         }
+    },
+    "plants": {
+        "title": "My Plants",
+        "add_plant": "Add Plant",
+        "plant_name": "Plant Name",
+        "plant_type": "Plant Type",
+        "plant_description": "Description",
+        "no_plants": "No plants yet",
+        "add_first_plant": "Add your first plant!",
+        "plant_added": "Plant added successfully",
+        "plant_updated": "Plant updated successfully",
+        "name_required": "Plant name is required",
+        "type_required": "Plant type is required",
+        "save": "Save",
+        "cancel": "Cancel",
+        "loading": "Loading plants...",
+        "error_loading": "Error loading plants",
+        "error_saving": "Error saving plant"
     }
 }
