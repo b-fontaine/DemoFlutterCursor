@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'makemetodo.firebasestorage.app',
     iosBundleId: 'fr.enlight',
   );
-
 }

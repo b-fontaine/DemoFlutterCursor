@@ -17,9 +17,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules/authentication/data/api/auth_api_fake.dart';
 import '../../modules/authentication/data/api/user_api_fake.dart';
+import '../data/api/device_api_fake.dart';
 import '../data/api/storage_api_fake.dart';
 import '../data/storage/auth_secured_storage_fake.dart';
-import '../data/api/device_api_fake.dart';
 import '../data/storage/key_value_storage_fake.dart';
 
 void main() {

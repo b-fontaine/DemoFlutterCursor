@@ -13,9 +13,7 @@ final onStartProvider = StateNotifierProvider<OnStartNotifier, AppRunState>(
 class OnStartNotifier extends StateNotifier<AppRunState> {
   final List<OnStartService> _services;
 
-  OnStartNotifier()
-      : _services = [],
-        super(const AppRunState.loading());
+  OnStartNotifier() : _services = [], super(const AppRunState.loading());
 
   void register(OnStartService service) {
     _services.add(service);

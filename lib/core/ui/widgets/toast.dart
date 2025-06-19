@@ -87,11 +87,7 @@ void showSuccessToast({
     borderRadius: BorderRadius.circular(16),
     margin: const EdgeInsets.all(16),
     padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-    icon: const Icon(
-      Icons.check,
-      color: Colors.white,
-      size: 32,
-    ),
+    icon: const Icon(Icons.check, color: Colors.white, size: 32),
     shouldIconPulse: false,
   ).show(context);
 }
@@ -118,9 +114,6 @@ void showErrorToast({
     messageSize: 16,
     duration: duration,
     backgroundColor: Colors.redAccent,
-    icon: const Icon(
-      Icons.error,
-      color: Colors.white,
-    ),
+    icon: const Icon(Icons.error, color: Colors.white),
   ).show(context);
 }

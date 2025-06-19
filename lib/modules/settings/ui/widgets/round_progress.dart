@@ -30,9 +30,7 @@ class _RoundProgressState extends State<RoundProgress>
   void initState() {
     super.initState();
     if (widget.progress != null) {
-      _initController(
-        duration: const Duration(milliseconds: 250),
-      );
+      _initController(duration: const Duration(milliseconds: 250));
     } else {
       _initController(
         duration: const Duration(milliseconds: 500),
@@ -42,9 +40,7 @@ class _RoundProgressState extends State<RoundProgress>
     _animation = Tween(
       begin: 0.0,
       end: 1.0,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.decelerate),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.decelerate));
   }
 
   @override
@@ -62,9 +58,7 @@ class _RoundProgressState extends State<RoundProgress>
       _animation = Tween(
         begin: oldWidget.progress,
         end: widget.progress,
-      ).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-      );
+      ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
       _controller.forward(from: 0);
     }
   }
@@ -73,28 +67,23 @@ class _RoundProgressState extends State<RoundProgress>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animation,
-      builder: (context, child) => CustomPaint(
-        size: Size(widget.radius * 2, widget.radius * 2),
-        painter: _RoundProgressPainter(
-          radius: widget.radius,
-          progress: widget.progress ?? _controller.value,
-          color: widget.color,
-          animation: _animation,
-          strokeWidth: widget.strokeWidth,
-        ),
-        child: widget.child,
-      ),
+      builder:
+          (context, child) => CustomPaint(
+            size: Size(widget.radius * 2, widget.radius * 2),
+            painter: _RoundProgressPainter(
+              radius: widget.radius,
+              progress: widget.progress ?? _controller.value,
+              color: widget.color,
+              animation: _animation,
+              strokeWidth: widget.strokeWidth,
+            ),
+            child: widget.child,
+          ),
     );
   }
 
-  void _initController({
-    required Duration duration,
-    bool repeat = false,
-  }) {
-    _controller = AnimationController(
-      vsync: this,
-      duration: duration,
-    );
+  void _initController({required Duration duration, bool repeat = false}) {
+    _controller = AnimationController(vsync: this, duration: duration);
     if (repeat) {
       _controller.repeat();
     }
@@ -121,11 +110,12 @@ class _RoundProgressPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final strokeWidth = radius / 10;
     final progressAngle = math.pi * 2 * progress;
-    final progressPaint = Paint()
-      ..color = color
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
+    final progressPaint =
+        Paint()
+          ..color = color
+          ..strokeWidth = strokeWidth
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
 
     canvas.drawCircle(
       center,

@@ -9,16 +9,10 @@ class ApiError implements Exception {
   final int? code;
   final String? message;
 
-  ApiError({
-    this.code,
-    this.message,
-  });
+  ApiError({this.code, this.message});
 
   factory ApiError.fromDioException(DioException e) {
-    return ApiError(
-      code: e.response?.statusCode ?? 0,
-      message: e.message,
-    );
+    return ApiError(code: e.response?.statusCode ?? 0, message: e.message);
   }
 
   @override

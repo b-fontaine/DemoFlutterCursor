@@ -9,9 +9,7 @@ class ButtonLoading extends StatelessWidget {
       width: 12,
       height: 12,
       child: CircularProgressIndicator.adaptive(
-        valueColor: AlwaysStoppedAnimation<Color>(
-          Colors.white,
-        ),
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         backgroundColor: Colors.white,
       ),
     );

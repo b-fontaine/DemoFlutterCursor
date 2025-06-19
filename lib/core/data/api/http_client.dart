@@ -9,30 +9,26 @@ final httpClientProvider = Provider<HttpClient>((ref) {
 class HttpClient with DioMixin implements Dio {
   String? authToken;
 
-  HttpClient({
-    required String baseUrl,
-  }) {
-    options = BaseOptions(
-      baseUrl: baseUrl,
-    );
+  HttpClient({required String baseUrl}) {
+    options = BaseOptions(baseUrl: baseUrl);
     httpClientAdapter = HttpClientAdapter();
     interceptors.add(
-      InterceptorsWrapper(onRequest: (options, handler) {
-        if (authToken != null) {
-          options.headers.putIfAbsent(
-            'Authorization',
-            () => 'Bearer $authToken',
-          );
-        }
-        return handler.next(options);
-      }),
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          if (authToken != null) {
+            options.headers.putIfAbsent(
+              'Authorization',
+              () => 'Bearer $authToken',
+            );
+          }
+          return handler.next(options);
+        },
+      ),
     );
   }
 
   factory HttpClient.fromEnv() {
     final env = Environment.fromEnv();
-    return HttpClient(
-      baseUrl: env.backendUrl,
-    );
+    return HttpClient(baseUrl: env.backendUrl);
   }
 }

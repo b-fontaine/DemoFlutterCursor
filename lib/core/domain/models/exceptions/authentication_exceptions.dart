@@ -4,16 +4,10 @@ class SignupException {
   final int? code;
   final String? message;
 
-  SignupException({
-    this.code,
-    this.message,
-  });
+  SignupException({this.code, this.message});
 
   factory SignupException.fromApiError(ApiError error) {
-    return SignupException(
-      code: error.code,
-      message: error.message,
-    );
+    return SignupException(code: error.code, message: error.message);
   }
 
   @override
@@ -26,16 +20,10 @@ class SigninException {
   final int? code;
   final String? message;
 
-  SigninException({
-    this.code,
-    this.message,
-  });
+  SigninException({this.code, this.message});
 
   factory SigninException.fromApiError(ApiError error) {
-    return SigninException(
-      code: error.code,
-      message: error.message,
-    );
+    return SigninException(code: error.code, message: error.message);
   }
 
   @override
@@ -48,16 +36,10 @@ class RecoverPasswordException {
   final int? code;
   final String? message;
 
-  RecoverPasswordException({
-    this.code,
-    this.message,
-  });
+  RecoverPasswordException({this.code, this.message});
 
   factory RecoverPasswordException.fromApiError(ApiError error) {
-    return RecoverPasswordException(
-      code: error.code,
-      message: error.message,
-    );
+    return RecoverPasswordException(code: error.code, message: error.message);
   }
 
   @override
@@ -67,15 +49,9 @@ class RecoverPasswordException {
 }
 
 class PhoneAuthException extends ApiError {
-  PhoneAuthException({
-    required super.code,
-    required super.message,
-  });
+  PhoneAuthException({required super.code, required super.message});
 
   factory PhoneAuthException.fromApiError(ApiError error) {
-    return PhoneAuthException(
-      code: error.code,
-      message: error.message,
-    );
+    return PhoneAuthException(code: error.code, message: error.message);
   }
 }

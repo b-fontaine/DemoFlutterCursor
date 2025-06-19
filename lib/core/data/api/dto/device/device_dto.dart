@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: depend_on_referenced_packages
 // ignore_for_file: invalid_annotation_target
 
 import 'package:demo_flutter_cursor/core/data/api/dto/json_converters.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'device_dto.freezed.dart';

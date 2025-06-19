@@ -21,23 +21,13 @@ class UserAvatar extends StatelessWidget {
     required File file,
     OnAvatarTap? onTap,
     double? radius,
-  }) =>
-      UserAvatar(
-        onTap: onTap,
-        file: file,
-        radius: radius,
-      );
+  }) => UserAvatar(onTap: onTap, file: file, radius: radius);
 
   factory UserAvatar.fromUrl({
     required String url,
     OnAvatarTap? onTap,
     double? radius,
-  }) =>
-      UserAvatar(
-        onTap: onTap,
-        avatarUrl: url,
-        radius: radius,
-      );
+  }) => UserAvatar(onTap: onTap, avatarUrl: url, radius: radius);
 
   @override
   Widget build(BuildContext context) {
@@ -45,32 +35,36 @@ class UserAvatar extends StatelessWidget {
       onTap: onTap,
       child: Opacity(
         opacity: avatarUrl == null ? 0.6 : 1,
-        child: Builder(builder: (context) {
-          switch ((hasFile, hasUrl)) {
-            case (true, _):
-              return CircleAvatar(
-                radius: radius ?? 48,
-                backgroundImage: FileImage(file!),
-              );
-            case (false, true):
-              return CircleAvatar(
-                radius: radius ?? 48,
-                backgroundImage: NetworkImage(avatarUrl!),
-              );
-            case (_, _):
-              return CircleAvatar(
-                radius: radius ?? 48,
-                backgroundColor:
-                    Theme.of(context).colorScheme.onSurface.withValues(alpha:.15),
-                child: Icon(
-                  Icons.person,
-                  size: 48,
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withValues(alpha:.3),
-                ),
-              );
-          }
-        }),
+        child: Builder(
+          builder: (context) {
+            switch ((hasFile, hasUrl)) {
+              case (true, _):
+                return CircleAvatar(
+                  radius: radius ?? 48,
+                  backgroundImage: FileImage(file!),
+                );
+              case (false, true):
+                return CircleAvatar(
+                  radius: radius ?? 48,
+                  backgroundImage: NetworkImage(avatarUrl!),
+                );
+              case (_, _):
+                return CircleAvatar(
+                  radius: radius ?? 48,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: .15),
+                  child: Icon(
+                    Icons.person,
+                    size: 48,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: .3),
+                  ),
+                );
+            }
+          },
+        ),
       ),
     );
   }

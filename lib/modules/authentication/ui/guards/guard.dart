@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum RouterType {
-  goRouter,
-  normal,
-}
+enum RouterType { goRouter, normal }
 
 class Guard extends StatelessWidget {
   final Future<bool> canActivate;
@@ -46,10 +43,11 @@ class Guard extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       switch (routerType) {
         case RouterType.goRouter:
-          final currentRoute = GoRouter.of(context)
-              .routerDelegate //
-              .currentConfiguration
-              .fullPath;
+          final currentRoute =
+              GoRouter.of(context)
+                  .routerDelegate //
+                  .currentConfiguration
+                  .fullPath;
           debugPrint(
             "...current page is $currentRoute ==> redirecting to $fallbackRoute",
           );

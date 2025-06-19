@@ -4,11 +4,12 @@ enum KeyboardVisibilityState { visible, hidden }
 
 typedef OnKeyboardStateChanged = void Function(KeyboardVisibilityState state);
 
-typedef KeyboardVisibilityBuilder = Widget Function(
-  BuildContext context,
-  Widget child,
-  KeyboardVisibilityState state,
-);
+typedef KeyboardVisibilityBuilder =
+    Widget Function(
+      BuildContext context,
+      Widget child,
+      KeyboardVisibilityState state,
+    );
 
 /// A widget that helps you adapt content to the current keyboard visibility.
 /// It uses the Most upper View to get the current keyboard visibility.
@@ -53,8 +54,14 @@ class _KeyboardVisibilityState extends State<KeyboardVisibility>
   }
 
   void checkState() {
-    final value = WidgetsBinding
-        .instance.platformDispatcher.views.first.viewInsets.bottom;
+    final value =
+        WidgetsBinding
+            .instance
+            .platformDispatcher
+            .views
+            .first
+            .viewInsets
+            .bottom;
     switch (value != 0.0) {
       case true:
         widget.onKeyboardStateChanged?.call(KeyboardVisibilityState.visible);

@@ -101,12 +101,13 @@ class ResponsiveBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DeviceSizeBuilder(
-      builder: (device) => switch (device) {
-        DeviceType.small => small,
-        DeviceType.medium => medium ?? small,
-        DeviceType.large => large ?? medium ?? small,
-        DeviceType.xlarge => xlarge ?? large ?? medium ?? small,
-      },
+      builder:
+          (device) => switch (device) {
+            DeviceType.small => small,
+            DeviceType.medium => medium ?? small,
+            DeviceType.large => large ?? medium ?? small,
+            DeviceType.xlarge => xlarge ?? large ?? medium ?? small,
+          },
     );
   }
 }
@@ -124,10 +125,7 @@ typedef DeviceTypeBuilder = Widget Function(DeviceType);
 class DeviceSizeBuilder extends StatefulWidget {
   final DeviceTypeBuilder builder;
 
-  const DeviceSizeBuilder({
-    super.key,
-    required this.builder,
-  });
+  const DeviceSizeBuilder({super.key, required this.builder});
 
   @override
   State<DeviceSizeBuilder> createState() => _DeviceSizeBuilderState();
@@ -187,29 +185,27 @@ class LargeLayoutContainer extends StatelessWidget {
   final Widget child;
   final double? maxWidth;
 
-  const LargeLayoutContainer({
-    super.key,
-    required this.child,
-    this.maxWidth,
-  });
+  const LargeLayoutContainer({super.key, required this.child, this.maxWidth});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) => DeviceSizeBuilder(
-        builder: (device) => Align(
-          alignment: Alignment.topCenter,
-          child: ConstrainedBox(
-            constraints: switch (device) {
-              DeviceType.small => constraints,
-              _ => BoxConstraints(
-                  maxWidth: maxWidth ?? kMaxLargeLayoutWidth,
+      builder:
+          (context, constraints) => DeviceSizeBuilder(
+            builder:
+                (device) => Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
+                    constraints: switch (device) {
+                      DeviceType.small => constraints,
+                      _ => BoxConstraints(
+                        maxWidth: maxWidth ?? kMaxLargeLayoutWidth,
+                      ),
+                    },
+                    child: child,
+                  ),
                 ),
-            },
-            child: child,
           ),
-        ),
-      ),
     );
   }
 }

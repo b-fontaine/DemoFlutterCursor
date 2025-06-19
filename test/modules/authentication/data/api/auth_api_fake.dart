@@ -49,7 +49,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signinWithGoogle() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );
@@ -59,7 +59,7 @@ class FakeAuthenticationApi implements AuthenticationApi {
   @override
   Future<Credentials> signinWithGooglePlay() async {
     await Future.delayed(const Duration(seconds: 1));
-    current = Credentials(
+    current = const Credentials(
       id: 'fake-user-id',
       token: 'fake-user-token-1234567890',
     );

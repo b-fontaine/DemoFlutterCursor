@@ -1,13 +1,13 @@
 import 'package:demo_flutter_cursor/core/ui/widgets/buttons.dart';
 import 'package:demo_flutter_cursor/core/ui/widgets/page_background.dart';
 import 'package:demo_flutter_cursor/core/ui/widgets/toast.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/components/apple_signin.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/components/facebook_signin.dart';
+import 'package:demo_flutter_cursor/modules/authentication/ui/components/google_signin.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/email.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/password.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/models/signin_state.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/providers/signin_state_provider.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/components/apple_signin.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/components/facebook_signin.dart';
-import 'package:demo_flutter_cursor/modules/authentication/ui/components/google_signin.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/widgets/round_signin.dart';
 import 'package:demo_flutter_cursor/modules/authentication/ui/widgets/social_separator.dart';
 import 'package:flutter/material.dart';

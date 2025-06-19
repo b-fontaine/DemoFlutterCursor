@@ -7,9 +7,7 @@ class SocialSeparator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(
-          child: Divider(color: Colors.black12),
-        ),
+        const Expanded(child: Divider(color: Colors.black12)),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
@@ -18,9 +16,7 @@ class SocialSeparator extends StatelessWidget {
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
-        const Expanded(
-          child: Divider(color: Colors.black12),
-        ),
+        const Expanded(child: Divider(color: Colors.black12)),
       ],
     );
   }

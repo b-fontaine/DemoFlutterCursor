@@ -3,9 +3,7 @@ sealed class UploadResult {}
 class UploadResultProgress extends UploadResult {
   final double progress;
 
-  UploadResultProgress(
-    this.progress,
-  );
+  UploadResultProgress(this.progress);
 
   @override
   String toString() => 'UploadResultProgress($progress)';

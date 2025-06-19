@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:demo_flutter_cursor/core/data/api/dto/upload_result.dart';
-import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/data/repositories/user_repository.dart';
+import 'package:demo_flutter_cursor/core/domain/models/user/user.dart';
 import 'package:demo_flutter_cursor/core/ui/states/models/user_state.dart';
 import 'package:demo_flutter_cursor/core/ui/states/user_state_notifier.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/round_progress.dart';

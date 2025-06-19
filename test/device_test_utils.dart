@@ -80,10 +80,10 @@ class Device {
 /// ```
 extension ScreenSize on WidgetTester {
   Future<void> setScreenSize(Device device) => _setScreenSize(
-        width: device.width,
-        height: device.height,
-        pixelDensity: device.pixelDensity,
-      );
+    width: device.width,
+    height: device.height,
+    pixelDensity: device.pixelDensity,
+  );
 
   Future<void> _setScreenSize({
     double width = 450,

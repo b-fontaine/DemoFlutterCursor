@@ -1,4 +1,3 @@
-import 'package:demo_flutter_cursor/core/ui/theme/providers/app_theme.dart';
 import 'package:demo_flutter_cursor/core/ui/theme/providers/theme_provider.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/strings.dart';
 import 'package:demo_flutter_cursor/modules/settings/ui/widgets/theme_switcher.dart';
