@@ -7,6 +7,7 @@
 - Settings
 - Task list display
 - Task creation
+- Add plant to plant list
 
 ## In progress
 
